@@ -2,6 +2,8 @@
  * Created by Nicolas on 6/20/15.
  */
 import React from 'react';
+import ChannelsList from './ChannelsList';
+import ChannelItemForm from './ChannelItemForm';
 
 export default class Channels extends React.Component {
     constructor(props) {
@@ -13,9 +15,8 @@ export default class Channels extends React.Component {
             <div className="panel panel-default">
                 <div className="panel-heading"><i className="fa fa-twitch"></i> Twitch Monitor</div>
                 <div className="panel-body">
-                    <div>
-                        <div className="alert alert-warning" role="alert">There is no channels. Let's add some?</div>
-                    </div>
+                    <ChannelItemForm />
+                    <ChannelsList />
                 </div>
             </div>
         );
