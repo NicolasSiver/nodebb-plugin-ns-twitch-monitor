@@ -9,28 +9,50 @@ export default class ChannelItemForm extends React.Component {
         this.state = {collapsed: true};
     }
 
-    expandDidClick() {
-        this.setState({collapsed: false});
+    isValid() {
+        return false;
     }
 
     render() {
-        let content = null;
         const promptBlock = <button
-            className="btn btn-sm btn-success"
-            onClick={this.expandDidClick.bind(this)}
+            className="btn btn-sm btn-primary"
+            onClick={this.setExpandedState.bind(this, true)}
             type="button"><i className="fa fa-plus"></i>
         </button>;
         const formBlock = <div>
+            <form className="form-inline">
+                <div className="form-group">
+                    <label htmlFor="channelName">Enter Channel Name</label>
+                    <input type="text" className="form-control input-sm" id="channelName" placeholder="Channel"/>
+                </div>
+                <div className="btn-group btn-group-sm" role="group">
+                    <button
+                        className="btn btn-danger"
+                        onClick={this.setExpandedState.bind(this, false)}
+                        type="button">Cancel
+                    </button>
+                    <button
+                        className="btn btn-success"
+                        onClick={this.props.successDidClick}
+                        disabled={this.isValid.bind(this) ? '' : 'disabled'}
+                        type="button"><i className="fa fa-plus"></i> Add Item
+                    </button>
+                </div>
+            </form>
         </div>;
 
-        content = this.state.collapsed ? promptBlock : null;
+        const content = this.state.collapsed ? promptBlock : formBlock;
 
         return (
-            <div className="clearfix">
+            <div className="channel-item-form clearfix">
                 <div className="pull-right">
                     {content}
                 </div>
             </div>
         );
+    }
+
+    setExpandedState(state) {
+        this.setState({collapsed: !state});
     }
 }
