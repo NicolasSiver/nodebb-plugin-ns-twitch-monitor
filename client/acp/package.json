@@ -12,5 +12,19 @@
     "es6"
   ],
   "author": "Nicolas Siver",
-  "license": "MIT"
+  "license": "MIT",
+  "jspm": {
+    "directories": {},
+    "dependencies": {
+      "react": "npm:react@^0.14.0-alpha3"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.1.13",
+      "babel-runtime": "npm:babel-runtime@^5.1.13",
+      "core-js": "npm:core-js@^0.9.4"
+    }
+  },
+  "devDependencies": {
+    "jspm": "^0.15.7"
+  }
 }
