@@ -2,7 +2,7 @@
   "name": "nodebb-plugin-ns-twitch-monitor",
   "version": "1.0.0",
   "description": "Monitors specific channels and adds them to widget view",
-  "main": "plugin.js",
+  "main": "plugin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
