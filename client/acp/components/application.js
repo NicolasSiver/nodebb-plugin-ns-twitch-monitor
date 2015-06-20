@@ -2,7 +2,7 @@
  * Created by Nicolas on 6/20/15.
  */
 import React from 'react';
-import Settings from './settings';
+import Settings from './Settings';
 
 export default class Application extends React.Component {
     constructor(props) {
