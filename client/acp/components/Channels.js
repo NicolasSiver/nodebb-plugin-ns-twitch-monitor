@@ -17,6 +17,7 @@ export default class Channels extends React.Component {
                 <div className="panel-body">
                     <ChannelItemForm />
                     <ChannelsList />
+                    <ChannelItemForm />
                 </div>
             </div>
         );

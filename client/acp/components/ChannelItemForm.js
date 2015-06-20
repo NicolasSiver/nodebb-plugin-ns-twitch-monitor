@@ -4,13 +4,33 @@
 import React from 'react';
 
 export default class ChannelItemForm extends React.Component {
-    constructor (props){
+    constructor(props) {
         super(props);
+        this.state = {collapsed: true};
     }
 
-    render (){
+    expandDidClick() {
+        this.setState({collapsed: false});
+    }
+
+    render() {
+        let content = null;
+        const promptBlock = <button
+            className="btn btn-sm btn-success"
+            onClick={this.expandDidClick.bind(this)}
+            type="button"><i className="fa fa-plus"></i>
+        </button>;
+        const formBlock = <div>
+        </div>;
+
+        content = this.state.collapsed ? promptBlock : null;
+
         return (
-          <div></div>
+            <div className="clearfix">
+                <div className="pull-right">
+                    {content}
+                </div>
+            </div>
         );
     }
 }
