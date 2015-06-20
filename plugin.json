@@ -20,7 +20,8 @@
   ],
   "staticDirs": {
     "templates": "./public/templates",
-    "js": "./public/js"
+    "js": "./public/js",
+    "acp": "./client/acp"
   },
   "templates": "./public/templates"
 }
