@@ -2,6 +2,7 @@
  * Created by Nicolas on 6/20/15.
  */
 import React from 'react/addons';
+import {Actions} from '../actions/Actions';
 
 export default class ChannelItemForm extends React.Component {
     constructor(props) {
@@ -9,8 +10,14 @@ export default class ChannelItemForm extends React.Component {
         this.state = {collapsed: true};
     }
 
+    channelNameDidChange(e) {
+        this.setState({
+            channelName: e.target.value
+        })
+    }
+
     isValid() {
-        return false;
+        return !!this.state.channelName;
     }
 
     render() {
@@ -25,7 +32,13 @@ export default class ChannelItemForm extends React.Component {
                 <form className="form-inline">
                     <div className="form-group">
                         <label htmlFor="channelName">Channel Name</label>
-                        <input type="text" className="form-control input-sm" id="channelName" placeholder="Enter channel"/>
+                        <input
+                            type="text"
+                            className="form-control input-sm"
+                            id="channelName"
+                            value={this.state.channelName}
+                            onChange={this.channelNameDidChange.bind(this)}
+                            placeholder="Enter channel"/>
                     </div>
                     <div className="btn-group btn-group-sm" role="group">
                         <button
@@ -36,7 +49,7 @@ export default class ChannelItemForm extends React.Component {
                         <button
                             className="btn btn-success"
                             onClick={this.props.successDidClick}
-                            disabled={this.isValid.bind(this) ? '' : 'disabled'}
+                            disabled={this.isValid() ? '' : 'disabled'}
                             type="button"><i className="fa fa-plus"></i> Add Item
                         </button>
                     </div>
