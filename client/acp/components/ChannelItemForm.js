@@ -21,25 +21,27 @@ export default class ChannelItemForm extends React.Component {
             type="button"><i className="fa fa-plus"></i>
         </button>;
         const formBlock = <div>
-            <form className="form-inline">
-                <div className="form-group">
-                    <label htmlFor="channelName">Enter Channel Name</label>
-                    <input type="text" className="form-control input-sm" id="channelName" placeholder="Channel"/>
-                </div>
-                <div className="btn-group btn-group-sm" role="group">
-                    <button
-                        className="btn btn-danger"
-                        onClick={this.setExpandedState.bind(this, false)}
-                        type="button">Cancel
-                    </button>
-                    <button
-                        className="btn btn-success"
-                        onClick={this.props.successDidClick}
-                        disabled={this.isValid.bind(this) ? '' : 'disabled'}
-                        type="button"><i className="fa fa-plus"></i> Add Item
-                    </button>
-                </div>
-            </form>
+            <ReactCSSTransitionGroup transitionName="alpha" transitionAppear={true}>
+                <form className="form-inline">
+                    <div className="form-group">
+                        <label htmlFor="channelName">Channel Name</label>
+                        <input type="text" className="form-control input-sm" id="channelName" placeholder="Enter channel"/>
+                    </div>
+                    <div className="btn-group btn-group-sm" role="group">
+                        <button
+                            className="btn btn-danger"
+                            onClick={this.setExpandedState.bind(this, false)}
+                            type="button">Cancel
+                        </button>
+                        <button
+                            className="btn btn-success"
+                            onClick={this.props.successDidClick}
+                            disabled={this.isValid.bind(this) ? '' : 'disabled'}
+                            type="button"><i className="fa fa-plus"></i> Add Item
+                        </button>
+                    </div>
+                </form>
+            </ReactCSSTransitionGroup>
         </div>;
 
         const content = this.state.collapsed ? promptBlock : formBlock;
@@ -47,9 +49,7 @@ export default class ChannelItemForm extends React.Component {
         return (
             <div className="channel-item-form clearfix">
                 <div className="pull-right">
-                    <ReactCSSTransitionGroup transitionName="alpha">
-                        {content}
-                    </ReactCSSTransitionGroup>
+                    {content}
                 </div>
             </div>
         );

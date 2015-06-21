@@ -1,2 +1,27 @@
 @import 'vars';
 
+.channel-item-form{
+  padding: @tm-padding 0;
+
+  .input-sm {
+    margin: 0 @tm-margin-sm;
+  }
+}
+
+.alpha-appear {
+  opacity: 0.01;
+  transition: opacity @tm-anim-alpha ease-in-out;
+}
+
+.alpha-appear.alpha-appear-active {
+  opacity: 1;
+}
+
+.alpha-enter {
+  opacity: 0.01;
+  transition: opacity @tm-anim-alpha ease-in-out;
+}
+
+.alpha-enter.alpha-enter-active {
+  opacity: 1;
+}
