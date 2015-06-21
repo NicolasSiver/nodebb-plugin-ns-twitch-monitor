@@ -5,6 +5,7 @@ import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/function/debounce';
 import {Actions} from '../actions/Actions';
+import {ValidationStore} from '../stores/ValidationStore';
 
 const FEEDBACK = {
     NORMAL : 0,
@@ -20,8 +21,9 @@ export default class Settings extends React.Component {
     }
 
     checkClientId() {
-        if (this.state.clientId) {
-
+        var clientId = this.state.clientId;
+        if (clientId) {
+            Actions.validateClientId(clientId);
         } else {
             console.warn('Client ID is empty');
             this.setState({feedback: FEEDBACK.FAILURE});
