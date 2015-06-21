@@ -21,7 +21,7 @@
   "staticDirs": {
     "templates": "./public/templates",
     "js": "./public/js",
-    "acp": "./client/acp"
+    "css": "./public/css"
   },
   "templates": "./public/templates"
 }

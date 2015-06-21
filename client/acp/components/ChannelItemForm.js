@@ -1,7 +1,7 @@
 /**
  * Created by Nicolas on 6/20/15.
  */
-import React from 'react';
+import React from 'react/addons';
 
 export default class ChannelItemForm extends React.Component {
     constructor(props) {
@@ -14,6 +14,7 @@ export default class ChannelItemForm extends React.Component {
     }
 
     render() {
+        const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
         const promptBlock = <button
             className="btn btn-sm btn-primary"
             onClick={this.setExpandedState.bind(this, true)}
@@ -46,7 +47,9 @@ export default class ChannelItemForm extends React.Component {
         return (
             <div className="channel-item-form clearfix">
                 <div className="pull-right">
-                    {content}
+                    <ReactCSSTransitionGroup transitionName="alpha">
+                        {content}
+                    </ReactCSSTransitionGroup>
                 </div>
             </div>
         );

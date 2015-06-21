@@ -57,10 +57,12 @@
     "babelify": "^6.1.2",
     "browserify": "^9.0.8",
     "browserify-shim": "^3.8.5",
-    "catw": "^1.0.0",
     "envify": "^3.4.0",
-    "less": "^2.5.0",
-    "less-watch-compiler": "^1.1.3",
+    "gulp": "^3.9.0",
+    "gulp-less": "^3.0.3",
+    "gulp-plumber": "^1.0.1",
+    "gulp-watch-less": "treshugart/gulp-watch-less",
+    "less": "^2.5.1",
     "uglify-js": "^2.4.20"
   }
 }
