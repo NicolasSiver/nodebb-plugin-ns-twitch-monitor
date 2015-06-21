@@ -51,9 +51,9 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^1.2.2",
-    "flux": "^2.0.1",
     "lodash": "^3.7.0",
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "reflux": "^0.2.8"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
