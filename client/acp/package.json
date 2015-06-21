@@ -51,7 +51,7 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^1.2.2",
-    "lodash": "^3.7.0",
+    "lodash": "^3.9.3",
     "react": "^0.13.1",
     "reflux": "^0.2.8"
   },
