@@ -4,6 +4,9 @@
 .channel-item-form .input-sm {
   margin: 0 8px;
 }
+.channels-list .alert {
+  margin-bottom: 0;
+}
 .alpha-appear {
   opacity: 0.01;
   transition: opacity 0.2s ease-in-out;
