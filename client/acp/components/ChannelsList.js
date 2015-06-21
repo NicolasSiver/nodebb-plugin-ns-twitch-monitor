@@ -10,7 +10,7 @@ export default class ChannelsList extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="channels-list">
                 <div className="alert alert-warning" role="alert">There is no channels. Let's add some?</div>
             </div>
         );

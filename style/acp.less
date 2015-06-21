@@ -11,17 +11,18 @@
 .alpha-appear {
   opacity: 0.01;
   transition: opacity @tm-anim-alpha ease-in-out;
+
+  &.alpha-appear-active{
+    opacity: 1;
+  }
 }
 
-.alpha-appear.alpha-appear-active {
-  opacity: 1;
-}
 
 .alpha-enter {
   opacity: 0.01;
   transition: opacity @tm-anim-alpha ease-in-out;
-}
 
-.alpha-enter.alpha-enter-active {
-  opacity: 1;
+  &.alpha-enter-active {
+    opacity: 1;
+  }
 }
