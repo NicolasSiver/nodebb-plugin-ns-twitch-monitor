@@ -7,12 +7,14 @@
     var async     = require('async'),
         path      = require('path'),
 
+        constants = require('./constants'),
         nodebb    = require('./nodebb'),
-        sockets   = nodebb.pluginSockets,
-        nconf     = nodebb.nconf,
-        user      = nodebb.user,
         settings  = require('./settings'),
-        constants = require('./constants');
+        twitch    = require('./twitch');
+
+    var sockets = nodebb.pluginSockets,
+        nconf   = nodebb.nconf,
+        user    = nodebb.user;
 
     Module.init = function (callback) {
         sockets[constants.SOCKETS] = {};
@@ -33,7 +35,7 @@
     };
 
     Module.validateClientId = function (socket, payload, callback) {
-
+        twitch.validateClientId(payload.clientId, callback);
     };
 
 })(module.exports);
