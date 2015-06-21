@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor/issues"
   },
-  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme"
+  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
+  "dependencies": {
+    "async": "^1.2.1",
+    "object-assign": "^3.0.0"
+  }
 }

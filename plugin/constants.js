@@ -3,6 +3,6 @@
  */
 module.exports = Object.freeze({
     'GLOBAL_AWARD_COUNTER': 'nextNsTwitchMonitorChannel',
-    'NAMESPACE'           : 'ns:twitch-monitor',
+    'NAMESPACE'           : 'ns:twitch_monitor',
     'SOCKETS'             : 'ns-twitch-monitor'
 });
