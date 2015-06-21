@@ -21,7 +21,7 @@
         //Acknowledgements
         sockets[constants.SOCKETS].getSettings = Module.getSettings;
         sockets[constants.SOCKETS].saveSettings = Module.saveSettings;
-        sockets[constants.SOCKETS].validateCliendId = Module.validateClientId;
+        sockets[constants.SOCKETS].validateClientId = Module.validateClientId;
 
         callback();
     };
