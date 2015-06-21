@@ -391,14 +391,14 @@ var Settings = (function (_React$Component) {
 
         _get(Object.getPrototypeOf(Settings.prototype), 'constructor', this).call(this, props);
         this.state = { feedback: FEEDBACK.NORMAL };
-        this.debounce = (0, _lodashFunctionDebounce2['default'])(this.checkClietId.bind(this), 500);
+        this.debounce = (0, _lodashFunctionDebounce2['default'])(this.checkClientId.bind(this), 500);
     }
 
     _inherits(Settings, _React$Component);
 
     _createClass(Settings, [{
-        key: 'checkClietId',
-        value: function checkClietId() {
+        key: 'checkClientId',
+        value: function checkClientId() {
             if (this.state.clientId) {} else {
                 console.warn('Client ID is empty');
                 this.setState({ feedback: FEEDBACK.FAILURE });
@@ -419,7 +419,7 @@ var Settings = (function (_React$Component) {
             var hint = _react2['default'].createElement(
                 'small',
                 null,
-                'Hint: you should',
+                'Hint: you should ',
                 _react2['default'].createElement(
                     'a',
                     { href: 'http://www.twitch.tv/kraken/oauth2/clients/new', target: '_blank' },

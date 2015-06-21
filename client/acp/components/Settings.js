@@ -16,10 +16,10 @@ export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {feedback: FEEDBACK.NORMAL};
-        this.debounce = debounce(this.checkClietId.bind(this), 500);
+        this.debounce = debounce(this.checkClientId.bind(this), 500);
     }
 
-    checkClietId() {
+    checkClientId() {
         if (this.state.clientId) {
 
         } else {
@@ -35,10 +35,7 @@ export default class Settings extends React.Component {
     }
 
     getInputByFeedback(feedback) {
-        const hint = <small>Hint: you should
-            <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register Twitch
-                Application</a> to get client id.
-        </small>;
+        const hint = <small>Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register Twitch Application</a> to get client id.</small>;
         const groupClass = classNames({
             'form-group' : true,
             'has-success': feedback === FEEDBACK.SUCCESS,
