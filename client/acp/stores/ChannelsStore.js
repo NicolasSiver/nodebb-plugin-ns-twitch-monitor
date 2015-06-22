@@ -24,7 +24,7 @@ export var ChannelsStore = Reflux.createStore({
             },
             (error, channelItem) => {
                 if (error) {
-                    return console.error(error);
+                    return App.alertError(error.message);
                 }
 
                 this.channels.push(channelItem);

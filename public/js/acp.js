@@ -24116,7 +24116,7 @@ var ChannelsStore = _reflux2['default'].createStore({
             name: data
         }, function (error, channelItem) {
             if (error) {
-                return console.error(error);
+                return _app2['default'].alertError(error.message);
             }
 
             _this.channels.push(channelItem);
