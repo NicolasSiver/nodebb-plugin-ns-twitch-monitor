@@ -409,18 +409,12 @@ var _actionsActions = require('../actions/Actions');
 
 var _storesValidationStore = require('../stores/ValidationStore');
 
-var FEEDBACK = {
-    NORMAL: 0,
-    SUCCESS: 1,
-    FAILURE: 2
-};
-
 var Settings = (function (_React$Component) {
     function Settings(props) {
         _classCallCheck(this, Settings);
 
         _get(Object.getPrototypeOf(Settings.prototype), 'constructor', this).call(this, props);
-        this.state = { feedback: FEEDBACK.NORMAL };
+        this.state = { feedback: 0 };
         this.debounce = (0, _lodashFunctionDebounce2['default'])(this.checkClientId.bind(this), 500);
     }
 
@@ -434,7 +428,7 @@ var Settings = (function (_React$Component) {
                 _actionsActions.Actions.validateClientId(clientId);
             } else {
                 console.warn('Client ID is empty');
-                this.setState({ feedback: FEEDBACK.FAILURE });
+                this.setState({ feedback: _storesValidationStore.VALIDATION.FAILURE });
             }
         }
     }, {
@@ -462,8 +456,8 @@ var Settings = (function (_React$Component) {
             );
             var groupClass = (0, _classnames2['default'])({
                 'form-group': true,
-                'has-success': feedback === FEEDBACK.SUCCESS,
-                'has-error': feedback === FEEDBACK.FAILURE
+                'has-success': feedback === _storesValidationStore.VALIDATION.SUCCESS,
+                'has-error': feedback === _storesValidationStore.VALIDATION.FAILURE
             });
 
             return _react2['default'].createElement(

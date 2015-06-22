@@ -5,18 +5,12 @@ import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/function/debounce';
 import {Actions} from '../actions/Actions';
-import {ValidationStore} from '../stores/ValidationStore';
-
-const FEEDBACK = {
-    NORMAL : 0,
-    SUCCESS: 1,
-    FAILURE: 2
-};
+import {ValidationStore, VALIDATION} from '../stores/ValidationStore';
 
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {feedback: FEEDBACK.NORMAL};
+        this.state = {feedback: 0};
         this.debounce = debounce(this.checkClientId.bind(this), 500);
     }
 
@@ -26,7 +20,7 @@ export default class Settings extends React.Component {
             Actions.validateClientId(clientId);
         } else {
             console.warn('Client ID is empty');
-            this.setState({feedback: FEEDBACK.FAILURE});
+            this.setState({feedback: VALIDATION.FAILURE});
         }
     }
 
@@ -40,8 +34,8 @@ export default class Settings extends React.Component {
         const hint = <small>Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register Twitch Application</a> to get client id.</small>;
         const groupClass = classNames({
             'form-group' : true,
-            'has-success': feedback === FEEDBACK.SUCCESS,
-            'has-error'  : feedback === FEEDBACK.FAILURE
+            'has-success': feedback === VALIDATION.SUCCESS,
+            'has-error'  : feedback === VALIDATION.FAILURE
         });
 
         return (
