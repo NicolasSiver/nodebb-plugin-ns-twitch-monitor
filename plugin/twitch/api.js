@@ -37,20 +37,14 @@
                     if (error) {
                         return next(error);
                     }
-
-                    if (response.statusCode === 200) {
-                        console.log(error);
-                        console.log(response);
-                        console.log(body);
-                        next(null);
-                    }
+                    next(null, {statusCode: response.statusCode, body: body});
                 });
             }
-        ], function (error, results) {
+        ], function (error, response) {
             if (error) {
                 return callback(error);
             }
-            callback(null);
+            callback(null, response);
         });
     }
 
@@ -58,7 +52,11 @@
         limit = limit || 1;
         offset = offset || 0;
 
-        createRequest('games/top', callback);
+        createRequest('games/top', {limit: limit, offset: offset}, callback);
+    };
+
+    Api.getChannel = function (channelName, callback) {
+        createRequest('channels/' + channelName, null, callback);
     };
 
 })(module.exports);

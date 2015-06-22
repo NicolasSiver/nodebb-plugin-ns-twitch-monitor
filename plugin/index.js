@@ -4,6 +4,11 @@
 (function (Plugin) {
     'use strict';
 
+    var async    = require('async'),
+
+        settings = require('./settings'),
+        sockets  = require('./sockets');
+
     function renderAdminPage(req, res, next) {
         res.render(
             'admin/plugins/twitch-monitor', {}
@@ -32,11 +37,10 @@
                 router.get(pluginUri, middleware.admin.buildHeader, renderAdminPage);
                 router.get(apiUri, renderAdminPage);
 
-                callback();
-                //async.series([
-                //    async.apply(settings.init),
-                //    async.apply(sockets.init)
-                //], callback);
+                async.series([
+                    async.apply(settings.init),
+                    async.apply(sockets.init)
+                ], callback);
             }
         }
     };
