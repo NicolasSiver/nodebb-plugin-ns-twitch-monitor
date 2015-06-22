@@ -8,8 +8,4 @@
 
     Twitch.api = api;
 
-    Twitch.validateClientId = function (clienId, callback) {
-        api.getGamesTop(1, 0, callback);
-    };
-
 })(module.exports);

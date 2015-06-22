@@ -4,13 +4,13 @@
 (function (Settings) {
     'use strict';
 
-    var objectAssign  = require('object-assign'),
+    var objectAssign = require('object-assign'),
 
-        meta          = require('./nodebb').meta,
-        constants     = require('./constants'),
+        meta         = require('./nodebb').meta,
+        constants    = require('./constants');
 
-        //Memory cache
-        settingsCache = null,
+    //Memory cache
+    var settingsCache = null,
         defaults      = {};
 
     Settings.init = function (done) {

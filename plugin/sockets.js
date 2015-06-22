@@ -41,7 +41,7 @@
     };
 
     Module.validateClientId = function (socket, payload, callback) {
-        twitch.validateClientId(payload.clientId, callback);
+        controller.validateClientId(payload.clientId, callback);
     };
 
 })(module.exports);
