@@ -10,10 +10,14 @@ export default class ChannelItemForm extends React.Component {
         this.state = {collapsed: true};
     }
 
+    addChannel() {
+        Actions.addChannel(this.state.channelName);
+    }
+
     channelNameDidChange(e) {
         this.setState({
             channelName: e.target.value
-        })
+        });
     }
 
     isValid() {
@@ -48,7 +52,7 @@ export default class ChannelItemForm extends React.Component {
                         </button>
                         <button
                             className="btn btn-success"
-                            onClick={this.props.successDidClick}
+                            onClick={this.addChannel.bind(this)}
                             disabled={this.isValid() ? '' : 'disabled'}
                             type="button"><i className="fa fa-plus"></i> Add Item
                         </button>
