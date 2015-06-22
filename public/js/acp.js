@@ -452,7 +452,13 @@ var Settings = (function (_React$Component) {
                     { href: 'http://www.twitch.tv/kraken/oauth2/clients/new', target: '_blank' },
                     'register Twitch Application'
                 ),
-                ' to get client id.'
+                ' to get client id. Please review ',
+                _react2['default'].createElement(
+                    'a',
+                    { href: 'http://www.twitch.tv/user/legal?page=api_terms_of_service', target: '_blank' },
+                    'Terms of Service'
+                ),
+                ' for the Twitch API.'
             );
             var groupClass = (0, _classnames2['default'])({
                 'form-group': true,
