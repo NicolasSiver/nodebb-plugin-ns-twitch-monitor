@@ -14,7 +14,8 @@ var _reflux = require('reflux');
 
 var _reflux2 = _interopRequireDefault(_reflux);
 
-var Actions = _reflux2['default'].createActions(['validateClientId' //Check for Client ID validity, Twitch requirement to use client id for every API request
+var Actions = _reflux2['default'].createActions(['addChannel', //Add a new channel to the list, it will be validated on server
+'validateClientId' //Check for Client ID validity, Twitch requirement to use client id for every API request
 ]);
 exports.Actions = Actions;
 
