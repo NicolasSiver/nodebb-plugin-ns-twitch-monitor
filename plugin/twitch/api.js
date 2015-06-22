@@ -13,11 +13,11 @@
     var baseUrl     = 'https://api.twitch.tv/kraken',
         apiVersion3 = 'application/vnd.twitchtv.v3+json';
 
-    function createRequest(path, query, callback) {
+    function createRequest(path, query, force, callback) {
         async.waterfall([
             async.apply(settings.get),
             function (settingsData, next) {
-                if (_.isEmpty(settingsData.clientId)) {
+                if (_.isEmpty(settingsData.clientId) && !force) {
                     return next(new Error('Client ID is empty'));
                 }
 
@@ -48,15 +48,15 @@
         });
     }
 
-    Api.getGamesTop = function (limit, offset, callback) {
+    Api.getGamesTop = function (limit, offset, force, callback) {
         limit = limit || 1;
         offset = offset || 0;
 
-        createRequest('games/top', {limit: limit, offset: offset}, callback);
+        createRequest('games/top', {limit: limit, offset: offset}, force, callback);
     };
 
     Api.getChannel = function (channelName, callback) {
-        createRequest('channels/' + channelName, null, callback);
+        createRequest('channels/' + channelName, null, false, callback);
     };
 
 })(module.exports);

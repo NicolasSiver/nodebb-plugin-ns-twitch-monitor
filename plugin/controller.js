@@ -30,7 +30,7 @@
      */
     Controller.validateClientId = function (clientId, callback) {
         async.waterfall([
-            async.apply(twitch.api.getGamesTop, 1, 0),
+            async.apply(twitch.api.getGamesTop, 1, 0, true),
             function (response, next) {
                 if (response.statusCode === 200) {
                     settings.save({clientId: clientId}, function (error, settingsData) {
