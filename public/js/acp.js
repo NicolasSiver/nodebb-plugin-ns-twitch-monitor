@@ -126,6 +126,11 @@ var ChannelItemForm = (function (_React$Component) {
         key: 'addChannel',
         value: function addChannel() {
             _actionsActions.Actions.addChannel(this.state.channelName);
+            //Reset state
+            this.setState({
+                collapsed: true,
+                channelName: ''
+            });
         }
     }, {
         key: 'channelNameDidChange',

@@ -12,6 +12,11 @@ export default class ChannelItemForm extends React.Component {
 
     addChannel() {
         Actions.addChannel(this.state.channelName);
+        //Reset state
+        this.setState({
+            collapsed  : true,
+            channelName: ''
+        });
     }
 
     channelNameDidChange(e) {
