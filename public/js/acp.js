@@ -24155,13 +24155,41 @@ var _socket = (typeof window !== "undefined" ? window.socket : typeof global !==
 
 var _socket2 = _interopRequireDefault(_socket);
 
+var _app = (typeof window !== "undefined" ? window.app : typeof global !== "undefined" ? global.app : null);
+
+var _app2 = _interopRequireDefault(_app);
+
+var API = {
+    //Validate and Save
+    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
+};
+
+var VALIDATION = {
+    SUCCESS: 1,
+    FAILURE: 2
+};
+
+exports.VALIDATION = VALIDATION;
 var ValidationStore = _reflux2['default'].createStore({
     init: function init() {
         this.listenTo(_actionsActions.Actions.validateClientId, this.validateClientId);
+        this.validClientId = 0;
     },
 
     validateClientId: function validateClientId(value) {
-        console.log(value);
+        var _this = this;
+
+        _socket2['default'].emit(API.VALIDATE_CLIENT_ID, {
+            clientId: value
+        }, function (error, status) {
+            if (error) {
+                return _app2['default'].alertError(error.message);
+            }
+
+            _this.channels.push(channelItem);
+            _this.validClientId = status ? VALIDATION.SUCCESS : VALIDATION.FAILURE;
+            _this.trigger(_this.validClientId);
+        });
     }
 });
 exports.ValidationStore = ValidationStore;
