@@ -13,13 +13,17 @@
         async.waterfall([
             async.apply(twitch.api.getChannel, channelName),
             function (response, next) {
-                console.log(response);
+                if(response.statusCode === 200){
+                    //FIXME Create Channel Entity
+                }else{
+                    next(new Error(response.body.message));
+                }
             }
-        ], function (error) {
+        ], function (error, channelItem) {
             if (error) {
                 return callback(error);
             }
-            callback(null, {});
+            callback(null, channelItem);
         });
     };
 
