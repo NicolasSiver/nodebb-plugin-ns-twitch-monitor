@@ -4,13 +4,14 @@
 (function (Module) {
     'use strict';
 
-    var async     = require('async'),
-        path      = require('path'),
+    var async      = require('async'),
+        path       = require('path'),
 
-        constants = require('./constants'),
-        nodebb    = require('./nodebb'),
-        settings  = require('./settings'),
-        twitch    = require('./twitch');
+        constants  = require('./constants'),
+        controller = require('./controller'),
+        nodebb     = require('./nodebb'),
+        settings   = require('./settings'),
+        twitch     = require('./twitch');
 
     var sockets = nodebb.pluginSockets,
         nconf   = nodebb.nconf,
@@ -19,11 +20,16 @@
     Module.init = function (callback) {
         sockets[constants.SOCKETS] = {};
         //Acknowledgements
+        sockets[constants.SOCKETS].channelAdd = Module.channelAdd;
         sockets[constants.SOCKETS].getSettings = Module.getSettings;
         sockets[constants.SOCKETS].saveSettings = Module.saveSettings;
         sockets[constants.SOCKETS].validateClientId = Module.validateClientId;
 
         callback();
+    };
+
+    Module.channelAdd = function (socket, payload, callback) {
+        controller.addChannel(payload.name, callback);
     };
 
     Module.getSettings = function (socket, payload, callback) {
