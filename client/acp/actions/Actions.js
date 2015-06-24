@@ -2,6 +2,7 @@
  * Created by Nicolas on 6/21/15.
  */
 import alt from '../alt';
+import SocketService from '../service/SocketService';
 
 class Actions {
     /**
@@ -13,10 +14,19 @@ class Actions {
     }
 
     /**
+     * Event: list of channels is available to use
+     * @param channels
+     */
+    channelsDidUpdate(channels) {
+        this.dispatch(channels);
+    }
+
+    /**
      * Get all channels from the server
      */
     getChannels(){
         this.dispatch();
+        SocketService.getChannels();
     }
 
     /**

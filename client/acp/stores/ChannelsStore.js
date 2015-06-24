@@ -10,8 +10,8 @@ import SocketApi from '../models/SocketApi';
 class ChannelsStore {
     constructor() {
         this.bindListeners({
-            addChannel : Actions.addChannel,
-            getChannels: Actions.getChannels
+            addChannel       : Actions.addChannel,
+            channelsDidUpdate: Actions.channelsDidUpdate
         });
 
         this.channels = [];
@@ -33,19 +33,8 @@ class ChannelsStore {
         );
     }
 
-    getChannels() {
-        Socket.emit(
-            SocketApi.GET_CHANNELS,
-            {},
-            (error, items) => {
-                if (error) {
-                    return App.alertError(error.message);
-                }
-
-                this.channels = items;
-
-            }
-        );
+    channelsDidUpdate(items) {
+        this.channels = items;
     }
 }
 

@@ -43,7 +43,6 @@
                     return next(null, ids);
                 }
                 db.getObjects(ids.map(function (id) {
-                    console.log('IiiiiiDDDDDD', id);
                     return constants.NAMESPACE + ':channel:' + id;
                 }), next);
             }
