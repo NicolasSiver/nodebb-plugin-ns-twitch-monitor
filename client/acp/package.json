@@ -51,10 +51,10 @@
   "author": "Nicolas Siver",
   "license": "MIT",
   "dependencies": {
+    "alt": "^0.16.10",
     "classnames": "^1.2.2",
     "lodash": "^3.9.3",
-    "react": "^0.13.1",
-    "reflux": "^0.2.8"
+    "react": "^0.13.1"
   },
   "devDependencies": {
     "babelify": "^6.1.2",

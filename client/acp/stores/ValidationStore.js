@@ -1,8 +1,8 @@
 /**
  * Created by Nicolas on 6/21/15.
  */
-import Reflux from 'reflux';
-import {Actions} from '../actions/Actions';
+import alt from '../alt';
+import Actions from '../actions/Actions';
 import Socket from 'socket';
 import App from 'app';
 
@@ -16,27 +16,34 @@ export const VALIDATION = {
     FAILURE: 2
 };
 
-export var ValidationStore = Reflux.createStore({
-    init: function () {
-        this.listenTo(Actions.validateClientId, this.validateClientId);
-        this.validClientId = 0;
-    },
+class ValidationStore {
+    constructor() {
+        this.bindListeners({
+            validateClientId: Actions.validateClientId
+        });
 
-    validateClientId: function (value) {
+        this.state = {
+            clientIdValidity: 0
+        };
+    }
+
+    validateClientId(id) {
         Socket.emit(
             API.VALIDATE_CLIENT_ID,
             {
-                clientId: value
+                clientId: id
             },
             (error, status) => {
                 if (error) {
                     return App.alertError(error.message);
                 }
 
-                this.channels.push(channelItem);
-                this.validClientId = (status) ? VALIDATION.SUCCESS : VALIDATION.FAILURE;
-                this.trigger(this.validClientId);
+                this.setState({
+                    clientIdValidity: (status) ? VALIDATION.SUCCESS : VALIDATION.FAILURE
+                });
             }
         );
     }
-});
+}
+
+export default alt.createStore(ValidationStore, 'ValidationStore');

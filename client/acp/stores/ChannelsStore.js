@@ -1,8 +1,8 @@
 /**
  * Created by Nicolas on 6/22/15.
  */
-import Reflux from 'reflux';
-import {Actions} from '../actions/Actions';
+import alt from '../alt';
+import Actions from '../actions/Actions';
 import Socket from 'socket';
 import App from 'app';
 
@@ -10,26 +10,34 @@ const API = {
     ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd'
 };
 
-export var ChannelsStore = Reflux.createStore({
-    init: function () {
-        this.listenTo(Actions.addChannel, this.channelWillAdd);
-        this.channels = [];
-    },
+class ChannelsStore {
+    constructor() {
+        this.bindListeners({
+            addChannel: Actions.addChannel
+        });
 
-    channelWillAdd: function (data) {
+        this.state = {
+            channels: []
+        };
+    }
+
+    addChannel(name) {
         Socket.emit(
             API.ADD_CHANNEL,
             {
-                name: data
+                name: name
             },
             (error, channelItem) => {
                 if (error) {
                     return App.alertError(error.message);
                 }
 
-                this.channels.push(channelItem);
-                this.trigger(this.channels);
+                this.setState({
+                    channels: this.state.channels.concat(channelItem)
+                });
             }
         );
     }
-});
+}
+
+export default alt.createStore(ChannelsStore, 'ChannelsStore');

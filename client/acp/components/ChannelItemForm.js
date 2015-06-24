@@ -2,7 +2,7 @@
  * Created by Nicolas on 6/20/15.
  */
 import React from 'react/addons';
-import {Actions} from '../actions/Actions';
+import Actions from '../actions/Actions';
 
 export default class ChannelItemForm extends React.Component {
     constructor(props) {

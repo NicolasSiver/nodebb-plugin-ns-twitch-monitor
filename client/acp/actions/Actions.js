@@ -1,9 +1,26 @@
 /**
  * Created by Nicolas on 6/21/15.
  */
-import Reflux from 'reflux';
+import alt from '../alt';
 
-export var Actions = Reflux.createActions([
-    'addChannel', //Add a new channel to the list, it will be validated on server
-    'validateClientId' //Check for Client ID validity, Twitch requirement to use client id for every API request
-]);
+class Actions {
+    /**
+     * Add a new channel to the list, it will be validated on server
+     * @param name
+     * @returns {{name: *}}
+     */
+    addChannel(name) {
+        return name;
+    }
+
+    /**
+     * Check for Client ID validity, Twitch requirement to use client id for every API request
+     * @param id
+     * @returns {{id: *}}
+     */
+    validateClientId(id) {
+        return id;
+    }
+}
+
+export default alt.createActions(Actions);

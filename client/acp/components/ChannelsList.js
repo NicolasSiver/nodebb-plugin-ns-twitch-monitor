@@ -2,23 +2,24 @@
  * Created by Nicolas on 6/20/15.
  */
 import React from 'react';
-import {ChannelsStore} from '../stores/ChannelsStore';
+import connectToStores from 'alt/utils/connectToStores';
+import ChannelsStore from '../stores/ChannelsStore';
 
-export default class ChannelsList extends React.Component {
+class ChannelsList extends React.Component {
+    static getStores() {
+        return [ChannelsStore];
+    }
+
+    static getPropsFromStores() {
+        return ChannelsStore.getState();
+    }
+
     constructor(props) {
         super(props);
     }
 
     channelsDidChange(channels) {
         console.log(channels);
-    }
-
-    componentDidMount() {
-        this.unsubscribe = ChannelsStore.listen(this.channelsDidChange.bind(this));
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
     }
 
     render() {
@@ -29,3 +30,5 @@ export default class ChannelsList extends React.Component {
         );
     }
 }
+
+export default connectToStores(ChannelsList);
