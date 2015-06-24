@@ -18,6 +18,7 @@
             function (id, next) {
                 var createTime = Date.now();
                 var additionalData = {
+                    cid       : id,
                     createtime: createTime
                 };
                 var channelData = objectAssign(data, additionalData);
