@@ -4,8 +4,17 @@
 .channel-item-form .input-sm {
   margin: 0 8px;
 }
-.channels-list .alert {
+.channels-list-container .alert {
   margin-bottom: 0;
+}
+.channel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.channel-list .channel-item {
+  height: 48px;
+  padding: 4px;
 }
 .alpha-appear {
   opacity: 0.01;

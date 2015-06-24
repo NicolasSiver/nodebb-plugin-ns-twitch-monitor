@@ -23,7 +23,7 @@ class ChannelsList extends React.Component {
         let noItems, list;
 
         if (this.props.channels.length) {
-            list = <ul>{this.props.channels.map((channel, index) => {
+            list = <ul className="channels-list">{this.props.channels.map((channel, index) => {
                 return <ChannelItemView
                     key={channel.cid}
                     channel={channel}/>;
@@ -33,7 +33,7 @@ class ChannelsList extends React.Component {
         }
 
         return (
-            <div className="channels-list">
+            <div className="channels-list-container">
                 {noItems}
                 {list}
             </div>

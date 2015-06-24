@@ -9,6 +9,6 @@ export default class ChannelItemView extends React.Component {
     }
 
     render() {
-        return <li>Item</li>;
+        return <li className="channel-item">Item</li>;
     }
 }
