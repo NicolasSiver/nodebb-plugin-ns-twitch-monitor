@@ -11,6 +11,15 @@ class Actions {
      */
     addChannel(name) {
         this.dispatch(name);
+        SocketService.addChannel(name);
+    }
+
+    /**
+     * Event: Channel Item is added to the list
+     * @param item Full Channel Item Object
+     */
+    channelDidAdd(item) {
+        this.dispatch(item);
     }
 
     /**

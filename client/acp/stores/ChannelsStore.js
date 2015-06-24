@@ -10,27 +10,15 @@ import SocketApi from '../models/SocketApi';
 class ChannelsStore {
     constructor() {
         this.bindListeners({
-            addChannel       : Actions.addChannel,
+            channelDidAdd    : Actions.channelDidAdd,
             channelsDidUpdate: Actions.channelsDidUpdate
         });
 
         this.channels = [];
     }
 
-    addChannel(name) {
-        Socket.emit(
-            SocketApi.ADD_CHANNEL,
-            {
-                name: name
-            },
-            (error, channelItem) => {
-                if (error) {
-                    return App.alertError(error.message);
-                }
-
-                this.channels.push(channelItem);
-            }
-        );
+    channelDidAdd(item) {
+        this.channels.push(item);
     }
 
     channelsDidUpdate(items) {

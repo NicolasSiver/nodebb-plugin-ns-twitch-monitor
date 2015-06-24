@@ -36,6 +36,17 @@ var Actions = (function () {
      */
     value: function addChannel(name) {
       this.dispatch(name);
+      _serviceSocketService2['default'].addChannel(name);
+    }
+  }, {
+    key: 'channelDidAdd',
+
+    /**
+     * Event: Channel Item is added to the list
+     * @param item Full Channel Item Object
+     */
+    value: function channelDidAdd(item) {
+      this.dispatch(item);
     }
   }, {
     key: 'channelsDidUpdate',
@@ -181,13 +192,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-var _reactAddons = require('react/addons');
-
-var _reactAddons2 = _interopRequireDefault(_reactAddons);
-
 var _actionsActions = require('../actions/Actions');
 
 var _actionsActions2 = _interopRequireDefault(_actionsActions);
+
+var _reactAddons = require('react/addons');
+
+var _reactAddons2 = _interopRequireDefault(_reactAddons);
 
 var ChannelItemForm = (function (_React$Component) {
     function ChannelItemForm(props) {
@@ -24922,6 +24933,19 @@ var SocketService = (function () {
     }
 
     _createClass(SocketService, null, [{
+        key: 'addChannel',
+        value: function addChannel(name) {
+            _socket2['default'].emit(_modelsSocketApi2['default'].ADD_CHANNEL, {
+                name: name
+            }, function (error, channelItem) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _actionsActions2['default'].channelDidAdd(channelItem);
+            });
+        }
+    }, {
         key: 'getChannels',
         value: function getChannels() {
             _socket2['default'].emit(_modelsSocketApi2['default'].GET_CHANNELS, {}, function (error, items) {
@@ -24983,7 +25007,7 @@ var ChannelsStore = (function () {
         _classCallCheck(this, ChannelsStore);
 
         this.bindListeners({
-            addChannel: _actionsActions2['default'].addChannel,
+            channelDidAdd: _actionsActions2['default'].channelDidAdd,
             channelsDidUpdate: _actionsActions2['default'].channelsDidUpdate
         });
 
@@ -24991,19 +25015,9 @@ var ChannelsStore = (function () {
     }
 
     _createClass(ChannelsStore, [{
-        key: 'addChannel',
-        value: function addChannel(name) {
-            var _this = this;
-
-            _socket2['default'].emit(_modelsSocketApi2['default'].ADD_CHANNEL, {
-                name: name
-            }, function (error, channelItem) {
-                if (error) {
-                    return _app2['default'].alertError(error.message);
-                }
-
-                _this.channels.push(channelItem);
-            });
+        key: 'channelDidAdd',
+        value: function channelDidAdd(item) {
+            this.channels.push(item);
         }
     }, {
         key: 'channelsDidUpdate',

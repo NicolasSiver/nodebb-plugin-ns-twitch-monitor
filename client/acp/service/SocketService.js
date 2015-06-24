@@ -7,6 +7,22 @@ import Socket from 'socket';
 import SocketApi from '../models/SocketApi';
 
 export default class SocketService {
+    static addChannel(name) {
+        Socket.emit(
+            SocketApi.ADD_CHANNEL,
+            {
+                name: name
+            },
+            (error, channelItem) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.channelDidAdd(channelItem);
+            }
+        );
+    }
+
     static getChannels() {
         Socket.emit(
             SocketApi.GET_CHANNELS,
