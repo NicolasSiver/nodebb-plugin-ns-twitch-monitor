@@ -41,6 +41,10 @@
         });
     };
 
+    Controller.getAllChannels = function (callback) {
+        database.getChannels(callback);
+    };
+
     /**
      * Validates client id as requested by Twitch, and saves it, if everything is Ok
      * @param clientId twitch application client id

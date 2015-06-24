@@ -19,7 +19,7 @@ class ChannelsList extends React.Component {
     }
 
     render() {
-        console.log('update list');
+        console.log('update', this.props);
         return (
             <div className="channels-list">
                 <div className="alert alert-warning" role="alert">There is no channels. Let's add some?</div>

@@ -4,10 +4,15 @@
 import React from 'react';
 import ChannelsList from './ChannelsList';
 import ChannelItemForm from './ChannelItemForm';
+import Actions from '../actions/Actions';
 
 export default class Channels extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount(){
+        Actions.getChannels();
     }
 
     render() {

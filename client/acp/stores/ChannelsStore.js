@@ -10,16 +10,14 @@ import SocketApi from '../models/SocketApi';
 class ChannelsStore {
     constructor() {
         this.bindListeners({
-            addChannel: Actions.addChannel
+            addChannel : Actions.addChannel,
+            getChannels: Actions.getChannels
         });
 
-        this.state = {
-            channels: []
-        };
+        this.channels = [];
     }
 
     addChannel(name) {
-        console.log('add channel', name);
         Socket.emit(
             SocketApi.ADD_CHANNEL,
             {
@@ -29,10 +27,23 @@ class ChannelsStore {
                 if (error) {
                     return App.alertError(error.message);
                 }
-                console.log('add channel item', channelItem);
-                this.setState({
-                    channels: this.state.channels.concat(channelItem)
-                });
+
+                this.channels.push(channelItem);
+            }
+        );
+    }
+
+    getChannels() {
+        Socket.emit(
+            SocketApi.GET_CHANNELS,
+            {},
+            (error, items) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                this.channels = items;
+
             }
         );
     }

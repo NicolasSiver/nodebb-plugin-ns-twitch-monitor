@@ -35,4 +35,19 @@
         ], done);
     };
 
+    Database.getChannels = function (done) {
+        async.waterfall([
+            async.apply(db.getSortedSetRange, constants.NAMESPACE + ':channel', 0, -1),
+            function (ids, next) {
+                if (!ids.length) {
+                    return next(null, ids);
+                }
+                db.getObjects(ids.map(function (id) {
+                    console.log('IiiiiiDDDDDD', id);
+                    return constants.NAMESPACE + ':channel:' + id;
+                }), next);
+            }
+        ], done);
+    };
+
 })(module.exports);

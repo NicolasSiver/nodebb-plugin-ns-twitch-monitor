@@ -29,10 +29,18 @@ var Actions = (function () {
     /**
      * Add a new channel to the list, it will be validated on server
      * @param name
-     * @returns {{name: *}}
      */
     value: function addChannel(name) {
       this.dispatch(name);
+    }
+  }, {
+    key: 'getChannels',
+
+    /**
+     * Get all channels from the server
+     */
+    value: function getChannels() {
+      this.dispatch();
     }
   }, {
     key: 'validateClientId',
@@ -40,7 +48,6 @@ var Actions = (function () {
     /**
      * Check for Client ID validity, Twitch requirement to use client id for every API request
      * @param id
-     * @returns {{id: *}}
      */
     value: function validateClientId(id) {
       this.dispatch(id);
@@ -319,6 +326,10 @@ var _ChannelItemForm = require('./ChannelItemForm');
 
 var _ChannelItemForm2 = _interopRequireDefault(_ChannelItemForm);
 
+var _actionsActions = require('../actions/Actions');
+
+var _actionsActions2 = _interopRequireDefault(_actionsActions);
+
 var Channels = (function (_React$Component) {
     function Channels(props) {
         _classCallCheck(this, Channels);
@@ -329,6 +340,11 @@ var Channels = (function (_React$Component) {
     _inherits(Channels, _React$Component);
 
     _createClass(Channels, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _actionsActions2['default'].getChannels();
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2['default'].createElement(
@@ -357,7 +373,7 @@ var Channels = (function (_React$Component) {
 exports['default'] = Channels;
 module.exports = exports['default'];
 
-},{"./ChannelItemForm":4,"./ChannelsList":6,"react":207}],6:[function(require,module,exports){
+},{"../actions/Actions":1,"./ChannelItemForm":4,"./ChannelsList":6,"react":207}],6:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -401,7 +417,7 @@ var ChannelsList = (function (_React$Component) {
     _createClass(ChannelsList, [{
         key: 'render',
         value: function render() {
-            console.log('update list');
+            console.log('update', this.props);
             return _react2['default'].createElement(
                 'div',
                 { className: 'channels-list' },
@@ -600,11 +616,12 @@ _react2['default'].render(_react2['default'].createElement(_componentsApplicatio
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-  value: true
+    value: true
 });
 exports['default'] = {
-  ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd',
-  VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
+    ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd',
+    GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
+    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
 };
 module.exports = exports['default'];
 
@@ -24822,12 +24839,11 @@ var ChannelsStore = (function () {
         _classCallCheck(this, ChannelsStore);
 
         this.bindListeners({
-            addChannel: _actionsActions2['default'].addChannel
+            addChannel: _actionsActions2['default'].addChannel,
+            getChannels: _actionsActions2['default'].getChannels
         });
 
-        this.state = {
-            channels: []
-        };
+        this.channels = [];
     }
 
     _createClass(ChannelsStore, [{
@@ -24835,17 +24851,27 @@ var ChannelsStore = (function () {
         value: function addChannel(name) {
             var _this = this;
 
-            console.log('add channel', name);
             _socket2['default'].emit(_modelsSocketApi2['default'].ADD_CHANNEL, {
                 name: name
             }, function (error, channelItem) {
                 if (error) {
                     return _app2['default'].alertError(error.message);
                 }
-                console.log('add channel item', channelItem);
-                _this.setState({
-                    channels: _this.state.channels.concat(channelItem)
-                });
+
+                _this.channels.push(channelItem);
+            });
+        }
+    }, {
+        key: 'getChannels',
+        value: function getChannels() {
+            var _this2 = this;
+
+            _socket2['default'].emit(_modelsSocketApi2['default'].GET_CHANNELS, {}, function (error, items) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _this2.channels = items;
             });
         }
     }]);
