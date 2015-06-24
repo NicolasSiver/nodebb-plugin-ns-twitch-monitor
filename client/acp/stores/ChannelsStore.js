@@ -5,10 +5,7 @@ import alt from '../alt';
 import Actions from '../actions/Actions';
 import Socket from 'socket';
 import App from 'app';
-
-const API = {
-    ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd'
-};
+import SocketApi from '../models/SocketApi';
 
 class ChannelsStore {
     constructor() {
@@ -23,7 +20,7 @@ class ChannelsStore {
 
     addChannel(name) {
         Socket.emit(
-            API.ADD_CHANNEL,
+            SocketApi.ADD_CHANNEL,
             {
                 name: name
             },

@@ -5,7 +5,7 @@ import React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/function/debounce';
 import Actions from '../actions/Actions';
-import {VALIDATION} from '../stores/ValidationStore';
+import Validation from '../models/Validation';
 
 export default class Settings extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class Settings extends React.Component {
             Actions.validateClientId(clientId);
         } else {
             console.warn('Client ID is empty');
-            this.setState({feedback: VALIDATION.FAILURE});
+            this.setState({feedback: Validation.FAILURE});
         }
     }
 
@@ -34,8 +34,8 @@ export default class Settings extends React.Component {
         const hint = <small>Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register Twitch Application</a> to get client id. Please review <a href="http://www.twitch.tv/user/legal?page=api_terms_of_service" target="_blank">Terms of Service</a> for the Twitch API.</small>;
         const groupClass = classNames({
             'form-group' : true,
-            'has-success': feedback === VALIDATION.SUCCESS,
-            'has-error'  : feedback === VALIDATION.FAILURE
+            'has-success': feedback === Validation.SUCCESS,
+            'has-error'  : feedback === Validation.FAILURE
         });
 
         return (

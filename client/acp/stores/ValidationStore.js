@@ -5,16 +5,8 @@ import alt from '../alt';
 import Actions from '../actions/Actions';
 import Socket from 'socket';
 import App from 'app';
-
-const API = {
-    //Validate and Save
-    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
-};
-
-export const VALIDATION = {
-    SUCCESS: 1,
-    FAILURE: 2
-};
+import SocketApi from '../models/SocketApi';
+import Validation from '../models/Validation';
 
 class ValidationStore {
     constructor() {
@@ -29,7 +21,7 @@ class ValidationStore {
 
     validateClientId(id) {
         Socket.emit(
-            API.VALIDATE_CLIENT_ID,
+            SocketApi.VALIDATE_CLIENT_ID,
             {
                 clientId: id
             },
@@ -39,7 +31,7 @@ class ValidationStore {
                 }
 
                 this.setState({
-                    clientIdValidity: (status) ? VALIDATION.SUCCESS : VALIDATION.FAILURE
+                    clientIdValidity: (status) ? Validation.SUCCESS : Validation.FAILURE
                 });
             }
         );
