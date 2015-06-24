@@ -10,7 +10,7 @@ class Actions {
      * @returns {{name: *}}
      */
     addChannel(name) {
-        return name;
+        this.dispatch(name);
     }
 
     /**
@@ -19,7 +19,7 @@ class Actions {
      * @returns {{id: *}}
      */
     validateClientId(id) {
-        return id;
+        this.dispatch(id);
     }
 }
 

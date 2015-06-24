@@ -19,6 +19,7 @@ class ChannelsStore {
     }
 
     addChannel(name) {
+        console.log('add channel', name);
         Socket.emit(
             SocketApi.ADD_CHANNEL,
             {
@@ -28,7 +29,7 @@ class ChannelsStore {
                 if (error) {
                     return App.alertError(error.message);
                 }
-
+                console.log('add channel item', channelItem);
                 this.setState({
                     channels: this.state.channels.concat(channelItem)
                 });

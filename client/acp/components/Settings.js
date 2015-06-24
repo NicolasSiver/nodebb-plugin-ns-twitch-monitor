@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import debounce from 'lodash/function/debounce';
 import Actions from '../actions/Actions';
 import Validation from '../models/Validation';
+import ValidationStore from '../stores/ValidationStore';
 
 export default class Settings extends React.Component {
     constructor(props) {
