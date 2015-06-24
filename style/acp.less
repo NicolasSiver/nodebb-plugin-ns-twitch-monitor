@@ -14,7 +14,7 @@
   }
 }
 
-.channel-list {
+.channels-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -22,6 +22,39 @@
   .channel-item {
     height: @tm-line-height;
     padding: @tm-padding-xs;
+    background-color: #f0fefe;
+
+    .channel-content {
+      display: flex;
+      height: 100%;
+
+      .channel-logo {
+        width: @tm-line-height - 2*@tm-padding-xs;
+        flex: 0 0 auto;
+        height: auto;
+      }
+
+      .channel-info {
+        width: 100%;
+        padding: 0 @tm-padding;
+
+        .title {
+          margin: 0;
+        }
+        .status {
+          margin: 0;
+        }
+      }
+
+      .channel-stats {
+        flex: 1 0 auto;
+        align-self: center;
+
+        .stat + .stat {
+          margin-left: @tm-margin;
+        }
+      }
+    }
   }
 }
 

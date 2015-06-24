@@ -359,7 +359,46 @@ var ChannelItemView = (function (_React$Component) {
             return _react2["default"].createElement(
                 "li",
                 { className: "channel-item" },
-                "Item"
+                _react2["default"].createElement(
+                    "div",
+                    { className: "channel-content" },
+                    _react2["default"].createElement("img", { className: "channel-logo", src: this.props.channel.logo }),
+                    _react2["default"].createElement(
+                        "div",
+                        { className: "channel-info" },
+                        _react2["default"].createElement(
+                            "h5",
+                            { className: "title" },
+                            this.props.channel.display_name,
+                            " (",
+                            this.props.channel.game,
+                            ")"
+                        ),
+                        _react2["default"].createElement(
+                            "p",
+                            { className: "status" },
+                            this.props.channel.status
+                        )
+                    ),
+                    _react2["default"].createElement(
+                        "div",
+                        { className: "channel-stats" },
+                        _react2["default"].createElement(
+                            "span",
+                            { className: "stat" },
+                            _react2["default"].createElement("i", { className: "fa fa-eye" }),
+                            " ",
+                            this.props.channel.views
+                        ),
+                        _react2["default"].createElement(
+                            "span",
+                            { className: "stat" },
+                            _react2["default"].createElement("i", { className: "fa fa-heart" }),
+                            " ",
+                            this.props.channel.followers
+                        )
+                    )
+                )
             );
         }
     }]);
