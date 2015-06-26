@@ -15,7 +15,6 @@
 .channels-list .channel-item {
   height: 64px;
   padding: 4px;
-  background-color: #f0fefe;
 }
 .channels-list .channel-item .channel-content {
   display: flex;
@@ -42,6 +41,15 @@
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
+}
+.channels-list .channel-item .channel-content .channel-controls {
+  flex: 1 0 auto;
+  align-self: center;
+  margin-left: 16px;
+}
+.channels-list .channel-item .channel-content .channel-controls .control-delete {
+  cursor: pointer;
+  color: #f44336;
 }
 .alpha-appear {
   opacity: 0.01;

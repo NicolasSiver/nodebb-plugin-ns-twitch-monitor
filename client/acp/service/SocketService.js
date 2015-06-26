@@ -36,4 +36,20 @@ export default class SocketService {
             }
         );
     }
+
+    static removeChannel(id) {
+        Socket.emit(
+            SocketApi.REMOVE_CHANNEL,
+            {
+                cid: id
+            },
+            (error, channelId) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.channelDidRemove(channelId);
+            }
+        );
+    }
 }

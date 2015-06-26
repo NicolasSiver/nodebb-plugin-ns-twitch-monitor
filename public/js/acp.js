@@ -59,6 +59,17 @@ var Actions = (function () {
       this.dispatch(channels);
     }
   }, {
+    key: 'channelWillRemove',
+
+    /**
+     * Remove channel form the list by id
+     * @param channelId
+     */
+    value: function channelWillRemove(channelId) {
+      this.dispatch(channelId);
+      _serviceSocketService2['default'].removeChannel(channelId);
+    }
+  }, {
     key: 'getChannels',
 
     /**
@@ -324,23 +335,23 @@ module.exports = exports['default'];
 /**
  * Created by Nicolas on 6/24/15.
  */
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -348,54 +359,79 @@ var ChannelItemView = (function (_React$Component) {
     function ChannelItemView(props) {
         _classCallCheck(this, ChannelItemView);
 
-        _get(Object.getPrototypeOf(ChannelItemView.prototype), "constructor", this).call(this, props);
+        _get(Object.getPrototypeOf(ChannelItemView.prototype), 'constructor', this).call(this, props);
     }
 
     _inherits(ChannelItemView, _React$Component);
 
     _createClass(ChannelItemView, [{
-        key: "render",
+        key: 'deleteItem',
+        value: function deleteItem() {}
+    }, {
+        key: 'render',
         value: function render() {
-            return _react2["default"].createElement(
-                "li",
-                { className: "channel-item" },
-                _react2["default"].createElement(
-                    "div",
-                    { className: "channel-content" },
-                    _react2["default"].createElement("img", { className: "channel-logo", src: this.props.channel.logo }),
-                    _react2["default"].createElement(
-                        "div",
-                        { className: "channel-info" },
-                        _react2["default"].createElement(
-                            "h5",
-                            { className: "title" },
-                            this.props.channel.display_name,
-                            " (",
+            var delay = this.props.channel.delay || 'no';
+
+            return _react2['default'].createElement(
+                'li',
+                { className: 'channel-item' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'channel-content' },
+                    _react2['default'].createElement('img', { className: 'channel-logo', src: this.props.channel.logo }),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'channel-info' },
+                        _react2['default'].createElement(
+                            'h5',
+                            { className: 'title' },
+                            _react2['default'].createElement(
+                                'a',
+                                { href: this.props.channel.url, target: '_blank' },
+                                this.props.channel.display_name
+                            ),
+                            ' (',
                             this.props.channel.game,
-                            ")"
+                            ')'
                         ),
-                        _react2["default"].createElement(
-                            "p",
-                            { className: "status" },
+                        _react2['default'].createElement(
+                            'p',
+                            { className: 'status' },
                             this.props.channel.status
                         )
                     ),
-                    _react2["default"].createElement(
-                        "div",
-                        { className: "channel-stats" },
-                        _react2["default"].createElement(
-                            "span",
-                            { className: "stat" },
-                            _react2["default"].createElement("i", { className: "fa fa-eye" }),
-                            " ",
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'channel-stats' },
+                        _react2['default'].createElement(
+                            'span',
+                            { className: 'stat' },
+                            _react2['default'].createElement('i', { className: 'fa fa-eye' }),
+                            ' ',
                             this.props.channel.views
                         ),
-                        _react2["default"].createElement(
-                            "span",
-                            { className: "stat" },
-                            _react2["default"].createElement("i", { className: "fa fa-heart" }),
-                            " ",
+                        _react2['default'].createElement(
+                            'span',
+                            { className: 'stat' },
+                            _react2['default'].createElement('i', { className: 'fa fa-heart' }),
+                            ' ',
                             this.props.channel.followers
+                        ),
+                        _react2['default'].createElement(
+                            'span',
+                            { className: 'stat' },
+                            _react2['default'].createElement('i', { className: 'fa fa-clock-o' }),
+                            ' ',
+                            delay
+                        )
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'channel-controls' },
+                        _react2['default'].createElement(
+                            'div',
+                            { className: 'control-delete', onClick: this.deleteItem.bind(this) },
+                            _react2['default'].createElement('i', { className: 'fa fa-trash-o' })
                         )
                     )
                 )
@@ -404,10 +440,10 @@ var ChannelItemView = (function (_React$Component) {
     }]);
 
     return ChannelItemView;
-})(_react2["default"].Component);
+})(_react2['default'].Component);
 
-exports["default"] = ChannelItemView;
-module.exports = exports["default"];
+exports['default'] = ChannelItemView;
+module.exports = exports['default'];
 
 },{"react":208}],6:[function(require,module,exports){
 /**
@@ -757,6 +793,7 @@ Object.defineProperty(exports, '__esModule', {
 exports['default'] = {
     ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd',
     GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
+    REMOVE_CHANNEL: 'plugins.ns-twitch-monitor.channelRemove',
     VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
 };
 module.exports = exports['default'];
@@ -24993,6 +25030,19 @@ var SocketService = (function () {
                 }
 
                 _actionsActions2['default'].channelsDidUpdate(items);
+            });
+        }
+    }, {
+        key: 'removeChannel',
+        value: function removeChannel(id) {
+            _socket2['default'].emit(_modelsSocketApi2['default'].REMOVE_CHANNEL, {
+                cid: id
+            }, function (error, channelId) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _actionsActions2['default'].channelDidRemove(channelId);
             });
         }
     }]);

@@ -1,4 +1,5 @@
 @import 'vars';
+@import 'material-color/material-color-prefixed';
 
 .channel-item-form {
   padding: @tm-padding 0;
@@ -22,7 +23,6 @@
   .channel-item {
     height: @tm-line-height;
     padding: @tm-padding-xs;
-    background-color: #f0fefe;
 
     .channel-content {
       display: flex;
@@ -52,6 +52,17 @@
 
         .stat + .stat {
           margin-left: @tm-margin;
+        }
+      }
+
+      .channel-controls {
+        flex: 1 0 auto;
+        align-self: center;
+        margin-left: @tm-margin;
+
+        .control-delete {
+          cursor: pointer;
+          color: @md-clr-red;
         }
       }
     }

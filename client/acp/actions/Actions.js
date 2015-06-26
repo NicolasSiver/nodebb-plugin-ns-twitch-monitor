@@ -31,6 +31,15 @@ class Actions {
     }
 
     /**
+     * Remove channel form the list by id
+     * @param channelId
+     */
+    channelWillRemove(channelId) {
+        this.dispatch(channelId);
+        SocketService.removeChannel(channelId);
+    }
+
+    /**
      * Get all channels from the server
      */
     getChannels(){
