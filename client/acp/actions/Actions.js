@@ -23,6 +23,14 @@ class Actions {
     }
 
     /**
+     * Event from backend, that channel is removed successfully
+     * @param channelId
+     */
+    channelDidRemove(channelId) {
+        this.dispatch(channelId);
+    }
+
+    /**
      * Event: list of channels is available to use
      * @param channels
      */
@@ -42,7 +50,7 @@ class Actions {
     /**
      * Get all channels from the server
      */
-    getChannels(){
+    getChannels() {
         this.dispatch();
         SocketService.getChannels();
     }
