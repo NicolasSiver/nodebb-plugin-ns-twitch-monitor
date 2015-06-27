@@ -21,7 +21,8 @@ class ChannelsHeader extends React.Component {
     render() {
         return (
             <div className="channels-header">
-                <h3>Channels <small>{this.props.channels.length} from 100</small>
+                <h3>
+                    Channels <small>{this.props.channels.length} from 100</small>
                 </h3>
             </div>
         );
