@@ -1,13 +1,20 @@
 /**
  * Created by Nicolas on 6/21/15.
  */
-import alt from '../alt';
 import Actions from '../actions/Actions';
-import Socket from 'socket';
+import alt from '../alt';
 
 class SettingsStore {
     constructor() {
-        this.state = {};
+        this.bindListeners({
+            settingsDidUpdate: Actions.settingsDidUpdate
+        });
+
+        this.settings = {};
+    }
+
+    settingsDidUpdate(settingsData) {
+        this.settings = settingsData;
     }
 }
 

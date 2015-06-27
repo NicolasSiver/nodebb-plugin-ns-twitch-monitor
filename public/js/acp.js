@@ -26605,7 +26605,6 @@ module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":1,"../models/SocketApi":11}],248:[function(require,module,exports){
-(function (global){
 /**
  * Created by Nicolas on 6/22/15.
  */
@@ -26621,25 +26620,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var _alt = require('../alt');
-
-var _alt2 = _interopRequireDefault(_alt);
-
 var _actionsActions = require('../actions/Actions');
 
 var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
-var _socket = (typeof window !== "undefined" ? window.socket : typeof global !== "undefined" ? global.socket : null);
+var _alt = require('../alt');
 
-var _socket2 = _interopRequireDefault(_socket);
-
-var _app = (typeof window !== "undefined" ? window.app : typeof global !== "undefined" ? global.app : null);
-
-var _app2 = _interopRequireDefault(_app);
-
-var _modelsSocketApi = require('../models/SocketApi');
-
-var _modelsSocketApi2 = _interopRequireDefault(_modelsSocketApi);
+var _alt2 = _interopRequireDefault(_alt);
 
 var _lodashArrayFindIndex = require('lodash/array/findIndex');
 
@@ -26687,8 +26674,7 @@ var ChannelsStore = (function () {
 exports['default'] = _alt2['default'].createStore(ChannelsStore, 'ChannelsStore');
 module.exports = exports['default'];
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../actions/Actions":1,"../alt":2,"../models/SocketApi":11,"lodash/array/findIndex":29}],249:[function(require,module,exports){
+},{"../actions/Actions":1,"../alt":2,"lodash/array/findIndex":29}],249:[function(require,module,exports){
 (function (global){
 /**
  * Created by Nicolas on 6/21/15.

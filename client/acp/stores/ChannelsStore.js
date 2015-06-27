@@ -1,11 +1,8 @@
 /**
  * Created by Nicolas on 6/22/15.
  */
-import alt from '../alt';
 import Actions from '../actions/Actions';
-import Socket from 'socket';
-import App from 'app';
-import SocketApi from '../models/SocketApi';
+import alt from '../alt';
 import findIndex from 'lodash/array/findIndex';
 
 class ChannelsStore {

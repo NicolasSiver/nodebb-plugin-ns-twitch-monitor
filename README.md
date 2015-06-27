@@ -5,3 +5,4 @@ Monitors specific channels and adds them to widget view
 
 - ACP: Prompt before remove of channel
 - ACP: Show progress on channel add
+- Tests: add tests client and server
