@@ -33,12 +33,7 @@
                     next(new Error(response.body.message));
                 }
             }
-        ], function (error, channelItem) {
-            if (error) {
-                return callback(error);
-            }
-            callback(null, channelItem);
-        });
+        ], callback);
     };
 
     Controller.getAllChannels = function (callback) {
@@ -57,12 +52,7 @@
             function (next) {
                 next(null, cid);
             }
-        ], function (error, result) {
-            if (error) {
-                return callback(error);
-            }
-            callback(null, result);
-        });
+        ], callback);
     };
 
     /**
@@ -86,12 +76,7 @@
                     next(null, false);
                 }
             }
-        ], function (error, result) {
-            if (error) {
-                return callback(error);
-            }
-            callback(null, result);
-        });
+        ], callback);
     };
 
 })(module.exports);
