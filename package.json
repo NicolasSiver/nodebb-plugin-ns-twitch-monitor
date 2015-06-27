@@ -31,5 +31,6 @@
     "object-assign": "^3.0.0",
     "request": "^2.58.0",
     "winston": "^1.0.1"
-  }
+  },
+  "devDependencies": {}
 }

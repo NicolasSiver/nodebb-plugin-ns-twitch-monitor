@@ -57,6 +57,7 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
     "babelify": "^6.1.2",
     "browserify": "^9.0.8",
     "browserify-shim": "^3.8.5",
@@ -64,6 +65,7 @@
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
     "gulp-plumber": "^1.0.1",
+    "gulp-postcss": "^5.1.9",
     "gulp-watch-less": "treshugart/gulp-watch-less",
     "less": "^2.5.1",
     "uglify-js": "^2.4.20"

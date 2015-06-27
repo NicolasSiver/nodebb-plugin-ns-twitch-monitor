@@ -17,11 +17,15 @@
   padding: 4px;
 }
 .channels-list .channel-item .channel-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   height: 100%;
 }
 .channels-list .channel-item .channel-content .channel-logo {
   width: 56px;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   height: auto;
 }
@@ -36,16 +40,24 @@
   margin: 0;
 }
 .channels-list .channel-item .channel-content .channel-stats {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
-  align-self: center;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
+          align-self: center;
   margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-status {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
-  align-self: center;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
+          align-self: center;
   margin: 0 16px;
 }
 .channels-list .channel-item .channel-content .channel-status .fa {
@@ -53,11 +65,16 @@
 }
 .channels-list .channel-item .channel-content .channel-status .fa.online {
   color: #f44336;
+  -webkit-animation: fade 1s ease-in-out infinite alternate;
   animation: fade 1s ease-in-out infinite alternate;
 }
 .channels-list .channel-item .channel-content .channel-controls {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
   flex: 1 0 auto;
-  align-self: center;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
+          align-self: center;
 }
 .channels-list .channel-item .channel-content .channel-controls .control-delete {
   cursor: pointer;
@@ -83,6 +100,14 @@
 }
 .alpha-leave.alpha-leave-active {
   opacity: 0.01;
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.1;
+  }
 }
 @keyframes fade {
   from {
