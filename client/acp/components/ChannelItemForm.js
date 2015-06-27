@@ -2,6 +2,7 @@
  * Created by Nicolas on 6/20/15.
  */
 import Actions from '../actions/Actions';
+import KeyCode from '../models/KeyCode';
 import React from 'react/addons';
 
 export default class ChannelItemForm extends React.Component {
@@ -25,6 +26,12 @@ export default class ChannelItemForm extends React.Component {
         });
     }
 
+    enterDidTrigger(e){
+        if(e.keyCode === KeyCode.ENTER && this.isValid()){
+            this.addChannel();
+        }
+    }
+
     isValid() {
         return !!this.state.channelName;
     }
@@ -38,7 +45,7 @@ export default class ChannelItemForm extends React.Component {
         </button>;
         const formBlock = <div>
             <ReactCSSTransitionGroup transitionName="alpha" transitionAppear={true}>
-                <form className="form-inline">
+                <div className="form-inline">
                     <div className="form-group">
                         <label htmlFor="channelName">Channel Name</label>
                         <input
@@ -47,6 +54,7 @@ export default class ChannelItemForm extends React.Component {
                             id="channelName"
                             value={this.state.channelName}
                             onChange={this.channelNameDidChange.bind(this)}
+                            onKeyDown={this.enterDidTrigger.bind(this)}
                             placeholder="Enter channel"/>
                     </div>
                     <div className="btn-group btn-group-sm" role="group">
@@ -62,7 +70,7 @@ export default class ChannelItemForm extends React.Component {
                             type="button"><i className="fa fa-plus"></i> Add Item
                         </button>
                     </div>
-                </form>
+                </div>
             </ReactCSSTransitionGroup>
         </div>;
 
