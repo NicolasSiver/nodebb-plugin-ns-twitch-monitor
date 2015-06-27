@@ -505,6 +505,11 @@ var ChannelItemView = (function (_React$Component) {
                     ),
                     _react2['default'].createElement(
                         'div',
+                        { className: 'channel-status' },
+                        _react2['default'].createElement('i', { className: 'fa fa-circle' })
+                    ),
+                    _react2['default'].createElement(
+                        'div',
                         { className: 'channel-controls' },
                         _react2['default'].createElement(
                             'div',

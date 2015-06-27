@@ -38,14 +38,26 @@
 .channels-list .channel-item .channel-content .channel-stats {
   flex: 1 0 auto;
   align-self: center;
+  margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
 }
+.channels-list .channel-item .channel-content .channel-status {
+  flex: 1 0 auto;
+  align-self: center;
+  margin: 0 16px;
+}
+.channels-list .channel-item .channel-content .channel-status .fa {
+  color: #eeeeee;
+}
+.channels-list .channel-item .channel-content .channel-status .fa.online {
+  color: #f44336;
+  animation: fade 1s ease-in-out infinite alternate;
+}
 .channels-list .channel-item .channel-content .channel-controls {
   flex: 1 0 auto;
   align-self: center;
-  margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-controls .control-delete {
   cursor: pointer;
@@ -71,4 +83,12 @@
 }
 .alpha-leave.alpha-leave-active {
   opacity: 0.01;
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.1;
+  }
 }

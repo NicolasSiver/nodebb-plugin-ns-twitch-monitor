@@ -49,16 +49,31 @@
       .channel-stats {
         flex: 1 0 auto;
         align-self: center;
+        margin-left: @tm-margin;
 
         .stat + .stat {
           margin-left: @tm-margin;
         }
       }
 
+      .channel-status {
+        flex: 1 0 auto;
+        align-self: center;
+        margin: 0 @tm-margin;
+
+        .fa {
+          color: @md-clr-grey-200;
+
+          &.online {
+            color: @md-clr-red;
+            animation: fade 1s ease-in-out infinite alternate;
+          }
+        }
+      }
+
       .channel-controls {
         flex: 1 0 auto;
         align-self: center;
-        margin-left: @tm-margin;
 
         .control-delete {
           cursor: pointer;
@@ -93,5 +108,14 @@
 
   &.alpha-leave-active {
     opacity: 0.01;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.1;
   }
 }

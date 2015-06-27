@@ -32,6 +32,10 @@ export default class ChannelItemView extends React.Component {
                         <span className="stat"><i className="fa fa-clock-o"></i> {delay}</span>
                     </div>
 
+                    <div className="channel-status">
+                        <i className="fa fa-circle"></i>
+                    </div>
+
                     <div className="channel-controls">
                         <div className="control-delete" onClick={this.deleteItem.bind(this)}>
                             <i className="fa fa-trash-o"></i>
