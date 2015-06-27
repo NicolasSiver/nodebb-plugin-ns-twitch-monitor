@@ -43,7 +43,10 @@
     };
 
     List.prototype.cleanStreamPayload = function (streamData) {
-        return _.omit(streamData, ['_links', 'channel']);
+        var channelName = streamData.channel.name;
+        var result = _.omit(streamData, ['_links', 'channel']);
+        result.channel = channelName;
+        return result;
     };
 
     /**
