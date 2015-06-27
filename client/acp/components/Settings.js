@@ -32,7 +32,7 @@ export default class Settings extends React.Component {
     }
 
     componentDidMount() {
-
+        Actions.getSettings();
     }
 
     getInputByFeedback(feedback) {

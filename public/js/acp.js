@@ -90,6 +90,26 @@ var Actions = (function () {
       _serviceSocketService2['default'].getChannels();
     }
   }, {
+    key: 'getSettings',
+
+    /**
+     * Get current settings from the server
+     */
+    value: function getSettings() {
+      this.dispatch();
+      _serviceSocketService2['default'].getSettings();
+    }
+  }, {
+    key: 'settingsDidUpdate',
+
+    /**
+     * Event: Latest Settings is available to use
+     * @param settings
+     */
+    value: function settingsDidUpdate(settings) {
+      this.dispatch(settings);
+    }
+  }, {
     key: 'validateClientId',
 
     /**
@@ -728,7 +748,9 @@ var Settings = (function (_React$Component) {
         }
     }, {
         key: 'componentDidMount',
-        value: function componentDidMount() {}
+        value: function componentDidMount() {
+            _actionsActions2['default'].getSettings();
+        }
     }, {
         key: 'getInputByFeedback',
         value: function getInputByFeedback(feedback) {
@@ -941,6 +963,7 @@ Object.defineProperty(exports, '__esModule', {
 exports['default'] = {
     ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd',
     GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
+    GET_SETTINGS: 'plugins.ns-twitch-monitor.settingsGet',
     REMOVE_CHANNEL: 'plugins.ns-twitch-monitor.channelRemove',
     VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
 };
@@ -26546,6 +26569,17 @@ var SocketService = (function () {
                 }
 
                 _actionsActions2['default'].channelsDidUpdate(items);
+            });
+        }
+    }, {
+        key: 'getSettings',
+        value: function getSettings() {
+            _socket2['default'].emit(_modelsSocketApi2['default'].GET_SETTINGS, {}, function (error, settings) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _actionsActions2['default'].settingsDidUpdate(settings);
             });
         }
     }, {

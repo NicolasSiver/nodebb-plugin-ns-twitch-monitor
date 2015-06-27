@@ -56,6 +56,22 @@ class Actions {
     }
 
     /**
+     * Get current settings from the server
+     */
+    getSettings() {
+        this.dispatch();
+        SocketService.getSettings();
+    }
+
+    /**
+     * Event: Latest Settings is available to use
+     * @param settings
+     */
+    settingsDidUpdate(settings){
+        this.dispatch(settings);
+    }
+
+    /**
      * Check for Client ID validity, Twitch requirement to use client id for every API request
      * @param id
      */

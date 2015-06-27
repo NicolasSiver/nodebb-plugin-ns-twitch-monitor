@@ -37,6 +37,20 @@ export default class SocketService {
         );
     }
 
+    static getSettings() {
+        Socket.emit(
+            SocketApi.GET_SETTINGS,
+            {},
+            (error, settings) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.settingsDidUpdate(settings);
+            }
+        );
+    }
+
     static removeChannel(id) {
         Socket.emit(
             SocketApi.REMOVE_CHANNEL,
