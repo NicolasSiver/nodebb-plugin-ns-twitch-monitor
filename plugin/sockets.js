@@ -26,6 +26,7 @@
         sockets[constants.SOCKETS].channelRemove = Sockets.channelRemove;
         sockets[constants.SOCKETS].settingsGet = Sockets.settingsGet;
         sockets[constants.SOCKETS].saveSettings = Sockets.saveSettings;
+        sockets[constants.SOCKETS].streamsGet = Sockets.streamsGet;
         sockets[constants.SOCKETS].clientIdValidate = Sockets.clientIdValidate;
 
         callback();
@@ -57,6 +58,10 @@
 
     Sockets.settingsGet = function (socket, payload, callback) {
         settings.get(callback);
+    };
+
+    Sockets.streamsGet = function (socket, payload, callback) {
+        controller.getAllStreams(callback);
     };
 
 })(module.exports);

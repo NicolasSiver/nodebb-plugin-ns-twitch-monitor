@@ -80,6 +80,14 @@
         });
     }
 
+    StreamManager.getStreams = function (callback) {
+        var result = {};
+        if (_streams != null) {
+            result = _streams.getStreamList();
+        }
+        callback(null, result);
+    };
+
     /**
      * Start monitoring process
      * @param callback will return boolean status, true - if everything is ok

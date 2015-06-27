@@ -42,6 +42,10 @@
         database.getChannels(callback);
     };
 
+    Controller.getAllStreams = function (callback) {
+        streamManager.getStreams(callback);
+    };
+
     Controller.removeChannel = function (cid, callback) {
         async.waterfall([
             async.apply(database.getChannel, cid),
