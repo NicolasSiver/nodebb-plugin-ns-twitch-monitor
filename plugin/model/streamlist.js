@@ -23,6 +23,11 @@
 
     util.inherits(List, EventEmitter);
 
+    /**
+     * Stream goes Online.
+     * @param channel
+     * @param stream
+     */
     List.prototype.addStream = function (channel, stream) {
         this.streamsMap[channel.name] = this.cleanStreamPayload(stream);
     };
@@ -31,10 +36,19 @@
         return _.omit(streamData, ['_links', 'channel']);
     };
 
+    /**
+     * Stream goes Offline
+     * @param channel
+     */
     List.prototype.deleteStream = function (channel) {
         delete this.streamsMap[channel.name];
     };
 
+    /**
+     * Update stream with the latest data: number of viewers, etc.
+     * @param channel
+     * @param stream
+     */
     List.prototype.mergeStream = function (channel, stream) {
         this.streamsMap[channel.name] = this.cleanStreamPayload(stream);
     };
@@ -55,17 +69,14 @@
         var newState = streamData;
 
         if (!previousState && newState) {
-            //Go Online
             this.addStream(channel, newState);
             logger.log('verbose', 'Channel %s goes online', channel.name);
         } else if (previousState && !newState) {
-            //Go Offline
             this.deleteStream(channel);
             logger.log('verbose', 'Channel %s goes offline', channel.name);
         } else if (previousState && newState) {
-            //Update: live viewers, etc.
             this.mergeStream(channel, newState);
-            logger.log('verbose', 'Channel %s is updated', channel.name);
+            //logger.log('verbose', 'Channel %s is updated', channel.name);
         } else {
             //Channel is offline still
         }

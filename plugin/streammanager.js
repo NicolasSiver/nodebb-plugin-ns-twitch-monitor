@@ -69,7 +69,6 @@
                 //Fail silently, don't rewrite previous stream status
                 logger.log('error', 'Error has occurred, message: %s', error.message);
             } else {
-                console.log(response);
                 _streams.update(response.body.streams);
             }
             _deferUpdate = deferNextUpdate(_delay);
