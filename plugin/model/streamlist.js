@@ -58,6 +58,10 @@
         delete this.streamsMap[channel.name];
     };
 
+    List.prototype.getStreamList = function () {
+        return this.streamsMap;
+    };
+
     /**
      * Update stream with the latest data: number of viewers, etc.
      * @param channel
