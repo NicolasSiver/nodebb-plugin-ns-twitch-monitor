@@ -5,11 +5,12 @@
     'use strict';
     //Twitch API, Christopher Gamble: Current recommended practice is to poll the API to check if streams are online.
 
-    var _        = require('lodash'),
+    var _          = require('lodash'),
 
-        database = require('./database'),
-        logger   = require('./logger'),
-        twitch   = require('./twitch');
+        database   = require('./database'),
+        logger     = require('./logger'),
+        streamList = require('./model/streamlist'),
+        twitch     = require('./twitch');
 
     var _active      = false,
         _autoStart   = false,
@@ -37,6 +38,7 @@
             }
 
             _channels = channels;
+            _streams = streamList.init(channels);
 
             if (autoStart) {
                 StreamManager.start(callback);
@@ -47,8 +49,8 @@
     };
 
     function deferNextUpdate(delay) {
-        logger.log('verbose', 'Next stream status update in %d ms', _delay);
-        _deferUpdate = setTimeout(update, _delay);
+        logger.log('verbose', 'Next stream status update in %d ms', delay);
+        return setTimeout(update, delay);
     }
 
     function dispose() {
@@ -62,25 +64,15 @@
 
     function fetchStreams(channels) {
         var channelNames = _.pluck(channels, 'name');
-        twitch.api.getStreams(channelNames, function (error, streams) {
+        twitch.api.getStreams(channelNames, function (error, response) {
             if (error) {
                 //Fail silently, don't rewrite previous stream status
                 logger.log('error', 'Error has occurred, message: %s', error.message);
-                _deferUpdate = deferNextUpdate(_delay);
             } else {
-                parseStreams(streams, function (error) {
-                    if (error) {
-                        //Fail silently, could be broken data?
-                        logger.log('error', 'Error has occurred in stream parsing, message: %s', error.message);
-                    }
-                    _deferUpdate = deferNextUpdate(_delay);
-                });
+                _streams.update(response.streams);
             }
+            _deferUpdate = deferNextUpdate(_delay);
         });
-    }
-
-    function parseStreams(streams, done) {
-
     }
 
     /**

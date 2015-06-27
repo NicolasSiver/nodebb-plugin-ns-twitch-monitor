@@ -8,3 +8,5 @@ Monitors specific channels and adds them to widget view
 - ACP: Show progress on cliend id validation
 - Tests: add tests client and server
 - Core: use stream pagination
+- Core: smart list update - merge online/offline states, etc
+- Core: batch stream status updates

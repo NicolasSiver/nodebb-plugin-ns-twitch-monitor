@@ -4,10 +4,11 @@
 (function (Plugin) {
     'use strict';
 
-    var async    = require('async'),
+    var async      = require('async'),
 
-        settings = require('./settings'),
-        sockets  = require('./sockets');
+        controller = require('./controller'),
+        settings   = require('./settings'),
+        sockets    = require('./sockets');
 
     function renderAdminPage(req, res, next) {
         res.render(
@@ -39,7 +40,8 @@
 
                 async.series([
                     async.apply(settings.init),
-                    async.apply(sockets.init)
+                    async.apply(sockets.init),
+                    async.apply(controller.start)
                 ], callback);
             }
         }

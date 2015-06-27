@@ -4,11 +4,12 @@
 (function (Controller) {
     'use strict';
 
-    var async    = require('async'),
+    var async         = require('async'),
 
-        database = require('./database'),
-        settings = require('./settings'),
-        twitch   = require('./twitch');
+        database      = require('./database'),
+        settings      = require('./settings'),
+        streamManager = require('./streammanager'),
+        twitch        = require('./twitch');
 
     Controller.addChannel = function (channelName, callback) {
         async.waterfall([
@@ -82,6 +83,10 @@
                 }
             }
         ], callback);
+    };
+
+    Controller.start = function (callback) {
+        streamManager.initWidthDelay(10000, false, callback);
     };
 
 })(module.exports);
