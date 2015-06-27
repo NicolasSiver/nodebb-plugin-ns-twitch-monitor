@@ -505,7 +505,7 @@ var ChannelItemView = (function (_React$Component) {
                                 { href: this.props.channel.url, target: '_blank' },
                                 this.props.channel.display_name
                             ),
-                            '(',
+                            ' (',
                             this.props.channel.game,
                             ')'
                         ),
