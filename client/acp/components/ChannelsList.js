@@ -1,18 +1,20 @@
 /**
  * Created by Nicolas on 6/20/15.
  */
+import assign from 'lodash/object/assign';
 import ChannelItemView from './ChannelItemView';
 import ChannelsStore from '../stores/ChannelsStore';
 import connectToStores from 'alt/utils/connectToStores';
 import React from 'react/addons';
+import StreamsStore from '../stores/StreamsStore';
 
 class ChannelsList extends React.Component {
     static getStores() {
-        return [ChannelsStore];
+        return [ChannelsStore, StreamsStore];
     }
 
     static getPropsFromStores() {
-        return ChannelsStore.getState();
+        return assign(ChannelsStore.getState(), StreamsStore.getState());
     }
 
     constructor(props) {
@@ -30,7 +32,8 @@ class ChannelsList extends React.Component {
                         {this.props.channels.map((channel, index) => {
                             return <ChannelItemView
                                 key={channel.cid}
-                                channel={channel}/>;
+                                channel={channel}
+                                live={!!this.props.streams[channel.name]}/>;
                         })}
                     </ReactCSSTransitionGroup>
                 </ul>

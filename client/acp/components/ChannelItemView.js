@@ -1,20 +1,26 @@
 /**
  * Created by Nicolas on 6/24/15.
  */
-import React from 'react';
 import Actions from '../actions/Actions';
+import classNames from 'classnames';
+import React from 'react';
 
 export default class ChannelItemView extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    deleteItem(){
+    deleteItem() {
         Actions.channelWillRemove(this.props.channel.cid);
     }
 
     render() {
         let delay = this.props.channel.delay || 'no';
+        const statusClass = classNames({
+            'fa'       : true,
+            'fa-circle': true,
+            'online'   : this.props.live
+        });
 
         return (
             <li className="channel-item">
@@ -22,7 +28,10 @@ export default class ChannelItemView extends React.Component {
                     <img className="channel-logo" src={this.props.channel.logo}/>
 
                     <div className="channel-info">
-                        <h5 className="title"><a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a> ({this.props.channel.game})</h5>
+                        <h5 className="title">
+                            <a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a>
+                            ({this.props.channel.game})</h5>
+
                         <p className="status">{this.props.channel.status}</p>
                     </div>
 
@@ -33,7 +42,7 @@ export default class ChannelItemView extends React.Component {
                     </div>
 
                     <div className="channel-status">
-                        <i className="fa fa-circle"></i>
+                        <i className={statusClass}></i>
                     </div>
 
                     <div className="channel-controls">
