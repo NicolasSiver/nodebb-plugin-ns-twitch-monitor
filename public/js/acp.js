@@ -120,6 +120,25 @@ var Actions = (function () {
       this.dispatch(settings);
     }
   }, {
+    key: 'streamDidUpdate',
+
+    /**
+     * Event: One of the channel's streams have been updated
+     * @param streamPayload
+     */
+    value: function streamDidUpdate(streamPayload) {
+      this.dispatch(streamPayload);
+    }
+  }, {
+    key: 'subscribe',
+
+    /**
+     * Listen for stream updates via sockets
+     */
+    value: function subscribe() {
+      _serviceSocketService2['default'].listenForUpdates();
+    }
+  }, {
     key: 'validateClientId',
 
     /**
@@ -557,6 +576,7 @@ var Channels = (function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _actionsActions2['default'].getChannels();
+            _actionsActions2['default'].subscribe();
         }
     }, {
         key: 'render',
@@ -1143,6 +1163,7 @@ exports['default'] = {
     GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
     GET_SETTINGS: 'plugins.ns-twitch-monitor.settingsGet',
     REMOVE_CHANNEL: 'plugins.ns-twitch-monitor.channelRemove',
+    STREAM_UPDATE: 'plugins.ns-twitch-monitor.streamUpdate',
     VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.clientIdValidate'
 };
 module.exports = exports['default'];
@@ -26911,6 +26932,13 @@ var SocketService = (function () {
                 }
 
                 _actionsActions2['default'].settingsDidUpdate(settings);
+            });
+        }
+    }, {
+        key: 'listenForUpdates',
+        value: function listenForUpdates() {
+            _socket2['default'].on(_modelsSocketApi2['default'].STREAM_UPDATE, function (payload) {
+                _actionsActions2['default'].streamDidUpdate(payload);
             });
         }
     }, {

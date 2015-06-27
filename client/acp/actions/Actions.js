@@ -80,6 +80,21 @@ class Actions {
     }
 
     /**
+     * Event: One of the channel's streams have been updated
+     * @param streamPayload
+     */
+    streamDidUpdate(streamPayload) {
+        this.dispatch(streamPayload);
+    }
+
+    /**
+     * Listen for stream updates via sockets
+     */
+    subscribe() {
+        SocketService.listenForUpdates();
+    }
+
+    /**
      * Check for Client ID validity, Twitch requirement to use client id for every API request
      * @param id
      */

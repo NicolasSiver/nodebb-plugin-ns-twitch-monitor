@@ -52,6 +52,15 @@ export default class SocketService {
         );
     }
 
+    static listenForUpdates() {
+        Socket.on(
+            SocketApi.STREAM_UPDATE,
+            (payload) => {
+                Actions.streamDidUpdate(payload);
+            }
+        );
+    }
+
     static removeChannel(id) {
         Socket.emit(
             SocketApi.REMOVE_CHANNEL,
