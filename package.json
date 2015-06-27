@@ -28,6 +28,7 @@
     "async": "^1.2.1",
     "lodash": "^3.9.3",
     "object-assign": "^3.0.0",
-    "request": "^2.58.0"
+    "request": "^2.58.0",
+    "winston": "^1.0.1"
   }
 }
