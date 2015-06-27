@@ -365,6 +365,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _actionsActions = require('../actions/Actions');
+
+var _actionsActions2 = _interopRequireDefault(_actionsActions);
+
 var ChannelItemView = (function (_React$Component) {
     function ChannelItemView(props) {
         _classCallCheck(this, ChannelItemView);
@@ -376,7 +380,9 @@ var ChannelItemView = (function (_React$Component) {
 
     _createClass(ChannelItemView, [{
         key: 'deleteItem',
-        value: function deleteItem() {}
+        value: function deleteItem() {
+            _actionsActions2['default'].channelWillRemove(this.props.channel.cid);
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -455,7 +461,7 @@ var ChannelItemView = (function (_React$Component) {
 exports['default'] = ChannelItemView;
 module.exports = exports['default'];
 
-},{"react":245}],6:[function(require,module,exports){
+},{"../actions/Actions":1,"react":245}],6:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/20/15.
  */

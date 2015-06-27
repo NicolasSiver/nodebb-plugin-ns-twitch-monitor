@@ -2,6 +2,7 @@
  * Created by Nicolas on 6/24/15.
  */
 import React from 'react';
+import Actions from '../actions/Actions';
 
 export default class ChannelItemView extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class ChannelItemView extends React.Component {
     }
 
     deleteItem(){
-
+        Actions.channelWillRemove(this.props.channel.cid);
     }
 
     render() {

@@ -40,7 +40,13 @@
         async.parallel([
             async.apply(db.delete, constants.NAMESPACE + ':channel:' + cid),
             async.apply(db.sortedSetRemove, constants.NAMESPACE + ':channel', cid)
-        ], done);
+        ], function (error) {
+            if (error) {
+                return done(error);
+            }
+            //Filter null responses from DB delete methods
+            done(null);
+        });
     };
 
     Database.getChannel = function (cid, done) {

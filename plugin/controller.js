@@ -42,7 +42,7 @@
 
     Controller.removeChannel = function (cid, callback) {
         async.waterfall([
-            async.apply(database.getChannel(cid)),
+            async.apply(database.getChannel, cid),
             function (channel, next) {
                 if (channel == null) {
                     return next(new Error('Something went wrong, can not delete channel'));
