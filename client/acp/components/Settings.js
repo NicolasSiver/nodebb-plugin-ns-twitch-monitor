@@ -43,7 +43,7 @@ class Settings extends React.Component {
                     debounceDelay="500"
                     value={this.props.settings.data.clientId}
                     valid={this.props.validity.clientIdValidity}
-                    valudDidChange={this.clientValueDidChange.bind(this)}/>
+                    valueDidChange={this.clientValueDidChange.bind(this)}/>
             );
         }
 

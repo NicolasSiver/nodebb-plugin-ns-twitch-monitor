@@ -5,6 +5,7 @@ import Actions from '../actions/Actions';
 import App from 'app';
 import Socket from 'socket';
 import SocketApi from '../models/SocketApi';
+import Validation from '../models/Validation';
 
 export default class SocketService {
     static addChannel(name) {
@@ -63,6 +64,22 @@ export default class SocketService {
                 }
 
                 Actions.channelDidRemove(channelId);
+            }
+        );
+    }
+
+    static validateClientId(id) {
+        Socket.emit(
+            SocketApi.VALIDATE_CLIENT_ID,
+            {
+                clientId: id
+            },
+            (error, status) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.clientIdDidValidate((status) ? Validation.SUCCESS : Validation.FAILURE);
             }
         );
     }

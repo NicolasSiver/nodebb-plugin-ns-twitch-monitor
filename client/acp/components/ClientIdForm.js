@@ -13,7 +13,7 @@ export default class ClientIdForm extends React.Component {
     }
 
     checkValue() {
-        this.props.valudDidChange(this.state.clientId);
+        this.props.valueDidChange(this.state.clientId);
     }
 
     clientIdDidChange(e) {
@@ -41,6 +41,7 @@ export default class ClientIdForm extends React.Component {
                     className="form-control"
                     id="clientId"
                     defaultValue={this.props.value}
+                    onChange={this.clientIdDidChange.bind(this)}
                     placeholder="Twitch Client ID"/>
                 {hint}
             </div>

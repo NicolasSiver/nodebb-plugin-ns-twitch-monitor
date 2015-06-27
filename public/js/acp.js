@@ -80,6 +80,16 @@ var Actions = (function () {
       _serviceSocketService2['default'].removeChannel(channelId);
     }
   }, {
+    key: 'clientIdDidValidate',
+
+    /**
+     * Event: result of client id validation, use Validation enum to find proper state
+     * @param validation
+     */
+    value: function clientIdDidValidate(validation) {
+      this.dispatch(validation);
+    }
+  }, {
     key: 'getChannels',
 
     /**
@@ -118,6 +128,7 @@ var Actions = (function () {
      */
     value: function validateClientId(id) {
       this.dispatch(id);
+      _serviceSocketService2['default'].validateClientId(id);
     }
   }]);
 
@@ -720,7 +731,7 @@ var ClientIdForm = (function (_React$Component) {
     _createClass(ClientIdForm, [{
         key: 'checkValue',
         value: function checkValue() {
-            this.props.valudDidChange(this.state.clientId);
+            this.props.valueDidChange(this.state.clientId);
         }
     }, {
         key: 'clientIdDidChange',
@@ -770,6 +781,7 @@ var ClientIdForm = (function (_React$Component) {
                     className: 'form-control',
                     id: 'clientId',
                     defaultValue: this.props.value,
+                    onChange: this.clientIdDidChange.bind(this),
                     placeholder: 'Twitch Client ID' }),
                 hint
             );
@@ -866,7 +878,7 @@ var Settings = (function (_React$Component) {
                     debounceDelay: '500',
                     value: this.props.settings.data.clientId,
                     valid: this.props.validity.clientIdValidity,
-                    valudDidChange: this.clientValueDidChange.bind(this) });
+                    valueDidChange: this.clientValueDidChange.bind(this) });
             }
 
             return _react2['default'].createElement(
@@ -1048,7 +1060,7 @@ exports['default'] = {
     GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
     GET_SETTINGS: 'plugins.ns-twitch-monitor.settingsGet',
     REMOVE_CHANNEL: 'plugins.ns-twitch-monitor.channelRemove',
-    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
+    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.clientIdValidate'
 };
 module.exports = exports['default'];
 
@@ -26774,6 +26786,10 @@ var _modelsSocketApi = require('../models/SocketApi');
 
 var _modelsSocketApi2 = _interopRequireDefault(_modelsSocketApi);
 
+var _modelsValidation = require('../models/Validation');
+
+var _modelsValidation2 = _interopRequireDefault(_modelsValidation);
+
 var SocketService = (function () {
     function SocketService() {
         _classCallCheck(this, SocketService);
@@ -26827,6 +26843,19 @@ var SocketService = (function () {
                 _actionsActions2['default'].channelDidRemove(channelId);
             });
         }
+    }, {
+        key: 'validateClientId',
+        value: function validateClientId(id) {
+            _socket2['default'].emit(_modelsSocketApi2['default'].VALIDATE_CLIENT_ID, {
+                clientId: id
+            }, function (error, status) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _actionsActions2['default'].clientIdDidValidate(status ? _modelsValidation2['default'].SUCCESS : _modelsValidation2['default'].FAILURE);
+            });
+        }
     }]);
 
     return SocketService;
@@ -26836,7 +26865,7 @@ exports['default'] = SocketService;
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../actions/Actions":1,"../models/SocketApi":12}],253:[function(require,module,exports){
+},{"../actions/Actions":1,"../models/SocketApi":12,"../models/Validation":13}],253:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/22/15.
  */
@@ -27000,26 +27029,16 @@ var ValidationStore = (function () {
         _classCallCheck(this, ValidationStore);
 
         this.bindListeners({
-            validateClientId: _actionsActions2['default'].validateClientId
+            clientIdDidValidate: _actionsActions2['default'].clientIdDidValidate
         });
 
         this.clientIdValidity = 0;
     }
 
     _createClass(ValidationStore, [{
-        key: 'validateClientId',
-        value: function validateClientId(id) {
-            var _this = this;
-
-            _socket2['default'].emit(_modelsSocketApi2['default'].VALIDATE_CLIENT_ID, {
-                clientId: id
-            }, function (error, status) {
-                if (error) {
-                    return _app2['default'].alertError(error.message);
-                }
-
-                _this.clientIdValidity = status ? _modelsValidation2['default'].SUCCESS : _modelsValidation2['default'].FAILURE;
-            });
+        key: 'clientIdDidValidate',
+        value: function clientIdDidValidate(validation) {
+            this.clientIdValidity = validation;
         }
     }]);
 

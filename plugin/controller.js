@@ -61,6 +61,11 @@
      * @param callback should carry boolean status
      */
     Controller.validateClientId = function (clientId, callback) {
+        //Invalid: empty client id
+        if (!clientId) {
+            return callback(null, false);
+        }
+
         async.waterfall([
             async.apply(twitch.api.getGamesTop, 1, 0, true),
             function (response, next) {

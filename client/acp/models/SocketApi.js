@@ -6,5 +6,5 @@ export default {
     GET_CHANNELS      : 'plugins.ns-twitch-monitor.channelsGet',
     GET_SETTINGS      : 'plugins.ns-twitch-monitor.settingsGet',
     REMOVE_CHANNEL    : 'plugins.ns-twitch-monitor.channelRemove',
-    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.validateClientId'
+    VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.clientIdValidate'
 };

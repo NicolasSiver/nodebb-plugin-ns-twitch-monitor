@@ -11,26 +11,14 @@ import Validation from '../models/Validation';
 class ValidationStore {
     constructor() {
         this.bindListeners({
-            validateClientId: Actions.validateClientId
+            clientIdDidValidate: Actions.clientIdDidValidate
         });
 
         this.clientIdValidity = 0;
     }
 
-    validateClientId(id) {
-        Socket.emit(
-            SocketApi.VALIDATE_CLIENT_ID,
-            {
-                clientId: id
-            },
-            (error, status) => {
-                if (error) {
-                    return App.alertError(error.message);
-                }
-
-                this.clientIdValidity = (status) ? Validation.SUCCESS : Validation.FAILURE;
-            }
-        );
+    clientIdDidValidate(validation) {
+        this.clientIdValidity = validation;
     }
 }
 

@@ -48,6 +48,14 @@ class Actions {
     }
 
     /**
+     * Event: result of client id validation, use Validation enum to find proper state
+     * @param validation
+     */
+    clientIdDidValidate(validation) {
+        this.dispatch(validation);
+    }
+
+    /**
      * Get all channels from the server
      */
     getChannels() {
@@ -67,7 +75,7 @@ class Actions {
      * Event: Latest Settings is available to use
      * @param settings
      */
-    settingsDidUpdate(settings){
+    settingsDidUpdate(settings) {
         this.dispatch(settings);
     }
 
@@ -77,6 +85,7 @@ class Actions {
      */
     validateClientId(id) {
         this.dispatch(id);
+        SocketService.validateClientId(id);
     }
 }
 
