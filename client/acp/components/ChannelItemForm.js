@@ -26,8 +26,8 @@ export default class ChannelItemForm extends React.Component {
         });
     }
 
-    enterDidTrigger(e){
-        if(e.keyCode === KeyCode.ENTER && this.isValid()){
+    enterDidTrigger(e) {
+        if (e.keyCode === KeyCode.ENTER && this.isValid()) {
             this.addChannel();
         }
     }
@@ -52,6 +52,7 @@ export default class ChannelItemForm extends React.Component {
                             type="text"
                             className="form-control input-sm"
                             id="channelName"
+                            ref="channelNameInput"
                             value={this.state.channelName}
                             onChange={this.channelNameDidChange.bind(this)}
                             onKeyDown={this.enterDidTrigger.bind(this)}
@@ -86,6 +87,11 @@ export default class ChannelItemForm extends React.Component {
     }
 
     setExpandedState(state) {
-        this.setState({collapsed: !state});
+        this.setState({collapsed: !state}, () => {
+            let input = React.findDOMNode(this.refs.channelNameInput);
+            if (input) {
+                input.focus();
+            }
+        });
     }
 }

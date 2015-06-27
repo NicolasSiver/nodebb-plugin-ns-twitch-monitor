@@ -347,6 +347,7 @@ var ChannelItemForm = (function (_React$Component) {
                                 type: 'text',
                                 className: 'form-control input-sm',
                                 id: 'channelName',
+                                ref: 'channelNameInput',
                                 value: this.state.channelName,
                                 onChange: this.channelNameDidChange.bind(this),
                                 onKeyDown: this.enterDidTrigger.bind(this),
@@ -393,7 +394,14 @@ var ChannelItemForm = (function (_React$Component) {
     }, {
         key: 'setExpandedState',
         value: function setExpandedState(state) {
-            this.setState({ collapsed: !state });
+            var _this = this;
+
+            this.setState({ collapsed: !state }, function () {
+                var input = _reactAddons2['default'].findDOMNode(_this.refs.channelNameInput);
+                if (input) {
+                    input.focus();
+                }
+            });
         }
     }]);
 
