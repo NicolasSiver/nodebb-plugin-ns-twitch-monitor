@@ -96,7 +96,7 @@
     };
 
     function streamDidUpdate(event) {
-        
+        sockets.emit('streamUpdate', event);
     }
 
     function update() {
