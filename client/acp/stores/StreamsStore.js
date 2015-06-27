@@ -7,7 +7,8 @@ import alt from '../alt';
 class StreamsStore {
     constructor() {
         this.bindListeners({
-            streamDidUpdate: Actions.streamDidUpdate
+            streamDidUpdate    : Actions.streamDidUpdate,
+            streamListDidUpdate: Actions.streamListDidUpdate
         });
 
         this.streams = {};
@@ -19,6 +20,10 @@ class StreamsStore {
         } else {
             this.streams[streamPayload.channel.name] = streamPayload.stream;
         }
+    }
+
+    streamListDidUpdate(list) {
+        this.streams = list;
     }
 }
 

@@ -72,6 +72,14 @@ class Actions {
     }
 
     /**
+     * Get current online streams
+     */
+    getStreams() {
+        this.dispatch();
+        SocketService.getStreams();
+    }
+
+    /**
      * Event: Latest Settings is available to use
      * @param settings
      */
@@ -85,6 +93,14 @@ class Actions {
      */
     streamDidUpdate(streamPayload) {
         this.dispatch(streamPayload);
+    }
+
+    /**
+     * Event: List of the online streams is available
+     * @param streams
+     */
+    streamListDidUpdate(streams) {
+        this.dispatch(streams);
     }
 
     /**

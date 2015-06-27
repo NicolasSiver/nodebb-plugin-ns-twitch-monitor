@@ -110,6 +110,16 @@ var Actions = (function () {
       _serviceSocketService2['default'].getSettings();
     }
   }, {
+    key: 'getStreams',
+
+    /**
+     * Get current online streams
+     */
+    value: function getStreams() {
+      this.dispatch();
+      _serviceSocketService2['default'].getStreams();
+    }
+  }, {
     key: 'settingsDidUpdate',
 
     /**
@@ -128,6 +138,16 @@ var Actions = (function () {
      */
     value: function streamDidUpdate(streamPayload) {
       this.dispatch(streamPayload);
+    }
+  }, {
+    key: 'streamListDidUpdate',
+
+    /**
+     * Event: List of the online streams is available
+     * @param streams
+     */
+    value: function streamListDidUpdate(streams) {
+      this.dispatch(streams);
     }
   }, {
     key: 'subscribe',
@@ -598,6 +618,7 @@ var Channels = (function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             _actionsActions2['default'].getChannels();
+            _actionsActions2['default'].getStreams();
             _actionsActions2['default'].subscribe();
         }
     }, {
@@ -1195,6 +1216,7 @@ exports['default'] = {
     ADD_CHANNEL: 'plugins.ns-twitch-monitor.channelAdd',
     GET_CHANNELS: 'plugins.ns-twitch-monitor.channelsGet',
     GET_SETTINGS: 'plugins.ns-twitch-monitor.settingsGet',
+    GET_STREAMS: 'plugins.ns-twitch-monitor.streamsGet',
     REMOVE_CHANNEL: 'plugins.ns-twitch-monitor.channelRemove',
     STREAM_UPDATE: 'plugins.ns-twitch-monitor.streamUpdate',
     VALIDATE_CLIENT_ID: 'plugins.ns-twitch-monitor.clientIdValidate'
@@ -27229,6 +27251,17 @@ var SocketService = (function () {
             });
         }
     }, {
+        key: 'getStreams',
+        value: function getStreams() {
+            _socket2['default'].emit(_modelsSocketApi2['default'].GET_STREAMS, {}, function (error, streams) {
+                if (error) {
+                    return _app2['default'].alertError(error.message);
+                }
+
+                _actionsActions2['default'].streamListDidUpdate(streams);
+            });
+        }
+    }, {
         key: 'listenForUpdates',
         value: function listenForUpdates() {
             _socket2['default'].on(_modelsSocketApi2['default'].STREAM_UPDATE, function (payload) {
@@ -27417,7 +27450,8 @@ var StreamsStore = (function () {
         _classCallCheck(this, StreamsStore);
 
         this.bindListeners({
-            streamDidUpdate: _actionsActions2['default'].streamDidUpdate
+            streamDidUpdate: _actionsActions2['default'].streamDidUpdate,
+            streamListDidUpdate: _actionsActions2['default'].streamListDidUpdate
         });
 
         this.streams = {};
@@ -27431,6 +27465,11 @@ var StreamsStore = (function () {
             } else {
                 this.streams[streamPayload.channel.name] = streamPayload.stream;
             }
+        }
+    }, {
+        key: 'streamListDidUpdate',
+        value: function streamListDidUpdate(list) {
+            this.streams = list;
         }
     }]);
 

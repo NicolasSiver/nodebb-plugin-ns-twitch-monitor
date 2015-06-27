@@ -14,6 +14,7 @@ export default class Channels extends React.Component {
 
     componentDidMount() {
         Actions.getChannels();
+        Actions.getStreams();
         Actions.subscribe();
     }
 

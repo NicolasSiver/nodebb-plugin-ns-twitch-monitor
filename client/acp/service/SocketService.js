@@ -52,6 +52,20 @@ export default class SocketService {
         );
     }
 
+    static getStreams() {
+        Socket.emit(
+            SocketApi.GET_STREAMS,
+            {},
+            (error, streams) => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.streamListDidUpdate(streams);
+            }
+        );
+    }
+
     static listenForUpdates() {
         Socket.on(
             SocketApi.STREAM_UPDATE,
