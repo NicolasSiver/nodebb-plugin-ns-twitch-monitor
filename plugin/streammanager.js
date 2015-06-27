@@ -9,6 +9,7 @@
 
         database   = require('./database'),
         logger     = require('./logger'),
+        sockets    = require('./sockets'),
         streamList = require('./model/streamlist'),
         twitch     = require('./twitch');
 
@@ -39,6 +40,7 @@
 
             _channels = channels;
             _streams = streamList.create(channels);
+            _streams.on(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
 
             if (autoStart) {
                 StreamManager.start(callback);
@@ -59,6 +61,9 @@
         clearTimeout(_deferUpdate);
         _deferUpdate = null;
         _channels = null;
+        if (_streams != null) {
+            _streams.removeListener(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
+        }
         _streams = null;
     }
 
@@ -89,6 +94,10 @@
         }
         callback();
     };
+
+    function streamDidUpdate(event) {
+        
+    }
 
     function update() {
         logger.log('verbose', 'Update is triggered');

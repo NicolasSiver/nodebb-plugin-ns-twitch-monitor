@@ -13,9 +13,10 @@
         settings   = require('./settings'),
         twitch     = require('./twitch');
 
-    var sockets = nodebb.pluginSockets,
-        nconf   = nodebb.nconf,
-        user    = nodebb.user;
+    var sockets       = nodebb.pluginSockets,
+        serverSockets = nodebb.serverSockets,
+        nconf         = nodebb.nconf,
+        user          = nodebb.user;
 
     Sockets.init = function (callback) {
         sockets[constants.SOCKETS] = {};
@@ -44,6 +45,10 @@
 
     Sockets.clientIdValidate = function (socket, payload, callback) {
         controller.validateClientId(payload.clientId, callback);
+    };
+
+    Sockets.emit = function (eventName, payload) {
+        serverSockets.emit('plugins.' + constants.SOCKETS + '.' + eventName, payload);
     };
 
     Sockets.saveSettings = function (socket, payload, callback) {
