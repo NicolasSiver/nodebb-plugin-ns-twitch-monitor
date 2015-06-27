@@ -1,10 +1,10 @@
 /**
  * Created by Nicolas on 6/20/15.
  */
-import React from 'react';
-import ChannelsList from './ChannelsList';
-import ChannelItemForm from './ChannelItemForm';
 import Actions from '../actions/Actions';
+import ChannelItemForm from './ChannelItemForm';
+import ChannelsList from './ChannelsList';
+import React from 'react';
 
 export default class Channels extends React.Component {
     constructor(props) {

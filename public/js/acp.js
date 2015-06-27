@@ -493,21 +493,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-var _react = require('react');
+var _actionsActions = require('../actions/Actions');
 
-var _react2 = _interopRequireDefault(_react);
-
-var _ChannelsList = require('./ChannelsList');
-
-var _ChannelsList2 = _interopRequireDefault(_ChannelsList);
+var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
 var _ChannelItemForm = require('./ChannelItemForm');
 
 var _ChannelItemForm2 = _interopRequireDefault(_ChannelItemForm);
 
-var _actionsActions = require('../actions/Actions');
+var _ChannelsList = require('./ChannelsList');
 
-var _actionsActions2 = _interopRequireDefault(_actionsActions);
+var _ChannelsList2 = _interopRequireDefault(_ChannelsList);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 var Channels = (function (_React$Component) {
     function Channels(props) {
@@ -572,21 +572,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-var _react = require('react');
+var _ChannelItemView = require('./ChannelItemView');
 
-var _react2 = _interopRequireDefault(_react);
-
-var _altUtilsConnectToStores = require('alt/utils/connectToStores');
-
-var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
+var _ChannelItemView2 = _interopRequireDefault(_ChannelItemView);
 
 var _storesChannelsStore = require('../stores/ChannelsStore');
 
 var _storesChannelsStore2 = _interopRequireDefault(_storesChannelsStore);
 
-var _ChannelItemView = require('./ChannelItemView');
+var _altUtilsConnectToStores = require('alt/utils/connectToStores');
 
-var _ChannelItemView2 = _interopRequireDefault(_ChannelItemView);
+var _altUtilsConnectToStores2 = _interopRequireDefault(_altUtilsConnectToStores);
+
+var _reactAddons = require('react/addons');
+
+var _reactAddons2 = _interopRequireDefault(_reactAddons);
 
 var ChannelsList = (function (_React$Component) {
     function ChannelsList(props) {
@@ -602,26 +602,31 @@ var ChannelsList = (function (_React$Component) {
         value: function render() {
             var noItems = undefined,
                 list = undefined;
+            var ReactCSSTransitionGroup = _reactAddons2['default'].addons.CSSTransitionGroup;
 
             if (this.props.channels.length) {
-                list = _react2['default'].createElement(
+                list = _reactAddons2['default'].createElement(
                     'ul',
                     { className: 'channels-list' },
-                    this.props.channels.map(function (channel, index) {
-                        return _react2['default'].createElement(_ChannelItemView2['default'], {
-                            key: channel.cid,
-                            channel: channel });
-                    })
+                    _reactAddons2['default'].createElement(
+                        ReactCSSTransitionGroup,
+                        { transitionName: 'alpha' },
+                        this.props.channels.map(function (channel, index) {
+                            return _reactAddons2['default'].createElement(_ChannelItemView2['default'], {
+                                key: channel.cid,
+                                channel: channel });
+                        })
+                    )
                 );
             } else {
-                noItems = _react2['default'].createElement(
+                noItems = _reactAddons2['default'].createElement(
                     'div',
                     { className: 'alert alert-warning', role: 'alert' },
                     'There is no channels. Let\'s add some?'
                 );
             }
 
-            return _react2['default'].createElement(
+            return _reactAddons2['default'].createElement(
                 'div',
                 { className: 'channels-list-container' },
                 noItems,
@@ -641,12 +646,12 @@ var ChannelsList = (function (_React$Component) {
     }]);
 
     return ChannelsList;
-})(_react2['default'].Component);
+})(_reactAddons2['default'].Component);
 
 exports['default'] = (0, _altUtilsConnectToStores2['default'])(ChannelsList);
 module.exports = exports['default'];
 
-},{"../stores/ChannelsStore":248,"./ChannelItemView":5,"alt/utils/connectToStores":26,"react":246}],8:[function(require,module,exports){
+},{"../stores/ChannelsStore":248,"./ChannelItemView":5,"alt/utils/connectToStores":26,"react/addons":74}],8:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -666,9 +671,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-var _react = require('react');
+var _actionsActions = require('../actions/Actions');
 
-var _react2 = _interopRequireDefault(_react);
+var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
 var _classnames = require('classnames');
 
@@ -678,9 +683,9 @@ var _lodashFunctionDebounce = require('lodash/function/debounce');
 
 var _lodashFunctionDebounce2 = _interopRequireDefault(_lodashFunctionDebounce);
 
-var _actionsActions = require('../actions/Actions');
+var _react = require('react');
 
-var _actionsActions2 = _interopRequireDefault(_actionsActions);
+var _react2 = _interopRequireDefault(_react);
 
 var _modelsValidation = require('../models/Validation');
 
@@ -722,6 +727,9 @@ var Settings = (function (_React$Component) {
             });
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
         key: 'getInputByFeedback',
         value: function getInputByFeedback(feedback) {
             var hint = _react2['default'].createElement(
@@ -733,7 +741,7 @@ var Settings = (function (_React$Component) {
                     { href: 'http://www.twitch.tv/kraken/oauth2/clients/new', target: '_blank' },
                     'register Twitch Application'
                 ),
-                ' to get client id. Please review ',
+                ' to get client id. Please review',
                 _react2['default'].createElement(
                     'a',
                     { href: 'http://www.twitch.tv/user/legal?page=api_terms_of_service', target: '_blank' },

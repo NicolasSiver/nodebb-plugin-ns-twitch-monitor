@@ -86,3 +86,12 @@
     opacity: 1;
   }
 }
+
+.alpha-leave {
+  opacity: 1;
+  transition: opacity @tm-anim-alpha ease-in-out;
+
+  &.alpha-leave-active {
+    opacity: 0.01;
+  }
+}

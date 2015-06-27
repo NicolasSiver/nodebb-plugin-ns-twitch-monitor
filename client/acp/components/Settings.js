@@ -1,10 +1,10 @@
 /**
  * Created by Nicolas on 6/20/15.
  */
-import React from 'react';
+import Actions from '../actions/Actions';
 import classNames from 'classnames';
 import debounce from 'lodash/function/debounce';
-import Actions from '../actions/Actions';
+import React from 'react';
 import Validation from '../models/Validation';
 import ValidationStore from '../stores/ValidationStore';
 
@@ -31,8 +31,15 @@ export default class Settings extends React.Component {
         });
     }
 
+    componentDidMount() {
+
+    }
+
     getInputByFeedback(feedback) {
-        const hint = <small>Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register Twitch Application</a> to get client id. Please review <a href="http://www.twitch.tv/user/legal?page=api_terms_of_service" target="_blank">Terms of Service</a> for the Twitch API.</small>;
+        const hint = <small>Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register
+            Twitch Application</a> to get client id. Please review
+            <a href="http://www.twitch.tv/user/legal?page=api_terms_of_service" target="_blank">Terms of Service</a> for
+            the Twitch API.</small>;
         const groupClass = classNames({
             'form-group' : true,
             'has-success': feedback === Validation.SUCCESS,

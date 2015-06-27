@@ -65,3 +65,10 @@
 .alpha-enter.alpha-enter-active {
   opacity: 1;
 }
+.alpha-leave {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+.alpha-leave.alpha-leave-active {
+  opacity: 0.01;
+}
