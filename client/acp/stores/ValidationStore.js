@@ -14,9 +14,7 @@ class ValidationStore {
             validateClientId: Actions.validateClientId
         });
 
-        this.state = {
-            clientIdValidity: 0
-        };
+        this.clientIdValidity = 0;
     }
 
     validateClientId(id) {
@@ -30,9 +28,7 @@ class ValidationStore {
                     return App.alertError(error.message);
                 }
 
-                this.setState({
-                    clientIdValidity: (status) ? Validation.SUCCESS : Validation.FAILURE
-                });
+                this.clientIdValidity = (status) ? Validation.SUCCESS : Validation.FAILURE;
             }
         );
     }

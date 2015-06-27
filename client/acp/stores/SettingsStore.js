@@ -10,11 +10,11 @@ class SettingsStore {
             settingsDidUpdate: Actions.settingsDidUpdate
         });
 
-        this.settings = {};
+        this.data = {};
     }
 
     settingsDidUpdate(settingsData) {
-        this.settings = settingsData;
+        this.data = settingsData;
     }
 }
 
