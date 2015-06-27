@@ -3,6 +3,7 @@
  */
 import Actions from '../actions/Actions';
 import ChannelItemForm from './ChannelItemForm';
+import ChannelsHeader from './ChannelsHeader';
 import ChannelsList from './ChannelsList';
 import React from 'react';
 
@@ -11,7 +12,7 @@ export default class Channels extends React.Component {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         Actions.getChannels();
     }
 
@@ -21,6 +22,7 @@ export default class Channels extends React.Component {
                 <div className="panel-heading"><i className="fa fa-twitch"></i> Twitch Monitor</div>
                 <div className="panel-body">
                     <ChannelItemForm />
+                    <ChannelsHeader />
                     <ChannelsList />
                     <ChannelItemForm />
                 </div>
