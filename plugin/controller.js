@@ -19,6 +19,7 @@
                     database.createChannel({
                         mature      : response.body.mature,
                         display_name: response.body.display_name,
+                        name        : response.body.name,
                         game        : response.body.game,
                         logo        : response.body.logo,
                         url         : response.body.url,
