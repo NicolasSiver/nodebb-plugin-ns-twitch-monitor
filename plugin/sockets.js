@@ -1,7 +1,7 @@
 /**
  * Created by Nicolas on 6/21/15.
  */
-(function (Module) {
+(function (Sockets) {
     'use strict';
 
     var async      = require('async'),
@@ -17,40 +17,40 @@
         nconf   = nodebb.nconf,
         user    = nodebb.user;
 
-    Module.init = function (callback) {
+    Sockets.init = function (callback) {
         sockets[constants.SOCKETS] = {};
         //Acknowledgements
-        sockets[constants.SOCKETS].channelAdd = Module.channelAdd;
-        sockets[constants.SOCKETS].channelsGet = Module.channelsGet;
-        sockets[constants.SOCKETS].channelRemove = Module.channelRemove;
-        sockets[constants.SOCKETS].settingsGet = Module.settingsGet;
-        sockets[constants.SOCKETS].saveSettings = Module.saveSettings;
-        sockets[constants.SOCKETS].clientIdValidate = Module.clientIdValidate;
+        sockets[constants.SOCKETS].channelAdd = Sockets.channelAdd;
+        sockets[constants.SOCKETS].channelsGet = Sockets.channelsGet;
+        sockets[constants.SOCKETS].channelRemove = Sockets.channelRemove;
+        sockets[constants.SOCKETS].settingsGet = Sockets.settingsGet;
+        sockets[constants.SOCKETS].saveSettings = Sockets.saveSettings;
+        sockets[constants.SOCKETS].clientIdValidate = Sockets.clientIdValidate;
 
         callback();
     };
 
-    Module.channelAdd = function (socket, payload, callback) {
+    Sockets.channelAdd = function (socket, payload, callback) {
         controller.addChannel(payload.name, callback);
     };
 
-    Module.channelsGet = function (socket, payload, callback) {
+    Sockets.channelsGet = function (socket, payload, callback) {
         controller.getAllChannels(callback);
     };
 
-    Module.channelRemove = function (socket, payload, callback) {
+    Sockets.channelRemove = function (socket, payload, callback) {
         controller.removeChannel(payload.cid, callback);
     };
 
-    Module.clientIdValidate = function (socket, payload, callback) {
+    Sockets.clientIdValidate = function (socket, payload, callback) {
         controller.validateClientId(payload.clientId, callback);
     };
 
-    Module.saveSettings = function (socket, payload, callback) {
+    Sockets.saveSettings = function (socket, payload, callback) {
         settings.save(payload.settings, callback);
     };
 
-    Module.settingsGet = function (socket, payload, callback) {
+    Sockets.settingsGet = function (socket, payload, callback) {
         settings.get(callback);
     };
 
