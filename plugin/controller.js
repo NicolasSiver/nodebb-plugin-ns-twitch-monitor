@@ -91,7 +91,12 @@
     };
 
     Controller.start = function (callback) {
-        streamManager.initWidthDelay(30000, true, callback);
+        async.waterfall([
+            async.apply(settings.get),
+            function(settingsData, next){
+                streamManager.initWidthDelay(settingsData.updateTime, true, next);
+            }
+        ], callback);
     };
 
 })(module.exports);
