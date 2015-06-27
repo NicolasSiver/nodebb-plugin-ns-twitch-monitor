@@ -11,7 +11,9 @@
 
     //Memory cache
     var settingsCache = null,
-        defaults      = {};
+        defaults      = {
+            updateTime: 30000
+        };
 
     Settings.init = function (done) {
         meta.settings.get(constants.NAMESPACE, function (error, settings) {

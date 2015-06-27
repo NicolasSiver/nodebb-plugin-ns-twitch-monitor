@@ -1031,11 +1031,30 @@ var Settings = (function (_React$Component) {
                     ' Please wait...'
                 );
             } else {
-                content = _react2['default'].createElement(_ClientIdForm2['default'], {
-                    debounceDelay: '500',
-                    value: this.props.settings.data.clientId,
-                    valid: this.props.validity.clientIdValidity,
-                    valueDidChange: this.clientValueDidChange.bind(this) });
+                content = _react2['default'].createElement(
+                    'div',
+                    null,
+                    _react2['default'].createElement(_ClientIdForm2['default'], {
+                        debounceDelay: '500',
+                        value: this.props.settings.data.clientId,
+                        valid: this.props.validity.clientIdValidity,
+                        valueDidChange: this.clientValueDidChange.bind(this) }),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2['default'].createElement(
+                            'label',
+                            { className: 'control-label', htmlFor: 'updateTime' },
+                            'Update every'
+                        ),
+                        _react2['default'].createElement(
+                            'div',
+                            { id: 'updateTime' },
+                            this.props.settings.data.updateTime / 1000 | 0,
+                            ' sec'
+                        )
+                    )
+                );
             }
 
             return _react2['default'].createElement(
