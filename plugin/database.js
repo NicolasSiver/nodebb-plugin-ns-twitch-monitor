@@ -36,6 +36,17 @@
         ], done);
     };
 
+    Database.deleteChannel = function (cid, done) {
+        async.parallel([
+            async.apply(db.delete, constants.NAMESPACE + ':channel:' + cid),
+            async.apply(db.sortedSetRemove, constants.NAMESPACE + ':channel', cid)
+        ], done);
+    };
+
+    Database.getChannel = function (cid, done) {
+        db.getObject(constants.NAMESPACE + ':channel:' + cid, done);
+    };
+
     Database.getChannels = function (done) {
         async.waterfall([
             async.apply(db.getSortedSetRange, constants.NAMESPACE + ':channel', 0, -1),

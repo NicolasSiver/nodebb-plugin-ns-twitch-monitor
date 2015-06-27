@@ -45,6 +45,26 @@
         database.getChannels(callback);
     };
 
+    Controller.removeChannel = function (cid, callback) {
+        async.waterfall([
+            async.apply(database.getChannel(cid)),
+            function (channel, next) {
+                if (channel == null) {
+                    return next(new Error('Something went wrong, can not delete channel'));
+                }
+                database.deleteChannel(cid, next);
+            },
+            function (next) {
+                next(null, cid);
+            }
+        ], function (error, result) {
+            if (error) {
+                return callback(error);
+            }
+            callback(null, result);
+        });
+    };
+
     /**
      * Validates client id as requested by Twitch, and saves it, if everything is Ok
      * @param clientId twitch application client id

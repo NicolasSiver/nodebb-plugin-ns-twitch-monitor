@@ -22,6 +22,7 @@
         //Acknowledgements
         sockets[constants.SOCKETS].channelAdd = Module.channelAdd;
         sockets[constants.SOCKETS].channelsGet = Module.channelsGet;
+        sockets[constants.SOCKETS].channelRemove = Module.channelRemove;
         sockets[constants.SOCKETS].getSettings = Module.getSettings;
         sockets[constants.SOCKETS].saveSettings = Module.saveSettings;
         sockets[constants.SOCKETS].validateClientId = Module.validateClientId;
@@ -35,6 +36,10 @@
 
     Module.channelsGet = function (socket, payload, callback) {
         controller.getAllChannels(callback);
+    };
+
+    Module.channelRemove = function (socket, payload, callback) {
+        controller.removeChannel(payload.cid, callback);
     };
 
     Module.getSettings = function (socket, payload, callback) {
