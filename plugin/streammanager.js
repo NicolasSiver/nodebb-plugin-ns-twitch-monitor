@@ -38,7 +38,7 @@
             }
 
             _channels = channels;
-            _streams = streamList.init(channels);
+            _streams = streamList.create(channels);
 
             if (autoStart) {
                 StreamManager.start(callback);
