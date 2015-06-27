@@ -59,4 +59,8 @@
         createRequest('channels/' + channelName, null, false, callback);
     };
 
+    Api.getStreams = function (channels, callback) {
+        createRequest('streams', {channel: channels.join(','), limit: 100}, false, callback);
+    };
+
 })(module.exports);
