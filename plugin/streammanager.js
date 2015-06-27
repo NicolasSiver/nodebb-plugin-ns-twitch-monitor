@@ -69,7 +69,8 @@
                 //Fail silently, don't rewrite previous stream status
                 logger.log('error', 'Error has occurred, message: %s', error.message);
             } else {
-                _streams.update(response.streams);
+                console.log(response);
+                _streams.update(response.body.streams);
             }
             _deferUpdate = deferNextUpdate(_delay);
         });
@@ -85,7 +86,7 @@
         if (_channels && _channels.length >= 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _active = true;
-            fetchStreams(_channels);
+            _deferUpdate = deferNextUpdate(_delay);
         }
         callback();
     };

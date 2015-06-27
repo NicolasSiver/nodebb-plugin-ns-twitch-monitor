@@ -86,7 +86,7 @@
     };
 
     Controller.start = function (callback) {
-        streamManager.initWidthDelay(10000, false, callback);
+        //streamManager.initWidthDelay(4000, true, callback);
     };
 
 })(module.exports);
