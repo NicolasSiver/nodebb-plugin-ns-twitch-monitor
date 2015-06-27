@@ -911,7 +911,7 @@ var ClientIdForm = (function (_React$Component) {
                     { href: 'http://www.twitch.tv/kraken/oauth2/clients/new', target: '_blank' },
                     'register Twitch Application'
                 ),
-                ' to get client id. Please review',
+                ' to get client id. Please review ',
                 _react2['default'].createElement(
                     'a',
                     { href: 'http://www.twitch.tv/user/legal?page=api_terms_of_service', target: '_blank' },
