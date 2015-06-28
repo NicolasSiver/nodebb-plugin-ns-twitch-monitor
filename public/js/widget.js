@@ -609,6 +609,11 @@
 	        value: function getView() {
 	            return this.$view;
 	        }
+	    }, {
+	        key: 'update',
+	        value: function update(streamPayload) {
+	            this.preview.update(streamPayload);
+	        }
 	    }]);
 
 	    return PlayerView;
@@ -660,7 +665,10 @@
 	    }, {
 	        key: 'update',
 	        value: function update(payload) {
-	            this.$thumb.attr('src', payload.stream.preview.medium);
+	            var thumbMedium = payload.stream.preview.medium;
+	            if (this.$thumb.attr('src') !== thumbMedium) {
+	                this.$thumb.attr('src', thumbMedium);
+	            }
 	        }
 	    }]);
 
@@ -733,10 +741,18 @@
 	        }
 	    }, {
 	        key: 'remove',
-	        value: function remove(channelName, streamPayload) {}
+	        value: function remove(channelName, streamPayload) {
+	            if (this.hasStream(channelName)) {
+	                var widget = this.children[channelName];
+	                widget.getView().remove();
+	                delete this.children[channelName];
+	            }
+	        }
 	    }, {
 	        key: 'update',
-	        value: function update(channelName, streamPayload) {}
+	        value: function update(channelName, streamPayload) {
+	            this.children[channelName].update(streamPayload);
+	        }
 	    }]);
 
 	    return FlexLayout;

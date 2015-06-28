@@ -10,3 +10,4 @@ Monitors specific channels and adds them to widget view
 - Core: use stream pagination
 - Core: smart list update - merge online/offline states, etc
 - Core: batch stream status updates
+- Widget: create cross-fade thumbnail upadte

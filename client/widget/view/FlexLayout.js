@@ -35,10 +35,14 @@ export default class FlexLayout {
     }
 
     remove(channelName, streamPayload) {
-
+        if (this.hasStream(channelName)) {
+            const widget = this.children[channelName];
+            widget.getView().remove();
+            delete this.children[channelName];
+        }
     }
 
     update(channelName, streamPayload) {
-
+        this.children[channelName].update(streamPayload);
     }
 }

@@ -25,4 +25,8 @@ export default class PlayerView {
     getView() {
         return this.$view;
     }
+
+    update(streamPayload) {
+        this.preview.update(streamPayload);
+    }
 }
