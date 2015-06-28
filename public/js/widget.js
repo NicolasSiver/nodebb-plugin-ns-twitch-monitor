@@ -751,6 +751,10 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _StreamPreviewView = __webpack_require__(13);
+
+	var _StreamPreviewView2 = _interopRequireDefault(_StreamPreviewView);
+
 	var PlayerView = (function () {
 	    function PlayerView(name, streamPayload) {
 	        _classCallCheck(this, PlayerView);
@@ -758,9 +762,17 @@
 	        this.name = name;
 	        this.payload = streamPayload;
 	        this.$view = (0, _jquery2['default'])('<div></div>');
+	        this.draw();
 	    }
 
 	    _createClass(PlayerView, [{
+	        key: 'draw',
+	        value: function draw() {
+	            this.preview = new _StreamPreviewView2['default'](this.payload);
+
+	            this.$view.append(this.preview.getView());
+	        }
+	    }, {
 	        key: 'getName',
 	        value: function getName() {
 	            return this.name;
@@ -776,6 +788,59 @@
 	})();
 
 	exports['default'] = PlayerView;
+	module.exports = exports['default'];
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var StreamPreviewView = (function () {
+	    function StreamPreviewView(streamPayload) {
+	        _classCallCheck(this, StreamPreviewView);
+
+	        this.$view = (0, _jquery2['default'])('<div></div>');
+	        this.$thumb = (0, _jquery2['default'])('<img />');
+
+	        this.$view.append(this.$thumb);
+
+	        update(streamPayload);
+	    }
+
+	    _createClass(StreamPreviewView, [{
+	        key: 'getView',
+	        value: function getView() {
+	            return this.$view;
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(payload) {
+	            this.$thumb.attr('src', payload.preview.medium);
+	        }
+	    }]);
+
+	    return StreamPreviewView;
+	})();
+
+	exports['default'] = StreamPreviewView;
 	module.exports = exports['default'];
 
 /***/ }
