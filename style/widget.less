@@ -1,0 +1,27 @@
+@import 'vars';
+
+.widget-twitch-monitor {
+
+}
+
+.twitch-monitor-container {
+  display: flex;
+
+  &.layout-row {
+    flex-direction: row;
+    padding: 0 @tm-padding-xs;
+
+    .twitch-monitor-player {
+      margin: 0 @tm-margin-xs;
+    }
+  }
+
+  &.layout-vertical {
+    flex-direction: column;
+    padding: @tm-padding-xs 0;
+
+    .twitch-monitor-player {
+      margin: @tm-margin-xs 0;
+    }
+  }
+}

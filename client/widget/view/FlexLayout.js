@@ -4,9 +4,15 @@
 import $ from 'jquery';
 import PlayerView from './PlayerView';
 
-export default class BaseView {
-    constructor(selector) {
-        this.$container = $(selector);
+export default class FlexLayout {
+    constructor(direction, selector) {
+        this.$root = $(selector);
+        this.$container = $('<div></div>')
+            .addClass('twitch-monitor-container')
+            .addClass((direction === 'vertical') ? 'layout-vertical' : 'layout-row');
+
+        this.$root.append(this.$container);
+
         this.children = {};
     }
 

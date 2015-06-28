@@ -8,7 +8,7 @@ export default class PlayerView {
     constructor(name, streamPayload) {
         this.name = name;
         this.payload = streamPayload;
-        this.$view = $('<div></div>');
+        this.$view = $('<div></div>').addClass('twitch-monitor-player');
         this.draw();
     }
 

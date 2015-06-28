@@ -23,6 +23,7 @@
     }
   ],
   "less": [
+    "style/widget.less"
   ],
   "scripts": [
     "public/js/widget.js"
