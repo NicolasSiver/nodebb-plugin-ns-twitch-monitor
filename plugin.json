@@ -14,6 +14,10 @@
       "method": "hooks.filters.widgetsGet"
     },
     {
+      "hook": "filter:widget.render:ns_twitch_monitor",
+      "method": "hooks.filters.widgetRender"
+    },
+    {
       "hook": "static:app.load",
       "method": "hooks.statics.appLoad"
     }

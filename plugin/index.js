@@ -13,13 +13,10 @@
         settings   = require('./settings'),
         sockets    = require('./sockets');
 
-    var widgetTemplate = null;
-
-    function renderAdminPage(req, res, next) {
-        res.render(
-            'admin/plugins/twitch-monitor', {}
-        );
-    }
+    var app             = null,
+        widgetTemplates = {},
+        TEMPLATE_ADMIN  = 'admin/widgets/widget.tpl',
+        TEMPLATE_WIDGET = 'widgets/twitch-monitor.tpl';
 
     Plugin.hooks = {
         filters: {
@@ -37,10 +34,14 @@
                     name       : 'Twitch Monitor',
                     widget     : constants.WIDGET,
                     description: 'Renders online Twitch streams in real time',
-                    content    : widgetTemplate
+                    content    : widgetTemplates[TEMPLATE_ADMIN]
                 });
 
                 callback(null, widgets);
+            },
+
+            widgetRender: function (widget, callback) {
+
             }
         },
         statics: {
@@ -49,23 +50,16 @@
                     middleware  = params.middleware,
                     controllers = params.controllers,
                     pluginUri   = '/admin/plugins/twitch-monitor',
-                    apiUri      = '/api' + pluginUri;
+                    apiUri      = '/api' + pluginUri,
+                    templates   = [TEMPLATE_ADMIN, TEMPLATE_WIDGET];
+
+                app = params.app;
 
                 router.get(pluginUri, middleware.admin.buildHeader, renderAdminPage);
                 router.get(apiUri, renderAdminPage);
 
                 async.series([
-                    function (next) {
-                        fs.readFile(path.resolve(__dirname, '../public', 'templates/admin/widgets', 'widget.tpl'), function (error, content) {
-                            if (error) {
-                                logger.log('error', 'Template Error has occurred, message: %s', error.message);
-                                return next(error);
-                            }
-                            widgetTemplate = content.toString();
-                            logger.log('verbose', 'Widget Template is loaded');
-                            next(null);
-                        });
-                    },
+                    async.apply(async.each, templates, loadTemplate),
                     async.apply(settings.init),
                     async.apply(sockets.init),
                     async.apply(controller.start)
@@ -73,5 +67,23 @@
             }
         }
     };
+
+    function loadTemplate(templatePath, done) {
+        fs.readFile(path.resolve(__dirname, '../public/templates', templatePath), function (error, content) {
+            if (error) {
+                logger.log('error', 'Template Error has occurred, message: %s', error.message);
+                return done(error);
+            }
+            widgetTemplates[templatePath] = content.toString();
+            logger.log('verbose', 'Widget Template %s is loaded', templatePath);
+            done(null);
+        });
+    }
+
+    function renderAdminPage(req, res, next) {
+        res.render(
+            'admin/plugins/twitch-monitor', {}
+        );
+    }
 
 })(module.exports);
