@@ -14,6 +14,12 @@ export default class TwitchMonitor {
         this.socketService.on(Event.STREAM_DID_UPDATE, this.streamDidUpdate);
     }
 
+    /**
+     * Creates proper view for requested layout
+     * @param layout
+     * @param selector
+     * @returns {BaseView}
+     */
     createView(layout, selector) {
         let view = null;
 
@@ -30,16 +36,17 @@ export default class TwitchMonitor {
     disposeIfNeeded() {
         if (this.viewController) {
             console.warn('Twitch Monitor is disposed');
+            this.viewController.dispose();
+            this.viewController = null;
         }
     }
 
     init(limit, layoutDirection, containerSelector) {
         this.disposeIfNeeded();
-
-        this.viewController = new ViewController(this.createView(layoutDirection, containerSelector).setLimit(limit));
+        this.viewController = new ViewController(this.createView(layoutDirection, containerSelector), limit);
     }
 
     streamDidUpdate(streamPayload) {
-
+        this.viewController.updateStream(streamPayload);
     }
 }

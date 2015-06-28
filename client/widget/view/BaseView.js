@@ -3,4 +3,15 @@
  */
 export default class BaseView {
 
+    add(channelName, streamPayload) {
+
+    }
+
+    remove(channelName, streamPayload) {
+
+    }
+
+    update(channelName, streamPayload) {
+
+    }
 }

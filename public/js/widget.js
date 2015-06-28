@@ -114,6 +114,13 @@
 
 	    _createClass(TwitchMonitor, [{
 	        key: 'createView',
+
+	        /**
+	         * Creates proper view for requested layout
+	         * @param layout
+	         * @param selector
+	         * @returns {BaseView}
+	         */
 	        value: function createView(layout, selector) {
 	            var view = null;
 
@@ -131,18 +138,21 @@
 	        value: function disposeIfNeeded() {
 	            if (this.viewController) {
 	                console.warn('Twitch Monitor is disposed');
+	                this.viewController.dispose();
+	                this.viewController = null;
 	            }
 	        }
 	    }, {
 	        key: 'init',
 	        value: function init(limit, layoutDirection, containerSelector) {
 	            this.disposeIfNeeded();
-
-	            this.viewController = new _controllerViewController2['default'](this.createView(layoutDirection, containerSelector).setLimit(limit));
+	            this.viewController = new _controllerViewController2['default'](this.createView(layoutDirection, containerSelector), limit);
 	        }
 	    }, {
 	        key: 'streamDidUpdate',
-	        value: function streamDidUpdate(streamPayload) {}
+	        value: function streamDidUpdate(streamPayload) {
+	            this.viewController.updateStream(streamPayload);
+	        }
 	    }]);
 
 	    return TwitchMonitor;
@@ -565,14 +575,31 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var BaseView = function BaseView() {
-	  _classCallCheck(this, BaseView);
-	};
+	var BaseView = (function () {
+	    function BaseView() {
+	        _classCallCheck(this, BaseView);
+	    }
+
+	    _createClass(BaseView, [{
+	        key: "add",
+	        value: function add(channelName, streamPayload) {}
+	    }, {
+	        key: "remove",
+	        value: function remove(channelName, streamPayload) {}
+	    }, {
+	        key: "update",
+	        value: function update(channelName, streamPayload) {}
+	    }]);
+
+	    return BaseView;
+	})();
 
 	exports["default"] = BaseView;
 	module.exports = exports["default"];
@@ -625,22 +652,49 @@
 	 * Created by Nicolas on 6/28/15.
 	 */
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var ViewController = function ViewController(view) {
-	    _classCallCheck(this, ViewController);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	    this.view = view;
-	};
+	var ViewController = (function () {
+	    function ViewController(view, limit) {
+	        _classCallCheck(this, ViewController);
 
-	exports["default"] = ViewController;
-	module.exports = exports["default"];
+	        this.view = view;
+	        this.limit = limit;
+	    }
+
+	    _createClass(ViewController, [{
+	        key: 'dispose',
+	        value: function dispose() {}
+	    }, {
+	        key: 'updateStream',
+	        value: function updateStream(streamPayload) {
+	            var channelName = streamPayload.channel.name;
+
+	            if (streamPayload.status === 'offline') {
+	                this.view.remove(channelName, streamPayload);
+	            } else {
+	                if (this.view.hasStream(channelName)) {
+	                    this.view.update(channelName, streamPayload);
+	                } else if (!this.view.hasStream(channelName) && this.view.getStreamCount() < this.limit) {
+	                    this.view.add(channelName, streamPayload);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return ViewController;
+	})();
+
+	exports['default'] = ViewController;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
