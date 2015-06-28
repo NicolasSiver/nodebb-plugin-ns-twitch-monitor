@@ -1,0 +1,26 @@
+{
+  "name": "widget",
+  "version": "1.0.0",
+  "description": "NodeBB dynamic widget. Client side of streams monitoring.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --progress --colors --watch",
+    "build": "webpack --optimize-minimize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "widget",
+    "twitch",
+    "stream",
+    "rt",
+    "player"
+  ],
+  "author": "Nicolas Siver",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.2.2",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.0"
+  }
+}

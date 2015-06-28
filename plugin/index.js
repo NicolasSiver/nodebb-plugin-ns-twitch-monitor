@@ -6,6 +6,7 @@
 
     var async      = require('async'),
         fs         = require('fs'),
+        path       = require('path'),
 
         constants  = require('./constants'),
         controller = require('./controller'),
@@ -41,7 +42,10 @@
             },
 
             widgetRender: function (widget, callback) {
+                var limit  = widget.data.numStreams || 3,
+                    layout = widget.data.layoutDirection || 'vertical';
 
+                callback(null, widgetTemplates[TEMPLATE_WIDGET]);
             }
         },
         statics: {
