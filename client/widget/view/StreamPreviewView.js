@@ -10,7 +10,7 @@ export default class StreamPreviewView {
 
         this.$view.append(this.$thumb);
 
-        update(streamPayload);
+        this.update(streamPayload);
     }
 
     getView() {
@@ -18,6 +18,6 @@ export default class StreamPreviewView {
     }
 
     update(payload) {
-        this.$thumb.attr('src', payload.preview.medium);
+        this.$thumb.attr('src', payload.stream.preview.medium);
     }
 }

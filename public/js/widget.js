@@ -109,7 +109,7 @@
 	        _classCallCheck(this, TwitchMonitor);
 
 	        this.socketService = new _serviceSocketService2['default']();
-	        this.socketService.on(_eventsEvent2['default'].STREAM_DID_UPDATE, this.streamDidUpdate);
+	        this.socketService.on(_eventsEvent2['default'].STREAM_DID_UPDATE, this.streamDidUpdate.bind(this));
 	    }
 
 	    _createClass(TwitchMonitor, [{
@@ -822,7 +822,7 @@
 
 	        this.$view.append(this.$thumb);
 
-	        update(streamPayload);
+	        this.update(streamPayload);
 	    }
 
 	    _createClass(StreamPreviewView, [{
@@ -833,7 +833,7 @@
 	    }, {
 	        key: 'update',
 	        value: function update(payload) {
-	            this.$thumb.attr('src', payload.preview.medium);
+	            this.$thumb.attr('src', payload.stream.preview.medium);
 	        }
 	    }]);
 

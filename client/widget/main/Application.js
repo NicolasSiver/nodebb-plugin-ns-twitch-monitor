@@ -11,7 +11,7 @@ import ViewController from '../controller/ViewController';
 export default class TwitchMonitor {
     constructor() {
         this.socketService = new SocketService();
-        this.socketService.on(Event.STREAM_DID_UPDATE, this.streamDidUpdate);
+        this.socketService.on(Event.STREAM_DID_UPDATE, this.streamDidUpdate.bind(this));
     }
 
     /**
