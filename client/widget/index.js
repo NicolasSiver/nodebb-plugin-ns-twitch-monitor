@@ -4,7 +4,7 @@
 import Application from './main/Application';
 
 //Register namespace for global objects
-var ns = ns || {};
+window.ns = window.ns || {};
 
 //Bootstrapping main application
-ns.TwitchMonitor = new Application();
+window.ns.TwitchMonitor = new Application();

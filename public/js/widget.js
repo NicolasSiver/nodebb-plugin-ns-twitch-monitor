@@ -56,10 +56,10 @@
 	var _mainApplication2 = _interopRequireDefault(_mainApplication);
 
 	//Register namespace for global objects
-	var ns = ns || {};
+	window.ns = window.ns || {};
 
 	//Bootstrapping main application
-	ns.TwitchMonitor = new _mainApplication2['default']();
+	window.ns.TwitchMonitor = new _mainApplication2['default']();
 
 /***/ },
 /* 1 */
@@ -71,14 +71,27 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var TwitchMonitor = function TwitchMonitor() {
-	  _classCallCheck(this, TwitchMonitor);
-	};
+	var TwitchMonitor = (function () {
+	    function TwitchMonitor() {
+	        _classCallCheck(this, TwitchMonitor);
+	    }
+
+	    _createClass(TwitchMonitor, [{
+	        key: "init",
+	        value: function init(limit, layoutDirection, $container) {
+	            console.log(arguments);
+	        }
+	    }]);
+
+	    return TwitchMonitor;
+	})();
 
 	exports["default"] = TwitchMonitor;
 	module.exports = exports["default"];

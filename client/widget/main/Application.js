@@ -5,4 +5,8 @@ export default class TwitchMonitor {
     constructor() {
 
     }
+
+    init(limit, layoutDirection, $container) {
+        console.log(arguments);
+    }
 }

@@ -45,7 +45,10 @@
                 var limit  = widget.data.numStreams || 3,
                     layout = widget.data.layoutDirection || 'vertical';
 
-                callback(null, widgetTemplates[TEMPLATE_WIDGET]);
+                app.render(TEMPLATE_WIDGET, {
+                    limit  : limit,
+                    layout : layout
+                }, callback);
             }
         },
         statics: {
