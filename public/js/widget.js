@@ -130,6 +130,8 @@
 	    value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -137,6 +139,10 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _eventsEvent = __webpack_require__(7);
+
+	var _eventsEvent2 = _interopRequireDefault(_eventsEvent);
 
 	var _eventemitter3 = __webpack_require__(6);
 
@@ -155,12 +161,21 @@
 	        _classCallCheck(this, SocketService);
 
 	        _get(Object.getPrototypeOf(SocketService.prototype), 'constructor', this).call(this);
-	        _socket2['default'].on(CHANNELS.STREAM_UPDATE, function (payload) {
-	            console.log(payload);
-	        });
+	        this.subscribe();
 	    }
 
 	    _inherits(SocketService, _EventEmitter);
+
+	    _createClass(SocketService, [{
+	        key: 'subscribe',
+	        value: function subscribe() {
+	            var _this = this;
+
+	            _socket2['default'].on(CHANNELS.STREAM_UPDATE, function (payload) {
+	                _this.emit(_eventsEvent2['default'].STREAM_DID_UPDATE, payload);
+	            });
+	        }
+	    }]);
 
 	    return SocketService;
 	})(_eventemitter32['default']);
@@ -441,6 +456,23 @@
 	  module.exports = EventEmitter;
 	}
 
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = {
+	  STREAM_DID_UPDATE: 'streamDidUpdate'
+	};
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
