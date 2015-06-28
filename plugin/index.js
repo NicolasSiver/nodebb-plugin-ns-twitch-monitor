@@ -5,10 +5,15 @@
     'use strict';
 
     var async      = require('async'),
+        fs         = require('fs'),
 
+        constants  = require('./constants'),
         controller = require('./controller'),
+        logger     = require('./logger'),
         settings   = require('./settings'),
         sockets    = require('./sockets');
+
+    var widgetTemplate = null;
 
     function renderAdminPage(req, res, next) {
         res.render(
@@ -25,6 +30,17 @@
                     name : 'Twitch Monitor'
                 });
                 callback(null, header);
+            },
+
+            widgetsGet: function (widgets, callback) {
+                widgets.push({
+                    name       : 'Twitch Monitor',
+                    widget     : constants.WIDGET,
+                    description: 'Renders online Twitch streams in real time',
+                    content    : widgetTemplate
+                });
+
+                callback(null, widgets);
             }
         },
         statics: {
@@ -39,6 +55,17 @@
                 router.get(apiUri, renderAdminPage);
 
                 async.series([
+                    function (next) {
+                        fs.readFile(path.resolve(__dirname, '../public', 'templates/admin/widgets', 'widget.tpl'), function (error, content) {
+                            if (error) {
+                                logger.log('error', 'Template Error has occurred, message: %s', error.message);
+                                return next(error);
+                            }
+                            widgetTemplate = content.toString();
+                            logger.log('verbose', 'Widget Template is loaded');
+                            next(null);
+                        });
+                    },
                     async.apply(settings.init),
                     async.apply(sockets.init),
                     async.apply(controller.start)
