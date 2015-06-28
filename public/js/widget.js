@@ -84,24 +84,65 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _eventsEvent = __webpack_require__(7);
+
+	var _eventsEvent2 = _interopRequireDefault(_eventsEvent);
+
+	var _viewHorizontalView = __webpack_require__(8);
+
+	var _viewHorizontalView2 = _interopRequireDefault(_viewHorizontalView);
+
 	var _serviceSocketService = __webpack_require__(4);
 
 	var _serviceSocketService2 = _interopRequireDefault(_serviceSocketService);
+
+	var _viewVerticalView = __webpack_require__(10);
+
+	var _viewVerticalView2 = _interopRequireDefault(_viewVerticalView);
+
+	var _controllerViewController = __webpack_require__(11);
+
+	var _controllerViewController2 = _interopRequireDefault(_controllerViewController);
 
 	var TwitchMonitor = (function () {
 	    function TwitchMonitor() {
 	        _classCallCheck(this, TwitchMonitor);
 
 	        this.socketService = new _serviceSocketService2['default']();
+	        this.socketService.on(_eventsEvent2['default'].STREAM_DID_UPDATE, this.streamDidUpdate);
 	    }
 
 	    _createClass(TwitchMonitor, [{
+	        key: 'createView',
+	        value: function createView(layout, selector) {
+	            var view = null;
+
+	            //TODO Support more types of layout?
+	            if (layout === 'vertical') {
+	                view = new _viewVerticalView2['default'](selector);
+	            } else {
+	                view = new _viewHorizontalView2['default'](selector);
+	            }
+
+	            return view;
+	        }
+	    }, {
+	        key: 'disposeIfNeeded',
+	        value: function disposeIfNeeded() {
+	            if (this.viewController) {
+	                console.warn('Twitch Monitor is disposed');
+	            }
+	        }
+	    }, {
 	        key: 'init',
 	        value: function init(limit, layoutDirection, containerSelector) {
-	            this.limit = limit;
-	            this.vertical = layoutDirection === 'vertical';
-	            this.$container = (0, _jquery2['default'])(containerSelector);
+	            this.disposeIfNeeded();
+
+	            this.viewController = new _controllerViewController2['default'](this.createView(layoutDirection, containerSelector).setLimit(limit));
 	        }
+	    }, {
+	        key: 'streamDidUpdate',
+	        value: function streamDidUpdate(streamPayload) {}
 	    }]);
 
 	    return TwitchMonitor;
@@ -473,6 +514,133 @@
 	  STREAM_DID_UPDATE: 'streamDidUpdate'
 	};
 	module.exports = exports['default'];
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _BaseView2 = __webpack_require__(9);
+
+	var _BaseView3 = _interopRequireDefault(_BaseView2);
+
+	var HorizontalView = (function (_BaseView) {
+	  function HorizontalView() {
+	    _classCallCheck(this, HorizontalView);
+
+	    _get(Object.getPrototypeOf(HorizontalView.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _inherits(HorizontalView, _BaseView);
+
+	  return HorizontalView;
+	})(_BaseView3['default']);
+
+	exports['default'] = HorizontalView;
+	module.exports = exports['default'];
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var BaseView = function BaseView() {
+	  _classCallCheck(this, BaseView);
+	};
+
+	exports["default"] = BaseView;
+	module.exports = exports["default"];
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _BaseView2 = __webpack_require__(9);
+
+	var _BaseView3 = _interopRequireDefault(_BaseView2);
+
+	var VerticalView = (function (_BaseView) {
+	  function VerticalView() {
+	    _classCallCheck(this, VerticalView);
+
+	    _get(Object.getPrototypeOf(VerticalView.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _inherits(VerticalView, _BaseView);
+
+	  return VerticalView;
+	})(_BaseView3['default']);
+
+	exports['default'] = VerticalView;
+	module.exports = exports['default'];
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ViewController = function ViewController(view) {
+	    _classCallCheck(this, ViewController);
+
+	    this.view = view;
+	};
+
+	exports["default"] = ViewController;
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);
