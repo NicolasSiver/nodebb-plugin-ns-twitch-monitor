@@ -1,4 +1,5 @@
 @import 'vars';
+@import 'material-color/material-color-prefixed';
 
 .widget-twitch-monitor {
 
@@ -22,6 +23,57 @@
 
     .twitch-monitor-player {
       margin: @tm-margin-xs 0;
+    }
+  }
+
+  .stream-preview {
+    position: relative;
+
+    .stream-stats {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: @tm-padding-sm;
+      background-color: rgba(0, 0, 0, 0.6);
+
+      .stream-viewers {
+        color: @md-clr-blue-grey-200;
+        margin-left: @tm-margin-xs;
+      }
+
+      .fa-user {
+        color: @md-clr-red;
+      }
+    }
+  }
+
+  .stream-info {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: @tm-touch-line-height;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    .stream-logo-holder {
+      width: @tm-touch-line-height - 2*@tm-margin-sm;
+      height: @tm-touch-line-height - 2*@tm-margin-sm;
+      margin: @tm-margin-sm;
+
+      .stream-logo {
+        width: 100%;
+        height: auto;
+      }
+
+    }
+
+    .stream-information {
+      color: @md-clr-blue-grey;
+      align-self: center;
+
+      .stream-game {
+        color: @md-clr-blue-grey-200;
+      }
     }
   }
 }

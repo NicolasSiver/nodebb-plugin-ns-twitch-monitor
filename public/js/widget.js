@@ -353,7 +353,9 @@
 	    }, {
 	        key: 'render',
 	        value: function render(streamPayload) {
-	            var view = (0, _jquery2['default'])('<div/>');
+	            var view = (0, _jquery2['default'])('<div/>', {
+	                'class': 'stream-preview'
+	            });
 	            view.html('\n        <img class="stream-thumbnail"/>\n        <div class="stream-stats">\n            <i class="fa fa-user"></i><span class="stream-viewers"></span>\n        </div>\n        <div class="stream-info">\n            <div class="stream-logo-holder"><img class="stream-logo" src="' + streamPayload.channel.logo + '"/></div>\n            <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>\n        </div>\n        ');
 	            return view;
 	        }

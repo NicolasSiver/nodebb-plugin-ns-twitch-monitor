@@ -19,7 +19,9 @@ export default class StreamPreviewView {
     }
 
     render(streamPayload) {
-        var view = $('<div/>');
+        var view = $('<div/>', {
+            'class': 'stream-preview'
+        });
         view.html(`
         <img class="stream-thumbnail"/>
         <div class="stream-stats">
