@@ -1,6 +1,7 @@
 /**
  * Created by Nicolas on 6/28/15.
  */
+/*eslint-disable */
 module.exports = {
     entry    : "./index.js",
     output   : {

@@ -22,5 +22,8 @@
     "babel-loader": "^5.2.2",
     "node-libs-browser": "^0.5.2",
     "webpack": "^1.10.0"
+  },
+  "dependencies": {
+    "eventemitter3": "^1.1.1"
   }
 }
