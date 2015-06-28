@@ -4,5 +4,7 @@
 import BaseView from './BaseView';
 
 export default class VerticalView extends BaseView {
-
+    constructor(selector){
+        super(selector);
+    }
 }

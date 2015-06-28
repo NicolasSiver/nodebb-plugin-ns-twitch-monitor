@@ -535,7 +535,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -551,15 +551,15 @@
 	var _BaseView3 = _interopRequireDefault(_BaseView2);
 
 	var HorizontalView = (function (_BaseView) {
-	  function HorizontalView() {
-	    _classCallCheck(this, HorizontalView);
+	    function HorizontalView(selector) {
+	        _classCallCheck(this, HorizontalView);
 
-	    _get(Object.getPrototypeOf(HorizontalView.prototype), 'constructor', this).apply(this, arguments);
-	  }
+	        _get(Object.getPrototypeOf(HorizontalView.prototype), 'constructor', this).call(this, selector);
+	    }
 
-	  _inherits(HorizontalView, _BaseView);
+	    _inherits(HorizontalView, _BaseView);
 
-	  return HorizontalView;
+	    return HorizontalView;
 	})(_BaseView3['default']);
 
 	exports['default'] = HorizontalView;
@@ -567,42 +567,74 @@
 
 /***/ },
 /* 9 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Nicolas on 6/28/15.
 	 */
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _PlayerView = __webpack_require__(12);
+
+	var _PlayerView2 = _interopRequireDefault(_PlayerView);
 
 	var BaseView = (function () {
-	    function BaseView() {
+	    function BaseView(selector) {
 	        _classCallCheck(this, BaseView);
+
+	        this.$container = (0, _jquery2['default'])(selector);
+	        this.children = {};
 	    }
 
 	    _createClass(BaseView, [{
-	        key: "add",
-	        value: function add(channelName, streamPayload) {}
+	        key: 'add',
+	        value: function add(channelName, streamPayload) {
+	            var player = new _PlayerView2['default'](channelName, streamPayload);
+	            this.addChild(player);
+	        }
 	    }, {
-	        key: "remove",
+	        key: 'addChild',
+	        value: function addChild(widget) {
+	            this.children[widget.getName()] = widget;
+	            this.$container.append(widget.getView());
+	        }
+	    }, {
+	        key: 'getStreamCount',
+	        value: function getStreamCount() {
+	            return Object.keys(this.children).length;
+	        }
+	    }, {
+	        key: 'hasStream',
+	        value: function hasStream(channelName) {
+	            return !!this.children[channelName];
+	        }
+	    }, {
+	        key: 'remove',
 	        value: function remove(channelName, streamPayload) {}
 	    }, {
-	        key: "update",
+	        key: 'update',
 	        value: function update(channelName, streamPayload) {}
 	    }]);
 
 	    return BaseView;
 	})();
 
-	exports["default"] = BaseView;
-	module.exports = exports["default"];
+	exports['default'] = BaseView;
+	module.exports = exports['default'];
 
 /***/ },
 /* 10 */
@@ -614,7 +646,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -630,15 +662,15 @@
 	var _BaseView3 = _interopRequireDefault(_BaseView2);
 
 	var VerticalView = (function (_BaseView) {
-	  function VerticalView() {
-	    _classCallCheck(this, VerticalView);
+	    function VerticalView(selector) {
+	        _classCallCheck(this, VerticalView);
 
-	    _get(Object.getPrototypeOf(VerticalView.prototype), 'constructor', this).apply(this, arguments);
-	  }
+	        _get(Object.getPrototypeOf(VerticalView.prototype), 'constructor', this).call(this, selector);
+	    }
 
-	  _inherits(VerticalView, _BaseView);
+	    _inherits(VerticalView, _BaseView);
 
-	  return VerticalView;
+	    return VerticalView;
 	})(_BaseView3['default']);
 
 	exports['default'] = VerticalView;
@@ -694,6 +726,56 @@
 	})();
 
 	exports['default'] = ViewController;
+	module.exports = exports['default'];
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var PlayerView = (function () {
+	    function PlayerView(name, streamPayload) {
+	        _classCallCheck(this, PlayerView);
+
+	        this.name = name;
+	        this.payload = streamPayload;
+	        this.$view = (0, _jquery2['default'])('<div></div>');
+	    }
+
+	    _createClass(PlayerView, [{
+	        key: 'getName',
+	        value: function getName() {
+	            return this.name;
+	        }
+	    }, {
+	        key: 'getView',
+	        value: function getView() {
+	            return this.$view;
+	        }
+	    }]);
+
+	    return PlayerView;
+	})();
+
+	exports['default'] = PlayerView;
 	module.exports = exports['default'];
 
 /***/ }
