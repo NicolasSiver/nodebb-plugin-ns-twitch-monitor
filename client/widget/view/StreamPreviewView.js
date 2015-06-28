@@ -19,8 +19,6 @@ export default class StreamPreviewView {
 
     update(payload) {
         const thumbMedium = payload.stream.preview.medium;
-        if (this.$thumb.attr('src') !== thumbMedium) {
-            this.$thumb.attr('src', thumbMedium);
-        }
+        this.$thumb.attr('src', thumbMedium);
     }
 }

@@ -666,9 +666,7 @@
 	        key: 'update',
 	        value: function update(payload) {
 	            var thumbMedium = payload.stream.preview.medium;
-	            if (this.$thumb.attr('src') !== thumbMedium) {
-	                this.$thumb.attr('src', thumbMedium);
-	            }
+	            this.$thumb.attr('src', thumbMedium);
 	        }
 	    }]);
 
