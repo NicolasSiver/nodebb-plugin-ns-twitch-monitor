@@ -25,6 +25,7 @@
   "less": [
   ],
   "scripts": [
+    "public/js/widget.js"
   ],
   "staticDirs": {
     "templates": "./public/templates",
