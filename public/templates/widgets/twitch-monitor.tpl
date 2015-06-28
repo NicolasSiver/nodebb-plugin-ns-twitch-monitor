@@ -7,6 +7,6 @@
         var limit  = {limit},
             layout = '{layout}';
 
-        ns.TwitchMonitor.init(limit, layout, $('.widget-twitch-monitor'));
+        ns.TwitchMonitor.init(limit, layout, '.widget-twitch-monitor');
     });
 </script>

@@ -2,14 +2,18 @@
  * Created by Nicolas on 6/28/15.
  */
 module.exports = {
-    entry: "./index.js",
-    output: {
-        path: "../../public/js",
+    entry    : "./index.js",
+    output   : {
+        path    : "../../public/js",
         filename: "widget.js"
     },
-    module: {
+    externals: {
+        "jquery": "jQuery",
+        "socket": "socket"
+    },
+    module   : {
         loaders: [
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
         ]
     }
 };
