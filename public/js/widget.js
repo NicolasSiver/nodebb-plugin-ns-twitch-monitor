@@ -84,19 +84,19 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _eventsEvent = __webpack_require__(7);
+	var _eventsEvent = __webpack_require__(3);
 
 	var _eventsEvent2 = _interopRequireDefault(_eventsEvent);
 
-	var _viewFlexLayout = __webpack_require__(14);
+	var _viewFlexLayout = __webpack_require__(4);
 
 	var _viewFlexLayout2 = _interopRequireDefault(_viewFlexLayout);
 
-	var _serviceSocketService = __webpack_require__(4);
+	var _serviceSocketService = __webpack_require__(7);
 
 	var _serviceSocketService2 = _interopRequireDefault(_serviceSocketService);
 
-	var _controllerViewController = __webpack_require__(11);
+	var _controllerViewController = __webpack_require__(10);
 
 	var _controllerViewController2 = _interopRequireDefault(_controllerViewController);
 
@@ -143,8 +143,238 @@
 	module.exports = jQuery;
 
 /***/ },
-/* 3 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = {
+	  STREAM_DID_UPDATE: 'streamDidUpdate'
+	};
+	module.exports = exports['default'];
+
+/***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _PlayerView = __webpack_require__(5);
+
+	var _PlayerView2 = _interopRequireDefault(_PlayerView);
+
+	var FlexLayout = (function () {
+	    function FlexLayout(direction, selector) {
+	        _classCallCheck(this, FlexLayout);
+
+	        this.$root = (0, _jquery2['default'])(selector);
+	        this.$container = (0, _jquery2['default'])('<div></div>').addClass('twitch-monitor-container').addClass(direction === 'vertical' ? 'layout-vertical' : 'layout-row');
+
+	        this.$root.append(this.$container);
+
+	        this.children = {};
+	    }
+
+	    _createClass(FlexLayout, [{
+	        key: 'add',
+	        value: function add(channelName, streamPayload) {
+	            var player = new _PlayerView2['default'](channelName, streamPayload);
+	            this.addChild(player);
+	        }
+	    }, {
+	        key: 'addChild',
+	        value: function addChild(widget) {
+	            this.children[widget.getName()] = widget;
+	            this.$container.append(widget.getView());
+	        }
+	    }, {
+	        key: 'getStreamCount',
+	        value: function getStreamCount() {
+	            return Object.keys(this.children).length;
+	        }
+	    }, {
+	        key: 'hasStream',
+	        value: function hasStream(channelName) {
+	            return !!this.children[channelName];
+	        }
+	    }, {
+	        key: 'remove',
+	        value: function remove(channelName, streamPayload) {
+	            if (this.hasStream(channelName)) {
+	                var widget = this.children[channelName];
+	                widget.getView().remove();
+	                delete this.children[channelName];
+	            }
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(channelName, streamPayload) {
+	            this.children[channelName].update(streamPayload);
+	        }
+	    }]);
+
+	    return FlexLayout;
+	})();
+
+	exports['default'] = FlexLayout;
+	module.exports = exports['default'];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _StreamPreviewView = __webpack_require__(6);
+
+	var _StreamPreviewView2 = _interopRequireDefault(_StreamPreviewView);
+
+	var PlayerView = (function () {
+	    function PlayerView(name, streamPayload) {
+	        _classCallCheck(this, PlayerView);
+
+	        this.name = name;
+	        this.payload = streamPayload;
+	        this.$view = (0, _jquery2['default'])('<div></div>').addClass('twitch-monitor-player');
+	        this.draw();
+	    }
+
+	    _createClass(PlayerView, [{
+	        key: 'draw',
+	        value: function draw() {
+	            this.preview = new _StreamPreviewView2['default'](this.payload);
+
+	            this.$view.append(this.preview.getView());
+	        }
+	    }, {
+	        key: 'getName',
+	        value: function getName() {
+	            return this.name;
+	        }
+	    }, {
+	        key: 'getView',
+	        value: function getView() {
+	            return this.$view;
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(streamPayload) {
+	            this.preview.update(streamPayload);
+	        }
+	    }]);
+
+	    return PlayerView;
+	})();
+
+	exports['default'] = PlayerView;
+	module.exports = exports['default'];
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Nicolas on 6/28/15.
+	 */
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _jquery = __webpack_require__(2);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var StreamPreviewView = (function () {
+	    function StreamPreviewView(streamPayload) {
+	        _classCallCheck(this, StreamPreviewView);
+
+	        this.$view = this.render(streamPayload);
+	        this.$thumbnail = this.$view.find('.stream-thumbnail');
+	        this.$viewerCount = this.$view.find('.stream-viewers');
+	        this.$author = this.$view.find('.stream-author');
+	        this.$game = this.$view.find('.stream-game');
+
+	        this.update(streamPayload);
+	    }
+
+	    _createClass(StreamPreviewView, [{
+	        key: 'getView',
+	        value: function getView() {
+	            return this.$view;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render(streamPayload) {
+	            var view = (0, _jquery2['default'])('<div/>');
+	            view.html('\n        <img class="stream-thumbnail"/>\n        <div class="stream-stats">\n            <i class="fa fa-user"></i><span class="stream-viewers"></span>\n        </div>\n        <div class="stream-info">\n            <div class="stream-logo-holder"><img class="stream-logo" src="' + streamPayload.channel.logo + '"/></div>\n            <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>\n        </div>\n        ');
+	            return view;
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update(payload) {
+	            this.$thumbnail.attr('src', payload.stream.preview.medium);
+	            this.$viewerCount.text(payload.stream.viewers);
+	            this.$author.text(payload.channel.display_name);
+	            this.$game.text(payload.channel.game);
+	        }
+	    }]);
+
+	    return StreamPreviewView;
+	})();
+
+	exports['default'] = StreamPreviewView;
+	module.exports = exports['default'];
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -166,15 +396,15 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-	var _eventsEvent = __webpack_require__(7);
+	var _eventsEvent = __webpack_require__(3);
 
 	var _eventsEvent2 = _interopRequireDefault(_eventsEvent);
 
-	var _eventemitter3 = __webpack_require__(6);
+	var _eventemitter3 = __webpack_require__(8);
 
 	var _eventemitter32 = _interopRequireDefault(_eventemitter3);
 
-	var _socket = __webpack_require__(5);
+	var _socket = __webpack_require__(9);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -210,13 +440,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	module.exports = socket;
-
-/***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -484,27 +708,13 @@
 
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
-	/**
-	 * Created by Nicolas on 6/28/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = {
-	  STREAM_DID_UPDATE: 'streamDidUpdate'
-	};
-	module.exports = exports['default'];
+	module.exports = socket;
 
 /***/ },
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -553,210 +763,6 @@
 	})();
 
 	exports['default'] = ViewController;
-	module.exports = exports['default'];
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 6/28/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _jquery = __webpack_require__(2);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _StreamPreviewView = __webpack_require__(13);
-
-	var _StreamPreviewView2 = _interopRequireDefault(_StreamPreviewView);
-
-	var PlayerView = (function () {
-	    function PlayerView(name, streamPayload) {
-	        _classCallCheck(this, PlayerView);
-
-	        this.name = name;
-	        this.payload = streamPayload;
-	        this.$view = (0, _jquery2['default'])('<div></div>').addClass('twitch-monitor-player');
-	        this.draw();
-	    }
-
-	    _createClass(PlayerView, [{
-	        key: 'draw',
-	        value: function draw() {
-	            this.preview = new _StreamPreviewView2['default'](this.payload);
-
-	            this.$view.append(this.preview.getView());
-	        }
-	    }, {
-	        key: 'getName',
-	        value: function getName() {
-	            return this.name;
-	        }
-	    }, {
-	        key: 'getView',
-	        value: function getView() {
-	            return this.$view;
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update(streamPayload) {
-	            this.preview.update(streamPayload);
-	        }
-	    }]);
-
-	    return PlayerView;
-	})();
-
-	exports['default'] = PlayerView;
-	module.exports = exports['default'];
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 6/28/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _jquery = __webpack_require__(2);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var StreamPreviewView = (function () {
-	    function StreamPreviewView(streamPayload) {
-	        _classCallCheck(this, StreamPreviewView);
-
-	        this.$view = (0, _jquery2['default'])('<div></div>');
-	        this.$thumb = (0, _jquery2['default'])('<img />');
-
-	        this.$view.append(this.$thumb);
-
-	        this.update(streamPayload);
-	    }
-
-	    _createClass(StreamPreviewView, [{
-	        key: 'getView',
-	        value: function getView() {
-	            return this.$view;
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update(payload) {
-	            var thumbMedium = payload.stream.preview.medium;
-	            this.$thumb.attr('src', thumbMedium);
-	        }
-	    }]);
-
-	    return StreamPreviewView;
-	})();
-
-	exports['default'] = StreamPreviewView;
-	module.exports = exports['default'];
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Nicolas on 6/28/15.
-	 */
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _jquery = __webpack_require__(2);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _PlayerView = __webpack_require__(12);
-
-	var _PlayerView2 = _interopRequireDefault(_PlayerView);
-
-	var FlexLayout = (function () {
-	    function FlexLayout(direction, selector) {
-	        _classCallCheck(this, FlexLayout);
-
-	        this.$root = (0, _jquery2['default'])(selector);
-	        this.$container = (0, _jquery2['default'])('<div></div>').addClass('twitch-monitor-container').addClass(direction === 'vertical' ? 'layout-vertical' : 'layout-row');
-
-	        this.$root.append(this.$container);
-
-	        this.children = {};
-	    }
-
-	    _createClass(FlexLayout, [{
-	        key: 'add',
-	        value: function add(channelName, streamPayload) {
-	            var player = new _PlayerView2['default'](channelName, streamPayload);
-	            this.addChild(player);
-	        }
-	    }, {
-	        key: 'addChild',
-	        value: function addChild(widget) {
-	            this.children[widget.getName()] = widget;
-	            this.$container.append(widget.getView());
-	        }
-	    }, {
-	        key: 'getStreamCount',
-	        value: function getStreamCount() {
-	            return Object.keys(this.children).length;
-	        }
-	    }, {
-	        key: 'hasStream',
-	        value: function hasStream(channelName) {
-	            return !!this.children[channelName];
-	        }
-	    }, {
-	        key: 'remove',
-	        value: function remove(channelName, streamPayload) {
-	            if (this.hasStream(channelName)) {
-	                var widget = this.children[channelName];
-	                widget.getView().remove();
-	                delete this.children[channelName];
-	            }
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update(channelName, streamPayload) {
-	            this.children[channelName].update(streamPayload);
-	        }
-	    }]);
-
-	    return FlexLayout;
-	})();
-
-	exports['default'] = FlexLayout;
 	module.exports = exports['default'];
 
 /***/ }

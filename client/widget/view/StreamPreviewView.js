@@ -5,10 +5,11 @@ import $ from 'jquery';
 
 export default class StreamPreviewView {
     constructor(streamPayload) {
-        this.$view = $('<div></div>');
-        this.$thumb = $('<img />');
-
-        this.$view.append(this.$thumb);
+        this.$view = this.render(streamPayload);
+        this.$thumbnail = this.$view.find('.stream-thumbnail');
+        this.$viewerCount = this.$view.find('.stream-viewers');
+        this.$author = this.$view.find('.stream-author');
+        this.$game = this.$view.find('.stream-game');
 
         this.update(streamPayload);
     }
@@ -17,8 +18,25 @@ export default class StreamPreviewView {
         return this.$view;
     }
 
+    render(streamPayload) {
+        var view = $('<div/>');
+        view.html(`
+        <img class="stream-thumbnail"/>
+        <div class="stream-stats">
+            <i class="fa fa-user"></i><span class="stream-viewers"></span>
+        </div>
+        <div class="stream-info">
+            <div class="stream-logo-holder"><img class="stream-logo" src="${streamPayload.channel.logo}"/></div>
+            <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>
+        </div>
+        `);
+        return view;
+    }
+
     update(payload) {
-        const thumbMedium = payload.stream.preview.medium;
-        this.$thumb.attr('src', thumbMedium);
+        this.$thumbnail.attr('src', payload.stream.preview.medium);
+        this.$viewerCount.text(payload.stream.viewers);
+        this.$author.text(payload.channel.display_name);
+        this.$game.text(payload.channel.game);
     }
 }

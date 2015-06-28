@@ -9,8 +9,9 @@ module.exports = {
         filename: "widget.js"
     },
     externals: {
-        "jquery": "jQuery",
-        "socket": "socket"
+        "jquery"   : "jQuery",
+        "socket"   : "socket",
+        "templates": "templates"
     },
     module   : {
         loaders: [

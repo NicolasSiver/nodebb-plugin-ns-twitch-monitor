@@ -94,7 +94,8 @@
         async.waterfall([
             async.apply(settings.get),
             function(settingsData, next){
-                streamManager.initWidthDelay(settingsData.updateTime, true, next);
+                //streamManager.initWidthDelay(settingsData.updateTime, true, next);
+                streamManager.initWidthDelay(6000, true, next);
             }
         ], callback);
     };
