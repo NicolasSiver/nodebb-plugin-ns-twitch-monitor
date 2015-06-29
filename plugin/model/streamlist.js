@@ -53,10 +53,11 @@
     /**
      * Stream goes Offline
      * @param channel
-     * @param stream
      */
-    List.prototype.deleteStream = function (channel, stream) {
+    List.prototype.deleteStream = function (channel) {
+        var stream = this.streamsMap[channel.name];
         delete this.streamsMap[channel.name];
+        return stream;
     };
 
     List.prototype.getChannels = function () {
@@ -92,7 +93,24 @@
     };
 
     List.prototype.removeChannel = function (channelName) {
+        var index = _.findIndex(this.channels, function (channel) {
+            return channel.name === channelName;
+        });
 
+        if (index >= 0) {
+            var channel = this.channels.splice(index, 1);
+            var stream = this.deleteStream(channel);
+
+            if (stream) {
+                //Force stream go to offline, reason: removed
+                this.emit(StreamList.events.STREAM_DID_CHANGE, {
+                    status : StreamList.status.OFFLINE,
+                    channel: channel,
+                    index  : index,
+                    stream : stream
+                });
+            }
+        }
     };
 
     List.prototype.update = function (streams) {
@@ -125,7 +143,7 @@
                 stream : newState
             });
         } else if (previousState && !newState) {
-            this.deleteStream(channel, previousState);
+            this.deleteStream(channel);
             logger.log('verbose', 'Channel %s goes offline', channel.name);
             this.emit(StreamList.events.STREAM_DID_CHANGE, {
                 status : StreamList.status.OFFLINE,
