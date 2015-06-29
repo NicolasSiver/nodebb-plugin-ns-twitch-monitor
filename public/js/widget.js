@@ -461,7 +461,15 @@
 	        }
 	    }, {
 	        key: 'updateItemInCache',
-	        value: function updateItemInCache(streamPayload) {}
+	        value: function updateItemInCache(streamPayload) {
+	            if (streamPayload) {
+	                if (streamPayload.status === 'offline') {
+	                    delete this.cache[streamPayload.channel.name];
+	                } else {
+	                    this.cache[streamPayload.channel.name] = streamPayload;
+	                }
+	            }
+	        }
 	    }]);
 
 	    return SocketService;

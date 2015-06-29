@@ -45,6 +45,12 @@ export default class SocketService extends EventEmitter {
     }
 
     updateItemInCache(streamPayload) {
-
+        if (streamPayload) {
+            if (streamPayload.status === 'offline') {
+                delete this.cache[streamPayload.channel.name];
+            } else {
+                this.cache[streamPayload.channel.name] = streamPayload;
+            }
+        }
     }
 }
