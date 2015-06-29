@@ -22,7 +22,7 @@
 
     function List(channels) {
         EventEmitter.call(this);
-        this.channels = channels;
+        this.channels = channels || [];
         this.channelsMap = {};
         this.streamsMap = {};
 
@@ -56,6 +56,10 @@
      */
     List.prototype.deleteStream = function (channel, stream) {
         delete this.streamsMap[channel.name];
+    };
+
+    List.prototype.getChannels = function () {
+        return this.channels;
     };
 
     List.prototype.getStreamList = function () {

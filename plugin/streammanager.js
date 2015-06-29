@@ -16,7 +16,6 @@
 
     var _active      = false,
         _autoStart   = false,
-        _channels    = null,
         _delay       = 0,
         _deferUpdate = null,
         _streams     = null;
@@ -43,7 +42,6 @@
                 return callback(error);
             }
 
-            _channels = channels;
             _streams = streamList.create(channels);
             _streams.on(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
 
@@ -65,7 +63,6 @@
         _active = false;
         clearTimeout(_deferUpdate);
         _deferUpdate = null;
-        _channels = null;
         if (_streams != null) {
             _streams.removeListener(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
         }
@@ -103,7 +100,7 @@
     StreamManager.start = function (callback) {
         _autoStart = true;
 
-        if (_channels && _channels.length >= 0) {
+        if (_streams && _streams.getChannels().length >= 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _active = true;
             _deferUpdate = deferNextUpdate(_delay);
@@ -117,7 +114,7 @@
 
     function update() {
         logger.log('verbose', 'Update is triggered');
-        fetchStreams(_channels);
+        fetchStreams(_streams.getChannels());
     }
 
 
