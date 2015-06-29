@@ -24,6 +24,7 @@
         }
         _streams.addChannel(channel);
         callback(null, channel);
+        start();
     };
 
     StreamManager.initWidthDelay = function (delay, autoStart, callback) {
@@ -97,14 +98,19 @@
      * @param callback will return boolean status, true - if everything is ok
      */
     function start(callback) {
+        callback = callback || _.noop;
+
+        if (_deferUpdate) {
+            //Ignore several starts
+            return callback();
+        }
+
         if (_streams && _streams.getChannels().length >= 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _deferUpdate = deferNextUpdate(_delay);
         }
 
-        if (callback) {
-            callback();
-        }
+        callback();
     }
 
     function streamDidUpdate(event) {
