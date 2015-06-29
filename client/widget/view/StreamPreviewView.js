@@ -11,6 +11,10 @@ export default class StreamPreviewView {
         this.$author = this.$view.find('.stream-author');
         this.$game = this.$view.find('.stream-game');
 
+        this.$thumbnail.on('click', () => {
+            window.open(streamPayload.channel.url);
+        });
+
         this.update(streamPayload);
     }
 
