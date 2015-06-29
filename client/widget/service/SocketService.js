@@ -15,8 +15,10 @@ export default class SocketService extends EventEmitter {
     constructor() {
         super();
         this.cache = {};
-        this.updateCache();
-        this.subscribe();
+        setTimeout(() => {
+            this.updateCache();
+            this.subscribe();
+        }, 0);
     }
 
     getCachedStreams() {
@@ -36,14 +38,14 @@ export default class SocketService extends EventEmitter {
     updateCache() {
         Socket.emit(
             CHANNELS.STREAMS_WITH_PAYLOAD,
-            {},
+            null,
             (error, streamsWithPayload) => {
                 if (error) {
                     //Fail silently
                     return console.warn('Error has occurred, can not update initial cache for twitch monitor, error: %s', error.message);
                 }
-
                 this.cache = objectAssign({}, this.cache, streamsWithPayload);
+                this.emit(Event.STREAM_LIST_DID_UPDATE, this.cache);
             }
         );
     }

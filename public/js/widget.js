@@ -106,6 +106,7 @@
 
 	        this.socketService = new _serviceSocketService2['default']();
 	        this.socketService.on(_eventsEvent2['default'].STREAM_DID_UPDATE, this.streamDidUpdate.bind(this));
+	        this.socketService.on(_eventsEvent2['default'].STREAM_LIST_DID_UPDATE, this.streamListDidUpdate.bind(this));
 	    }
 
 	    _createClass(TwitchMonitor, [{
@@ -124,35 +125,24 @@
 	            this.viewController = new _controllerViewController2['default'](new _viewFlexLayout2['default'](layoutDirection, containerSelector), limit);
 
 	            //Populate view from cache
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-
-	            try {
-	                for (var _iterator = this.socketService.getCachedStreams()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var streamPayload = _step.value;
-
-	                    this.streamDidUpdate(streamPayload);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator['return']) {
-	                        _iterator['return']();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
+	            var cachedStreams = this.socketService.getCachedStreams();
+	            for (var channelName in cachedStreams) {
+	                this.streamDidUpdate(cachedStreams[channelName]);
 	            }
 	        }
 	    }, {
 	        key: 'streamDidUpdate',
 	        value: function streamDidUpdate(streamPayload) {
 	            this.viewController.updateStream(streamPayload);
+	        }
+	    }, {
+	        key: 'streamListDidUpdate',
+	        value: function streamListDidUpdate(list) {
+	            for (var channelName in list) {
+	                if (list.hasOwnProperty(channelName)) {
+	                    this.streamDidUpdate(list[channelName]);
+	                }
+	            }
 	        }
 	    }]);
 
@@ -181,7 +171,8 @@
 	  value: true
 	});
 	exports['default'] = {
-	  STREAM_DID_UPDATE: 'streamDidUpdate'
+	  STREAM_DID_UPDATE: 'streamDidUpdate',
+	  STREAM_LIST_DID_UPDATE: 'streamListDidUpdate'
 	};
 	module.exports = exports['default'];
 
@@ -451,12 +442,16 @@
 
 	var SocketService = (function (_EventEmitter) {
 	    function SocketService() {
+	        var _this = this;
+
 	        _classCallCheck(this, SocketService);
 
 	        _get(Object.getPrototypeOf(SocketService.prototype), 'constructor', this).call(this);
 	        this.cache = {};
-	        this.updateCache();
-	        this.subscribe();
+	        setTimeout(function () {
+	            _this.updateCache();
+	            _this.subscribe();
+	        }, 0);
 	    }
 
 	    _inherits(SocketService, _EventEmitter);
@@ -469,25 +464,25 @@
 	    }, {
 	        key: 'subscribe',
 	        value: function subscribe() {
-	            var _this = this;
+	            var _this2 = this;
 
 	            _socket2['default'].on(CHANNELS.STREAM_UPDATE, function (payload) {
-	                _this.updateItemInCache(payload);
-	                _this.emit(_eventsEvent2['default'].STREAM_DID_UPDATE, payload);
+	                _this2.updateItemInCache(payload);
+	                _this2.emit(_eventsEvent2['default'].STREAM_DID_UPDATE, payload);
 	            });
 	        }
 	    }, {
 	        key: 'updateCache',
 	        value: function updateCache() {
-	            var _this2 = this;
+	            var _this3 = this;
 
-	            _socket2['default'].emit(CHANNELS.STREAMS_WITH_PAYLOAD, {}, function (error, streamsWithPayload) {
+	            _socket2['default'].emit(CHANNELS.STREAMS_WITH_PAYLOAD, null, function (error, streamsWithPayload) {
 	                if (error) {
 	                    //Fail silently
 	                    return console.warn('Error has occurred, can not update initial cache for twitch monitor, error: %s', error.message);
 	                }
-
-	                _this2.cache = (0, _objectAssign2['default'])({}, _this2.cache, streamsWithPayload);
+	                _this3.cache = (0, _objectAssign2['default'])({}, _this3.cache, streamsWithPayload);
+	                _this3.emit(_eventsEvent2['default'].STREAM_LIST_DID_UPDATE, _this3.cache);
 	            });
 	        }
 	    }, {

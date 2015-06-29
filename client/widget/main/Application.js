@@ -11,6 +11,7 @@ export default class TwitchMonitor {
     constructor() {
         this.socketService = new SocketService();
         this.socketService.on(Event.STREAM_DID_UPDATE, this.streamDidUpdate.bind(this));
+        this.socketService.on(Event.STREAM_LIST_DID_UPDATE, this.streamListDidUpdate.bind(this));
     }
 
     disposeIfNeeded() {
@@ -26,12 +27,21 @@ export default class TwitchMonitor {
         this.viewController = new ViewController(new FlexLayout(layoutDirection, containerSelector), limit);
 
         //Populate view from cache
-        for (let streamPayload of this.socketService.getCachedStreams()) {
-            this.streamDidUpdate(streamPayload);
+        let cachedStreams = this.socketService.getCachedStreams();
+        for (let channelName in cachedStreams) {
+            this.streamDidUpdate(cachedStreams[channelName]);
         }
     }
 
     streamDidUpdate(streamPayload) {
         this.viewController.updateStream(streamPayload);
+    }
+
+    streamListDidUpdate(list) {
+        for (let channelName in list) {
+            if (list.hasOwnProperty(channelName)) {
+                this.streamDidUpdate(list[channelName]);
+            }
+        }
     }
 }
