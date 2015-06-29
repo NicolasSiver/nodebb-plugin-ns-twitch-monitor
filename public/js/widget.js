@@ -410,12 +410,17 @@
 
 	var _eventemitter32 = _interopRequireDefault(_eventemitter3);
 
+	var _objectAssign = __webpack_require__(11);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
 	var _socket = __webpack_require__(9);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
 	var CHANNELS = {
-	    STREAM_UPDATE: 'plugins.ns-twitch-monitor.streamUpdate'
+	    STREAM_UPDATE: 'plugins.ns-twitch-monitor.streamUpdate',
+	    STREAMS_WITH_PAYLOAD: 'plugins.ns-twitch-monitor.streamPayloadsGet'
 	};
 
 	var SocketService = (function (_EventEmitter) {
@@ -423,6 +428,8 @@
 	        _classCallCheck(this, SocketService);
 
 	        _get(Object.getPrototypeOf(SocketService.prototype), 'constructor', this).call(this);
+	        this.cache = {};
+	        this.updateCache();
 	        this.subscribe();
 	    }
 
@@ -434,9 +441,27 @@
 	            var _this = this;
 
 	            _socket2['default'].on(CHANNELS.STREAM_UPDATE, function (payload) {
+	                _this.updateItemInCache(payload);
 	                _this.emit(_eventsEvent2['default'].STREAM_DID_UPDATE, payload);
 	            });
 	        }
+	    }, {
+	        key: 'updateCache',
+	        value: function updateCache() {
+	            var _this2 = this;
+
+	            _socket2['default'].emit(CHANNELS.STREAMS_WITH_PAYLOAD, {}, function (error, streamsWithPayload) {
+	                if (error) {
+	                    //Fail silently
+	                    return console.warn('Error has occurred, can not update initial cache for twitch monitor, error: %s', error.message);
+	                }
+
+	                _this2.cache = (0, _objectAssign2['default'])({}, _this2.cache, streamsWithPayload);
+	            });
+	        }
+	    }, {
+	        key: 'updateItemInCache',
+	        value: function updateItemInCache(streamPayload) {}
 	    }]);
 
 	    return SocketService;
@@ -770,6 +795,51 @@
 
 	exports['default'] = ViewController;
 	module.exports = exports['default'];
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function ownEnumerableKeys(obj) {
+		var keys = Object.getOwnPropertyNames(obj);
+
+		if (Object.getOwnPropertySymbols) {
+			keys = keys.concat(Object.getOwnPropertySymbols(obj));
+		}
+
+		return keys.filter(function (key) {
+			return propIsEnumerable.call(obj, key);
+		});
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = ownEnumerableKeys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
 
 /***/ }
 /******/ ]);
