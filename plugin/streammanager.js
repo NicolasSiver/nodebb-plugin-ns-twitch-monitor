@@ -82,7 +82,7 @@
 
     StreamManager.getStreams = function (isPayload, callback) {
         if (_streams != null) {
-            callback(null, (isPayload) ? _streams.getPayloadList() : _streams.getStreamList());
+            return callback(null, (isPayload) ? _streams.getPayloadList() : _streams.getStreamList());
         }
         callback(null, {});
     };
