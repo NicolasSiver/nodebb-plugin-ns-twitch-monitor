@@ -19,6 +19,10 @@ export default class SocketService extends EventEmitter {
         this.subscribe();
     }
 
+    getCachedStreams() {
+        return this.cache;
+    }
+
     subscribe() {
         Socket.on(
             CHANNELS.STREAM_UPDATE,

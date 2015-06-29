@@ -122,6 +122,32 @@
 	        value: function init(limit, layoutDirection, containerSelector) {
 	            this.disposeIfNeeded();
 	            this.viewController = new _controllerViewController2['default'](new _viewFlexLayout2['default'](layoutDirection, containerSelector), limit);
+
+	            //Populate view from cache
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+
+	            try {
+	                for (var _iterator = this.socketService.getCachedStreams()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var streamPayload = _step.value;
+
+	                    this.streamDidUpdate(streamPayload);
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator['return']) {
+	                        _iterator['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
 	        }
 	    }, {
 	        key: 'streamDidUpdate',
@@ -436,6 +462,11 @@
 	    _inherits(SocketService, _EventEmitter);
 
 	    _createClass(SocketService, [{
+	        key: 'getCachedStreams',
+	        value: function getCachedStreams() {
+	            return this.cache;
+	        }
+	    }, {
 	        key: 'subscribe',
 	        value: function subscribe() {
 	            var _this = this;

@@ -24,6 +24,11 @@ export default class TwitchMonitor {
     init(limit, layoutDirection, containerSelector) {
         this.disposeIfNeeded();
         this.viewController = new ViewController(new FlexLayout(layoutDirection, containerSelector), limit);
+
+        //Populate view from cache
+        for (let streamPayload of this.socketService.getCachedStreams()) {
+            this.streamDidUpdate(streamPayload);
+        }
     }
 
     streamDidUpdate(streamPayload) {
