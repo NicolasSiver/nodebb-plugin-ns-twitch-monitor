@@ -34,6 +34,9 @@
                 } else {
                     next(new Error(response.body.message));
                 }
+            },
+            function (channel, next) {
+                streamManager.addChannel(channel, next);
             }
         ], callback);
     };
@@ -51,13 +54,19 @@
     };
 
     Controller.removeChannel = function (cid, callback) {
+        var channelName = null;
+
         async.waterfall([
             async.apply(database.getChannel, cid),
             function (channel, next) {
                 if (channel == null) {
                     return next(new Error('Something went wrong, can not delete channel'));
                 }
+                channelName = channel.name;
                 database.deleteChannel(cid, next);
+            },
+            function (next) {
+                streamManager.removeChannelByName(channelName);
             },
             function (next) {
                 next(null, cid);

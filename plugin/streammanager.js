@@ -3,7 +3,8 @@
  */
 (function (StreamManager) {
     'use strict';
-    //Twitch API, Christopher Gamble: Current recommended practice is to poll the API to check if streams are online.
+    // Twitch API, Christopher Gamble:
+    // Current recommended practice is to poll the API to check if streams are online.
 
     var _          = require('lodash'),
 
@@ -19,6 +20,10 @@
         _delay       = 0,
         _deferUpdate = null,
         _streams     = null;
+
+    StreamManager.addChannel = function (channel, callback) {
+
+    };
 
     StreamManager.initWidthDelay = function (delay, autoStart, callback) {
         _autoStart = autoStart;
@@ -85,6 +90,10 @@
             return callback(null, (isPayload) ? _streams.getPayloadList() : _streams.getStreamList());
         }
         callback(null, {});
+    };
+
+    StreamManager.removeChannelByName = function (name, callback) {
+
     };
 
     /**
