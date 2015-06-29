@@ -91,6 +91,7 @@
         }
         _streams.removeChannel(name);
         callback(null);
+        stop();
     };
 
     /**
@@ -108,6 +109,19 @@
         if (_streams && _streams.getChannels().length >= 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _deferUpdate = deferNextUpdate(_delay);
+        }
+
+        callback();
+    }
+
+    function stop(callback) {
+        callback = callback || _.noop;
+
+        //Only stop, when there are not streams
+        if (_streams && _streams.getChannels().length == 0) {
+            logger.log('info', 'Stop monitoring, no more channels to check');
+            clearTimeout(_deferUpdate);
+            _deferUpdate = null;
         }
 
         callback();
