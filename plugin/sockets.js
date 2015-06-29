@@ -27,6 +27,7 @@
         sockets[constants.SOCKETS].settingsGet = Sockets.settingsGet;
         sockets[constants.SOCKETS].saveSettings = Sockets.saveSettings;
         sockets[constants.SOCKETS].streamsGet = Sockets.streamsGet;
+        sockets[constants.SOCKETS].streamPayloadsGet = Sockets.streamPayloadsGet;
         sockets[constants.SOCKETS].clientIdValidate = Sockets.clientIdValidate;
 
         callback();
@@ -62,6 +63,10 @@
 
     Sockets.streamsGet = function (socket, payload, callback) {
         controller.getAllStreams(callback);
+    };
+
+    Sockets.streamPayloadsGet = function (socket, payload, callback) {
+        controller.getAllStreamsWithPayload(callback);
     };
 
 })(module.exports);

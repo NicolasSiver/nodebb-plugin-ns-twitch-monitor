@@ -80,12 +80,11 @@
         });
     }
 
-    StreamManager.getStreams = function (callback) {
-        var result = {};
+    StreamManager.getStreams = function (isPayload, callback) {
         if (_streams != null) {
-            result = _streams.getStreamList();
+            callback(null, (isPayload) ? _streams.getPayloadList() : _streams.getStreamList());
         }
-        callback(null, result);
+        callback(null, {});
     };
 
     /**

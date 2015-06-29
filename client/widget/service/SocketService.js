@@ -13,7 +13,6 @@ export default class SocketService extends EventEmitter {
     constructor() {
         super();
         this.subscribe();
-
     }
 
     subscribe() {

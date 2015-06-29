@@ -43,7 +43,11 @@
     };
 
     Controller.getAllStreams = function (callback) {
-        streamManager.getStreams(callback);
+        streamManager.getStreams(false, callback);
+    };
+
+    Controller.getAllStreamsWithPayload = function (callback) {
+        streamManager.getStreams(true, callback);
     };
 
     Controller.removeChannel = function (cid, callback) {
@@ -93,7 +97,7 @@
     Controller.start = function (callback) {
         async.waterfall([
             async.apply(settings.get),
-            function(settingsData, next){
+            function (settingsData, next) {
                 //streamManager.initWidthDelay(settingsData.updateTime, true, next);
                 streamManager.initWidthDelay(6000, true, next);
             }

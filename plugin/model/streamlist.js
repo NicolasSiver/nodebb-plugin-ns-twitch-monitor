@@ -62,6 +62,21 @@
         return this.streamsMap;
     };
 
+    List.prototype.getPayloadList = function () {
+        var payloadList = {};
+        this.channels.forEach(function (channel, index) {
+            if (channel.name in this.streamsMap) {
+                payloadList[channel.name] = {
+                    status : StreamList.status.UPDATE,
+                    channel: channel,
+                    index  : index,
+                    stream : this.streamsMap[channel.name]
+                };
+            }
+        }, this);
+        return payloadList;
+    };
+
     /**
      * Update stream with the latest data: number of viewers, etc.
      * @param channel
