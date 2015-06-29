@@ -23,15 +23,16 @@
     function List(channels) {
         EventEmitter.call(this);
         this.channels = channels || [];
-        this.channelsMap = {};
         this.streamsMap = {};
-
-        channels.forEach(function (channel) {
-            this.channelsMap[channel.name] = channel;
-        }, this);
     }
 
     util.inherits(List, EventEmitter);
+
+    List.prototype.addChannel = function (channel) {
+        logger.log('verbose', 'Register channel %s', channel.name);
+        //Stream will be fetched with the next tick
+        this.channels.push(channel);
+    };
 
     /**
      * Stream goes Online.
@@ -88,6 +89,10 @@
      */
     List.prototype.mergeStream = function (channel, stream) {
         this.streamsMap[channel.name] = stream;
+    };
+
+    List.prototype.removeChannel = function (channelName) {
+
     };
 
     List.prototype.update = function (streams) {

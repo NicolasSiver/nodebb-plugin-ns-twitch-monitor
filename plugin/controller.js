@@ -66,7 +66,7 @@
                 database.deleteChannel(cid, next);
             },
             function (next) {
-                streamManager.removeChannelByName(channelName);
+                streamManager.removeChannelByName(channelName, next);
             },
             function (next) {
                 next(null, cid);

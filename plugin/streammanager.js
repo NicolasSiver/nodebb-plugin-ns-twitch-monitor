@@ -21,7 +21,11 @@
         _streams     = null;
 
     StreamManager.addChannel = function (channel, callback) {
-
+        if (!_streams) {
+            return callback(new Error('Stream Manager is not initialised properly'));
+        }
+        _streams.addChannel(channel);
+        callback(null, channel);
     };
 
     StreamManager.initWidthDelay = function (delay, autoStart, callback) {
@@ -90,7 +94,11 @@
     };
 
     StreamManager.removeChannelByName = function (name, callback) {
-
+        if (!_streams) {
+            return callback(new Error('Stream Manager is not initialised properly'));
+        }
+        _streams.removeChannel(name);
+        callback(null);
     };
 
     /**
