@@ -15,7 +15,6 @@
         twitch     = require('./twitch');
 
     var _active      = false,
-        _autoStart   = false,
         _delay       = 0,
         _deferUpdate = null,
         _streams     = null;
@@ -29,7 +28,6 @@
     };
 
     StreamManager.initWidthDelay = function (delay, autoStart, callback) {
-        _autoStart = autoStart;
         _delay = delay;
 
         if (_active || _deferUpdate) {
@@ -48,12 +46,7 @@
 
             _streams = streamList.create(channels);
             _streams.on(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
-
-            if (autoStart) {
-                StreamManager.start(callback);
-            } else {
-                callback();
-            }
+            start(callback);
         });
     };
 
@@ -105,16 +98,17 @@
      * Start monitoring process
      * @param callback will return boolean status, true - if everything is ok
      */
-    StreamManager.start = function (callback) {
-        _autoStart = true;
-
+    function start(callback) {
         if (_streams && _streams.getChannels().length >= 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _active = true;
             _deferUpdate = deferNextUpdate(_delay);
         }
-        callback();
-    };
+
+        if (callback) {
+            callback();
+        }
+    }
 
     function streamDidUpdate(event) {
         sockets.emit('streamUpdate', event);
