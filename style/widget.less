@@ -1,15 +1,15 @@
 @import 'vars';
 @import 'material-color/material-color-prefixed';
+@import 'flexbox';
 
 .widget-twitch-monitor {
-
 }
 
 .twitch-monitor-container {
-  display: flex;
+  .flex-display();
 
   &.layout-row {
-    flex-direction: row;
+    .flex-direction(row);
     padding: 0 @tm-padding-xs;
 
     .twitch-monitor-player {
@@ -18,7 +18,7 @@
   }
 
   &.layout-vertical {
-    flex-direction: column;
+    .flex-direction(column);
     padding: @tm-padding-xs 0;
 
     .twitch-monitor-player {
@@ -51,7 +51,7 @@
   .stream-info {
     position: absolute;
     bottom: 0;
-    display: flex;
+    .flex-display();
     width: 100%;
     height: @tm-touch-line-height;
     background-color: rgba(0, 0, 0, 0.8);
@@ -70,7 +70,7 @@
 
     .stream-information {
       color: @md-clr-blue-grey;
-      align-self: center;
+      .align-self(center);
 
       .stream-game {
         color: @md-clr-blue-grey-200;
