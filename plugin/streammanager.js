@@ -109,7 +109,7 @@
             return callback();
         }
 
-        if (_streams && _streams.getChannels().length >= 0) {
+        if (_streams && _streams.getChannels().length > 0) {
             logger.log('info', 'Start monitoring of channels, delay is %d ms', _delay);
             _deferUpdate = deferNextUpdate(_delay);
         }
