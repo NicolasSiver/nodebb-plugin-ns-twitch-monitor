@@ -20,6 +20,10 @@
     {
       "hook": "static:app.load",
       "method": "hooks.statics.appLoad"
+    },
+    {
+      "hook": "action:plugin.deactivate",
+      "method": "hooks.actions.pluginDeactivate"
     }
   ],
   "less": [

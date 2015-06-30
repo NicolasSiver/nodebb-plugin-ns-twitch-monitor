@@ -20,6 +20,13 @@
         TEMPLATE_WIDGET = 'widgets/twitch-monitor.tpl';
 
     Plugin.hooks = {
+        actions: {
+            pluginDeactivate: function (pluginId) {
+                if (pluginId === require('../plugin.json').id) {
+                    controller.disposeIfNeeded();
+                }
+            }
+        },
         filters: {
             adminHeaderBuild: function (header, callback) {
                 header.plugins.push({
@@ -46,8 +53,8 @@
                     layout = widget.data.layoutDirection || 'vertical';
 
                 app.render(TEMPLATE_WIDGET, {
-                    limit  : limit,
-                    layout : layout
+                    limit : limit,
+                    layout: layout
                 }, callback);
             }
         },
