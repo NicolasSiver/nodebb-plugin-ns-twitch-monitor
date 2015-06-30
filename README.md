@@ -23,11 +23,11 @@ Monitors specific channels and adds them to widget view
 
 ### ACP
 
-![Admin Panel View](./docs/images/acp.png)
+![Admin Panel View](docs/images/acp.png)
 
 ### Widget
 
-![Horizontal Widget View](./docs/images/widget.png)
+![Horizontal Widget View](docs/images/widget.png)
 
 ## TODO
 
