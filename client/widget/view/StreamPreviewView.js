@@ -27,7 +27,9 @@ export default class StreamPreviewView {
             'class': 'stream-preview'
         });
         view.html(`
-        <img class="stream-thumbnail"/>
+        <div class="stream-thumbnail-holder">
+            <img class="stream-thumbnail"/>
+        </div>
         <div class="stream-stats">
             <i class="fa fa-user"></i><span class="stream-viewers"></span>
         </div>

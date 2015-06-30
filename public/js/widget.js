@@ -96,7 +96,7 @@
 
 	var _serviceSocketService2 = _interopRequireDefault(_serviceSocketService);
 
-	var _controllerViewController = __webpack_require__(10);
+	var _controllerViewController = __webpack_require__(11);
 
 	var _controllerViewController2 = _interopRequireDefault(_controllerViewController);
 
@@ -377,7 +377,7 @@
 	            var view = (0, _jquery2['default'])('<div/>', {
 	                'class': 'stream-preview'
 	            });
-	            view.html('\n        <img class="stream-thumbnail"/>\n        <div class="stream-stats">\n            <i class="fa fa-user"></i><span class="stream-viewers"></span>\n        </div>\n        <div class="stream-info">\n            <div class="stream-logo-holder"><img class="stream-logo" src="' + streamPayload.channel.logo + '"/></div>\n            <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>\n        </div>\n        ');
+	            view.html('\n        <div class="stream-thumbnail-holder">\n            <img class="stream-thumbnail"/>\n        </div>\n        <div class="stream-stats">\n            <i class="fa fa-user"></i><span class="stream-viewers"></span>\n        </div>\n        <div class="stream-info">\n            <div class="stream-logo-holder"><img class="stream-logo" src="' + streamPayload.channel.logo + '"/></div>\n            <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>\n        </div>\n        ');
 	            return view;
 	        }
 	    }, {
@@ -427,11 +427,11 @@
 
 	var _eventemitter32 = _interopRequireDefault(_eventemitter3);
 
-	var _objectAssign = __webpack_require__(11);
+	var _objectAssign = __webpack_require__(9);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _socket = __webpack_require__(9);
+	var _socket = __webpack_require__(10);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -776,10 +776,55 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = socket;
+	'use strict';
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function ownEnumerableKeys(obj) {
+		var keys = Object.getOwnPropertyNames(obj);
+
+		if (Object.getOwnPropertySymbols) {
+			keys = keys.concat(Object.getOwnPropertySymbols(obj));
+		}
+
+		return keys.filter(function (key) {
+			return propIsEnumerable.call(obj, key);
+		});
+	}
+
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = ownEnumerableKeys(Object(from));
+
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+
+		return to;
+	};
+
 
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	module.exports = socket;
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	/**
@@ -829,51 +874,6 @@
 
 	exports['default'] = ViewController;
 	module.exports = exports['default'];
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	'use strict';
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-	function ToObject(val) {
-		if (val == null) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-
-		return Object(val);
-	}
-
-	function ownEnumerableKeys(obj) {
-		var keys = Object.getOwnPropertyNames(obj);
-
-		if (Object.getOwnPropertySymbols) {
-			keys = keys.concat(Object.getOwnPropertySymbols(obj));
-		}
-
-		return keys.filter(function (key) {
-			return propIsEnumerable.call(obj, key);
-		});
-	}
-
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var keys;
-		var to = ToObject(target);
-
-		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = ownEnumerableKeys(Object(from));
-
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
-			}
-		}
-
-		return to;
-	};
-
 
 /***/ }
 /******/ ]);
