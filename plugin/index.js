@@ -60,6 +60,7 @@
                     apiUri      = '/api' + pluginUri,
                     templates   = [TEMPLATE_ADMIN, TEMPLATE_WIDGET];
 
+                controller.disposeIfNeeded();
                 app = params.app;
 
                 router.get(pluginUri, middleware.admin.buildHeader, renderAdminPage);

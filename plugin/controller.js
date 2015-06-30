@@ -41,6 +41,10 @@
         ], callback);
     };
 
+    Controller.disposeIfNeeded = function () {
+        streamManager.disposeAll();
+    };
+
     Controller.getAllChannels = function (callback) {
         database.getChannels(callback);
     };

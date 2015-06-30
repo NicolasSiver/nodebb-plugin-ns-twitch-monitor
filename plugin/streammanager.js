@@ -32,7 +32,7 @@
 
         if (_deferUpdate) {
             logger.log('warn', 'Stream manager is active, reset to initial state');
-            dispose();
+            StreamManager.dispose();
         }
 
         if (delay <= 1000) {
@@ -55,7 +55,7 @@
         return setTimeout(update, delay);
     }
 
-    function dispose() {
+    StreamManager.disposeAll = function () {
         logger.log('warn', 'Dispose Stream Manager');
         clearTimeout(_deferUpdate);
         _deferUpdate = null;
@@ -63,7 +63,7 @@
             _streams.removeListener(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
         }
         _streams = null;
-    }
+    };
 
     function fetchStreams(channels) {
         var channelNames = _.pluck(channels, 'name');
@@ -71,10 +71,13 @@
             if (error) {
                 //Fail silently, don't rewrite previous stream status
                 logger.log('error', 'Error has occurred, message: %s', error.message);
+                _deferUpdate = deferNextUpdate(_delay);
             } else {
-                _streams.update(response.body.streams);
+                if (_streams) {
+                    _streams.update(response.body.streams);
+                    _deferUpdate = deferNextUpdate(_delay);
+                }
             }
-            _deferUpdate = deferNextUpdate(_delay);
         });
     }
 
