@@ -27,7 +27,7 @@
         start();
     };
 
-    StreamManager.initWidthDelay = function (delay, autoStart, callback) {
+    StreamManager.initWidthDelay = function (delay, callback) {
         _delay = delay;
 
         if (_deferUpdate) {
