@@ -120,7 +120,14 @@
         }, this);
 
         this.channels.forEach(function (channel, index) {
-            this.updateStream(channel, streamsMap[channel.name], index);
+            var stream = streamsMap[channel.name];
+
+            if (stream) {
+                //Update channel data in memory
+                channel.display_name = stream.channel.display_name;
+            }
+
+            this.updateStream(channel, stream, index);
         }, this);
     };
 
