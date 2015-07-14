@@ -78,6 +78,15 @@
         ], callback);
     };
 
+    Controller.start = function (callback) {
+        async.waterfall([
+            async.apply(settings.get),
+            function (settingsData, next) {
+                streamManager.initWidthDelay(settingsData.updateTime, next);
+            }
+        ], callback);
+    };
+
     /**
      * Validates client id as requested by Twitch, and saves it, if everything is Ok
      * @param clientId twitch application client id
@@ -103,15 +112,6 @@
                     //Something went wrong
                     next(null, false);
                 }
-            }
-        ], callback);
-    };
-
-    Controller.start = function (callback) {
-        async.waterfall([
-            async.apply(settings.get),
-            function (settingsData, next) {
-                streamManager.initWidthDelay(settingsData.updateTime, next);
             }
         ], callback);
     };
