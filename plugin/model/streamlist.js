@@ -8,6 +8,7 @@
         EventEmitter = require('eventemitter3'),
         util         = require('util'),
 
+        channelModel = require('./channel'),
         logger       = require('../logger');
 
     StreamList.events = {
@@ -124,7 +125,7 @@
 
             if (stream) {
                 //Update channel data in memory
-                channel.display_name = stream.channel.display_name;
+                channelModel.update(channel, stream.channel);
             }
 
             this.updateStream(channel, stream, index);

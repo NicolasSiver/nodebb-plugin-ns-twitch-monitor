@@ -6,7 +6,7 @@
 
     var async         = require('async'),
 
-        channel       = require('./model/channel'),
+        channelModel  = require('./model/channel'),
         database      = require('./database'),
         settings      = require('./settings'),
         streamManager = require('./streammanager'),
@@ -17,7 +17,7 @@
             async.apply(twitch.api.getChannel, channelName),
             function (response, next) {
                 if (response.statusCode === 200) {
-                    database.createChannel(channel.update({}, response.body), next);
+                    database.createChannel(channelModel.update({}, response.body), next);
                 } else {
                     next(new Error(response.body.message));
                 }
