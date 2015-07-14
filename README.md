@@ -1,6 +1,10 @@
 # NodeBB: Twitch Monitor
 Monitors specific channels and adds them to widget view
 
+![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-twitch-monitor.svg)
+[![bitHound Score](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor/badges/score.svg?)](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor)
+![Code Climate](https://img.shields.io/codeclimate/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor.svg)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
  
