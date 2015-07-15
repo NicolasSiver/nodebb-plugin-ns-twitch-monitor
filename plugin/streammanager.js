@@ -8,6 +8,7 @@
 
     var _          = require('lodash'),
 
+        constants  = require('./constants'),
         database   = require('./database'),
         logger     = require('./logger'),
         sockets    = require('./sockets'),

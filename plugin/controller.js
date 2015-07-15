@@ -5,12 +5,16 @@
     'use strict';
 
     var async         = require('async'),
+        postal        = require('postal'),
 
-        channelModel  = require('./model/channel'),
+        constants     = require('./constants'),
         database      = require('./database'),
+        logger        = require('./logger'),
         settings      = require('./settings'),
         streamManager = require('./streammanager'),
         twitch        = require('./twitch');
+
+    var channelsSubscription = null;
 
     Controller.addChannel = function (channelName, callback) {
         async.waterfall([
@@ -29,6 +33,10 @@
     };
 
     Controller.disposeIfNeeded = function () {
+        if (channelsSubscription) {
+            channelsSubscription.unsubscribe();
+            channelsSubscription = null;
+        }
         streamManager.disposeAll();
     };
 
@@ -67,6 +75,20 @@
 
     Controller.start = function (callback) {
         async.waterfall([
+            function (next) {
+                channelsSubscription = postal.subscribe({
+                    channel : constants.CHANNELS,
+                    topic   : constants.CHANNEL_DID_UPDATE,
+                    callback: function (data) {
+                        database.updateChannel(data.id, data.payload, function (error) {
+                            if (error) {
+                                return logger.log('error', 'Persisting channel. Error has occurred, message: %s', error.message);
+                            }
+                        });
+                    }
+                });
+                next();
+            },
             async.apply(settings.get),
             function (settingsData, next) {
                 streamManager.initWidthDelay(settingsData.updateTime, next);

@@ -6,9 +6,11 @@
 
     var _            = require('lodash'),
         EventEmitter = require('eventemitter3'),
+        postal       = require('postal'),
         util         = require('util'),
 
         channelModel = require('./channel'),
+        constants    = require('../constants'),
         logger       = require('../logger');
 
     StreamList.events = {
@@ -126,6 +128,15 @@
             if (stream) {
                 //Update channel data in memory
                 channelModel.update(channel, stream.channel);
+                //Persist updated channel
+                postal.publish({
+                    channel: constants.CHANNELS,
+                    topic  : constants.CHANNEL_DID_UPDATE,
+                    data   : {
+                        id     : channel.cid,
+                        payload: channelModel.update({}, stream.channel)
+                    }
+                });
             }
 
             this.updateStream(channel, stream, index);

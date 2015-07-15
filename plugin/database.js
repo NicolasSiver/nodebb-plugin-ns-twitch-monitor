@@ -67,4 +67,8 @@
         ], done);
     };
 
+    Database.updateChannel = function (cid, channelData, done) {
+        db.setObject(constants.NAMESPACE + ':channel:' + cid, channelData, done);
+    };
+
 })(module.exports);
