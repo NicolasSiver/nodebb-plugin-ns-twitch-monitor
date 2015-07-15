@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ns-twitch-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Monitors specific channels and adds them to widget view",
   "main": "plugin/index.js",
   "scripts": {
