@@ -50,6 +50,11 @@ Monitors specific channels and adds them to widget view
 
 ## Changelog
 
+**1.0.1 - 15.07.2015**
+
+- Persist channel updates
+- Update channel data for active streams
+
 **1.0.0 - 30.06.2015**
 
 - Initial release
