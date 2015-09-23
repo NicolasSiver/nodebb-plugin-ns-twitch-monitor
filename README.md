@@ -2,6 +2,7 @@
 Monitors specific channels and adds them to widget view
 
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-twitch-monitor.svg)
+![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-twitch-monitor.svg)
 [![bitHound Score](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor/badges/score.svg?)](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor)
 ![Code Climate](https://img.shields.io/codeclimate/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor.svg)
 
