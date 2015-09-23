@@ -1071,7 +1071,7 @@ var Application = (function (_React$Component) {
                                     className: 'btn btn-primary',
                                     type: 'button',
                                     onClick: this.donateDidClick.bind(this) },
-                                'Donate',
+                                'Donate ',
                                 _react2['default'].createElement(
                                     'small',
                                     null,
