@@ -21,7 +21,7 @@
             async.apply(twitch.api.getChannel, channelName),
             function (response, next) {
                 if (response.statusCode === 200) {
-                    database.createChannel(channelModel.update({}, response.body), next);
+                    database.createChannel(response.body, next);
                 } else {
                     next(new Error(response.body.message));
                 }
