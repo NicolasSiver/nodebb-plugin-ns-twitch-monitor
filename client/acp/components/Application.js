@@ -1,8 +1,9 @@
 /**
  * Created by Nicolas on 6/20/15.
  */
-import React from 'react';
 import Channels from './Channels';
+import Donate from './Donate';
+import React from 'react';
 import Settings from './Settings';
 
 export default class Application extends React.Component {
@@ -18,6 +19,7 @@ export default class Application extends React.Component {
                 </div>
                 <div className="col-md-5">
                     <Settings />
+                    <Donate />
                 </div>
             </div>
         );

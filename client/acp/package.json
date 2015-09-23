@@ -4,7 +4,7 @@
   "description": "Admin Panel for the Plugin",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -t babelify --outfile ../../public/js/acp.js",
+    "build": "NODE_ENV=development browserify -t envify -t babelify -t uglifyify index.js -o ../../public/js/acp.js",
     "watch-js": "watchify index.js -o ../../public/js/acp.js --verbose",
     "watch-less": "gulp",
     "watch": "npm run watch-less & npm run watch-js",
@@ -34,6 +34,7 @@
     "jquery": "global:$",
     "socket": "global:socket",
     "define": "global:define",
+    "StripeCheckout": "global:StripeCheckout",
     "bootstrap": {
       "exports": "global:bootstrap",
       "depends": [
@@ -68,6 +69,7 @@
     "gulp-postcss": "^5.1.9",
     "gulp-watch-less": "treshugart/gulp-watch-less",
     "less": "^2.5.1",
-    "uglify-js": "^2.4.20"
+    "uglify-js": "^2.4.20",
+    "uglifyify": "^3.0.1"
   }
 }
