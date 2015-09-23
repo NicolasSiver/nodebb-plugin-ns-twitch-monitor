@@ -65,7 +65,7 @@ export default class ChannelItemForm extends React.Component {
                             type="button">Cancel
                         </button>
                         <button
-                            className="btn btn-success"
+                            className="btn btn-primary"
                             onClick={this.addChannel.bind(this)}
                             disabled={this.isValid() ? '' : 'disabled'}
                             type="button"><i className="fa fa-plus"></i> Add Item

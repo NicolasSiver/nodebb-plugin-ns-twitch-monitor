@@ -47,15 +47,21 @@ Monitors specific channels and adds them to widget view
 - Core: batch stream status updates
 - Core: edit update time
 - Widget: create cross-fade thumbnail update
-- Widget: user Twitch Video Player
+- Widget: use Twitch Video Player
 
 ## Changelog
 
-**1.0.1 - 15.07.2015**
+**1.1.0 - 09/22/2015**
+
+- Fixed issue with channel add
+- Updated for 0.8.2 NodeBB
+- Small ACP UI update
+
+**1.0.1 - 07/15/2015**
 
 - Persist channel updates
 - Update channel data for active streams
 
-**1.0.0 - 30.06.2015**
+**1.0.0 - 06/30/2015**
 
 - Initial release
