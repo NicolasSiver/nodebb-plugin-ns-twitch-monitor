@@ -7,8 +7,8 @@
 .channels-list-container .alert {
   margin-bottom: 0;
 }
-.channels-header h3 {
-  margin-top: 0;
+.channels-stats {
+  margin: 16px 0;
 }
 .channels-list {
   list-style: none;
@@ -28,8 +28,8 @@
 .channels-list .channel-item .channel-content .channel-logo {
   width: 56px;
   -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
   height: auto;
 }
 .channels-list .channel-item .channel-content .channel-info {
@@ -44,10 +44,10 @@
 }
 .channels-list .channel-item .channel-content .channel-stats {
   -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
           align-self: center;
   margin-left: 16px;
 }
@@ -56,10 +56,10 @@
 }
 .channels-list .channel-item .channel-content .channel-status {
   -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
           align-self: center;
   margin: 0 16px;
 }
@@ -71,10 +71,10 @@
 }
 .channels-list .channel-item .channel-content .channel-controls {
   -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
           align-self: center;
 }
 .channels-list .channel-item .channel-content .channel-controls .control-delete {
@@ -101,6 +101,9 @@
 }
 .alpha-leave.alpha-leave-active {
   opacity: 0.01;
+}
+.twitch-monitor-acp .tab-content {
+  margin-top: 24px;
 }
 @-webkit-keyframes fade {
   from {

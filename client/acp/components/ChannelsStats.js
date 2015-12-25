@@ -1,11 +1,8 @@
-/**
- * Created by Nicolas on 6/27/15.
- */
 import ChannelsStore from '../stores/ChannelsStore';
 import connectToStores from 'alt/utils/connectToStores';
 import React from 'react';
 
-class ChannelsHeader extends React.Component {
+class ChannelsStats extends React.Component {
     static getStores() {
         return [ChannelsStore];
     }
@@ -20,13 +17,11 @@ class ChannelsHeader extends React.Component {
 
     render() {
         return (
-            <div className="channels-header">
-                <h3>
-                    Channels <small>{this.props.channels.length} from 100</small>
-                </h3>
+            <div className="channels-stats">
+                <div className="channels-number"><b>Channels:</b> {this.props.channels.length} from 100</div>
             </div>
         );
     }
 }
 
-export default connectToStores(ChannelsHeader);
+export default connectToStores(ChannelsStats);
