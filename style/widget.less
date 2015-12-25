@@ -57,9 +57,11 @@
 
   .stream-info {
     position: absolute;
+    left: 0;
+    right: 0;
     bottom: 0;
+    overflow: hidden;
     .flex-display();
-    width: 100%;
     height: @tm-touch-line-height;
     background-color: rgba(0, 0, 0, 0.8);
 
@@ -67,6 +69,7 @@
       width: @tm-touch-line-height - 2*@tm-margin-sm;
       height: @tm-touch-line-height - 2*@tm-margin-sm;
       margin: @tm-margin-sm;
+      .flex(0 0 auto);
 
       .stream-logo {
         width: 100%;
@@ -78,9 +81,23 @@
     .stream-information {
       color: @md-clr-blue-grey;
       .align-self(center);
+      .flex(1 1 auto);
+      width: 100%;
+      overflow: hidden;
+
+      .stream-author {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
 
       .stream-game {
         color: @md-clr-blue-grey-200;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }

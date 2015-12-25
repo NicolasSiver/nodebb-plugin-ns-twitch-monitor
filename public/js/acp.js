@@ -1045,12 +1045,7 @@ var Application = (function (_React$Component) {
                                 className: 'btn btn-primary',
                                 type: 'button',
                                 onClick: this.donateDidClick.bind(this) },
-                            'Donate',
-                            _react2['default'].createElement(
-                                'small',
-                                null,
-                                'via Stripe'
-                            )
+                            'Donate via Stripe'
                         )
                     )
                 )

@@ -59,8 +59,7 @@ export default class Application extends React.Component {
                             <button
                                 className="btn btn-primary"
                                 type="button"
-                                onClick={this.donateDidClick.bind(this)}>Donate
-                                <small>via Stripe</small>
+                                onClick={this.donateDidClick.bind(this)}>Donate via Stripe
                             </button>
                         </span>
                 </div>
