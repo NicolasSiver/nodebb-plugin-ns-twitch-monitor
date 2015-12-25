@@ -35,6 +35,6 @@
   },
   "devDependencies": {},
   "nbbpm": {
-    "compatibility": "^0.8.2"
+    "compatibility": "^0.9.0"
   }
 }
