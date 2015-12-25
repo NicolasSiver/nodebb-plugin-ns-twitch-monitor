@@ -1171,7 +1171,12 @@ var Settings = (function (_React$Component) {
                             'div',
                             { id: 'updateTime' },
                             this.props.settings.data.updateTime / 1000 | 0,
-                            ' sec'
+                            ' sec ',
+                            _react2['default'].createElement(
+                                'small',
+                                null,
+                                '(This value could be changed in future releases)'
+                            )
                         )
                     )
                 );
@@ -27486,6 +27491,7 @@ var SocketService = (function () {
                 }
 
                 _actionsActions2['default'].clientIdDidValidate(status ? _modelsValidation2['default'].SUCCESS : _modelsValidation2['default'].FAILURE);
+                _actionsActions2['default'].getSettings();
             });
         }
     }]);

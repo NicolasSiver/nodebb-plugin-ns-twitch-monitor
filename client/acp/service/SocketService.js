@@ -105,6 +105,7 @@ export default class SocketService {
                 }
 
                 Actions.clientIdDidValidate((status) ? Validation.SUCCESS : Validation.FAILURE);
+                Actions.getSettings();
             }
         );
     }

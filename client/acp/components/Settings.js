@@ -40,7 +40,7 @@ class Settings extends React.Component {
                         valueDidChange={this.clientValueDidChange.bind(this)}/>
                     <div className="form-group">
                         <label className="control-label" htmlFor="updateTime">Update every</label>
-                        <div id="updateTime">{this.props.settings.data.updateTime / 1000 | 0} sec</div>
+                        <div id="updateTime">{this.props.settings.data.updateTime / 1000 | 0} sec <small>(This value could be changed in future releases)</small></div>
                     </div>
                 </div>
             );
