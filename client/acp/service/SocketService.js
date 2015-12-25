@@ -3,6 +3,7 @@
  */
 import Actions from '../actions/Actions';
 import App from 'app';
+import {SETTINGS} from '../models/Sections';
 import Socket from 'socket';
 import SocketApi from '../models/SocketApi';
 import Validation from '../models/Validation';
@@ -16,6 +17,7 @@ export default class SocketService {
             },
             (error, channelItem) => {
                 if (error) {
+                    Actions.setSection(SETTINGS);
                     return App.alertError(error.message);
                 }
 

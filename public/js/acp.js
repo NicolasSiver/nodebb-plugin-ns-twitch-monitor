@@ -218,6 +218,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _actionsActions = require('../actions/Actions');
+
+var _actionsActions2 = _interopRequireDefault(_actionsActions);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -236,6 +240,14 @@ var Application = (function (_React$Component) {
     }
 
     _createClass(Application, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _actionsActions2['default'].getSettings();
+            _actionsActions2['default'].getChannels();
+            _actionsActions2['default'].getStreams();
+            _actionsActions2['default'].subscribe();
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2['default'].createElement(
@@ -264,7 +276,7 @@ var Application = (function (_React$Component) {
 exports['default'] = Application;
 module.exports = exports['default'];
 
-},{"./TabManager":12,"react":260}],4:[function(require,module,exports){
+},{"../actions/Actions":1,"./TabManager":12,"react":260}],4:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -583,10 +595,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _actionsActions = require('../actions/Actions');
-
-var _actionsActions2 = _interopRequireDefault(_actionsActions);
-
 var _ChannelItemForm = require('./ChannelItemForm');
 
 var _ChannelItemForm2 = _interopRequireDefault(_ChannelItemForm);
@@ -613,13 +621,6 @@ var Channels = (function (_React$Component) {
     }
 
     _createClass(Channels, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            _actionsActions2['default'].getChannels();
-            _actionsActions2['default'].getStreams();
-            _actionsActions2['default'].subscribe();
-        }
-    }, {
         key: 'render',
         value: function render() {
             return _react2['default'].createElement(
@@ -639,7 +640,7 @@ var Channels = (function (_React$Component) {
 exports['default'] = Channels;
 module.exports = exports['default'];
 
-},{"../actions/Actions":1,"./ChannelItemForm":4,"./ChannelsList":7,"./ChannelsStats":8,"react":260}],7:[function(require,module,exports){
+},{"./ChannelItemForm":4,"./ChannelsList":7,"./ChannelsStats":8,"react":260}],7:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -1136,11 +1137,6 @@ var Settings = (function (_React$Component) {
         key: 'clientValueDidChange',
         value: function clientValueDidChange(value) {
             _actionsActions2['default'].validateClientId(value);
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            _actionsActions2['default'].getSettings();
         }
     }, {
         key: 'render',
@@ -27393,6 +27389,8 @@ var _app = (typeof window !== "undefined" ? window['app'] : typeof global !== "u
 
 var _app2 = _interopRequireDefault(_app);
 
+var _modelsSections = require('../models/Sections');
+
 var _socket = (typeof window !== "undefined" ? window['socket'] : typeof global !== "undefined" ? global['socket'] : null);
 
 var _socket2 = _interopRequireDefault(_socket);
@@ -27417,6 +27415,7 @@ var SocketService = (function () {
                 name: name
             }, function (error, channelItem) {
                 if (error) {
+                    _actionsActions2['default'].setSection(_modelsSections.SETTINGS);
                     return _app2['default'].alertError(error.message);
                 }
 
@@ -27498,7 +27497,7 @@ exports['default'] = SocketService;
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../actions/Actions":1,"../models/SocketApi":16,"../models/Validation":17}],262:[function(require,module,exports){
+},{"../actions/Actions":1,"../models/Sections":15,"../models/SocketApi":16,"../models/Validation":17}],262:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/22/15.
  */

@@ -25,10 +25,6 @@ class Settings extends React.Component {
         Actions.validateClientId(value);
     }
 
-    componentDidMount() {
-        Actions.getSettings();
-    }
-
     render() {
         let content;
 
