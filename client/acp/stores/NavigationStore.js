@@ -11,7 +11,8 @@ class NavigationStore {
         this.currentSection = Sections.CHANNELS;
         this.sections = [
             {id: Sections.CHANNELS, icon: 'fa-twitch', label: 'Channels'},
-            {id: Sections.SETTINGS, label: 'Settings'}
+            {id: Sections.SETTINGS, label: 'Settings'},
+            {id: Sections.DONATE, label: 'Donate'}
         ];
     }
 

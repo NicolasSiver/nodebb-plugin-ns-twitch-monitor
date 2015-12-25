@@ -975,10 +975,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _StripeCheckout = (typeof window !== "undefined" ? window['StripeCheckout'] : typeof global !== "undefined" ? global['StripeCheckout'] : null);
-
-var _StripeCheckout2 = _interopRequireDefault(_StripeCheckout);
-
 var Application = (function (_React$Component) {
     _inherits(Application, _React$Component);
 
@@ -997,27 +993,26 @@ var Application = (function (_React$Component) {
             });
         }
     }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.stripeHandler = _StripeCheckout2['default'].configure({
-                key: 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
-                image: 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
-                locale: 'auto',
-                panelLabel: 'Donate {{amount}}',
-                email: _app2['default'].user.email,
-                bitcoin: true,
-                token: function token(_token) {
-                    // Use the token to create the charge with a server-side script.
-                    // You can access the token ID with `token.id`
-                    // NOOP
-                }
-            });
-        }
-    }, {
         key: 'donateDidClick',
         value: function donateDidClick() {
             var amount = parseFloat(this.state.amount) * 100;
             amount = amount || 500;
+
+            if (!this.stripeHandler) {
+                this.stripeHandler = StripeCheckout.configure({
+                    key: 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
+                    image: 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
+                    locale: 'auto',
+                    panelLabel: 'Donate {{amount}}',
+                    email: _app2['default'].user.email,
+                    bitcoin: true,
+                    token: function token(_token) {
+                        // Use the token to create the charge with a server-side script.
+                        // You can access the token ID with `token.id`
+                        // NOOP
+                    }
+                });
+            }
 
             this.stripeHandler.open({
                 name: 'Nicolas Siver',
@@ -1030,39 +1025,35 @@ var Application = (function (_React$Component) {
         value: function render() {
             return _react2['default'].createElement(
                 'div',
-                { className: 'panel panel-default' },
+                null,
+                _react2['default'].createElement(
+                    'p',
+                    null,
+                    'Do you like plugin? Support developer. Make a donation. Thank you in advance.'
+                ),
                 _react2['default'].createElement(
                     'div',
-                    { className: 'panel-body' },
+                    { className: 'input-group' },
+                    _react2['default'].createElement('input', {
+                        type: 'text',
+                        className: 'form-control',
+                        placeholder: 'Amount',
+                        value: this.state.amount,
+                        onChange: this.amountDidChange.bind(this) }),
                     _react2['default'].createElement(
-                        'p',
-                        null,
-                        'Do you like plugin? Support developer. Make a donation. Thank you in advance.'
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'input-group' },
-                        _react2['default'].createElement('input', {
-                            type: 'text',
-                            className: 'form-control',
-                            placeholder: 'Amount',
-                            value: this.state.amount,
-                            onChange: this.amountDidChange.bind(this) }),
+                        'span',
+                        { className: 'input-group-btn' },
                         _react2['default'].createElement(
-                            'span',
-                            { className: 'input-group-btn' },
+                            'button',
+                            {
+                                className: 'btn btn-primary',
+                                type: 'button',
+                                onClick: this.donateDidClick.bind(this) },
+                            'Donate',
                             _react2['default'].createElement(
-                                'button',
-                                {
-                                    className: 'btn btn-primary',
-                                    type: 'button',
-                                    onClick: this.donateDidClick.bind(this) },
-                                'Donate ',
-                                _react2['default'].createElement(
-                                    'small',
-                                    null,
-                                    'via Stripe'
-                                )
+                                'small',
+                                null,
+                                'via Stripe'
                             )
                         )
                     )
@@ -1281,6 +1272,8 @@ var TabManager = (function (_React$Component) {
                     return _react2['default'].createElement(_Channels2['default'], null);
                 case Sections.SETTINGS:
                     return _react2['default'].createElement(_Settings2['default'], null);
+                case Sections.DONATE:
+                    return _react2['default'].createElement(_Donate2['default'], null);
             }
         }
     }, {
@@ -1485,6 +1478,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 var CHANNELS = 'channels';
 exports.CHANNELS = CHANNELS;
+var DONATE = 'donate';
+exports.DONATE = DONATE;
 var SETTINGS = 'settings';
 exports.SETTINGS = SETTINGS;
 
@@ -27614,7 +27609,7 @@ var NavigationStore = (function () {
         });
 
         this.currentSection = Sections.CHANNELS;
-        this.sections = [{ id: Sections.CHANNELS, icon: 'fa-twitch', label: 'Channels' }, { id: Sections.SETTINGS, label: 'Settings' }];
+        this.sections = [{ id: Sections.CHANNELS, icon: 'fa-twitch', label: 'Channels' }, { id: Sections.SETTINGS, label: 'Settings' }, { id: Sections.DONATE, label: 'Donate' }];
     }
 
     _createClass(NavigationStore, [{

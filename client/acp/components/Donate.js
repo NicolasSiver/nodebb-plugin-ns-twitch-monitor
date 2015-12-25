@@ -3,7 +3,6 @@
  */
 import App from 'app';
 import React from 'react';
-import StripeCheckout from 'StripeCheckout';
 
 export default class Application extends React.Component {
     constructor(props) {
@@ -17,25 +16,25 @@ export default class Application extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this.stripeHandler = StripeCheckout.configure({
-            key       : 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
-            image     : 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
-            locale    : 'auto',
-            panelLabel: 'Donate {{amount}}',
-            email     : App.user.email,
-            bitcoin   : true,
-            token     : function (token) {
-                // Use the token to create the charge with a server-side script.
-                // You can access the token ID with `token.id`
-                // NOOP
-            }
-        });
-    }
-
     donateDidClick() {
         var amount = parseFloat(this.state.amount) * 100;
         amount = amount || 500;
+
+        if (!this.stripeHandler) {
+            this.stripeHandler = StripeCheckout.configure({
+                key       : 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
+                image     : 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
+                locale    : 'auto',
+                panelLabel: 'Donate {{amount}}',
+                email     : App.user.email,
+                bitcoin   : true,
+                token     : function (token) {
+                    // Use the token to create the charge with a server-side script.
+                    // You can access the token ID with `token.id`
+                    // NOOP
+                }
+            });
+        }
 
         this.stripeHandler.open({
             name       : 'Nicolas Siver',
@@ -46,25 +45,24 @@ export default class Application extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-default">
-                <div className="panel-body">
-                    <p>Do you like plugin? Support developer. Make a donation. Thank you in advance.</p>
+            <div>
+                <p>Do you like plugin? Support developer. Make a donation. Thank you in advance.</p>
 
-                    <div className="input-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Amount"
-                            value={this.state.amount}
-                            onChange={this.amountDidChange.bind(this)}/>
+                <div className="input-group">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Amount"
+                        value={this.state.amount}
+                        onChange={this.amountDidChange.bind(this)}/>
                         <span className="input-group-btn">
                             <button
                                 className="btn btn-primary"
                                 type="button"
-                                onClick={this.donateDidClick.bind(this)}>Donate <small>via Stripe</small>
+                                onClick={this.donateDidClick.bind(this)}>Donate
+                                <small>via Stripe</small>
                             </button>
                         </span>
-                    </div>
                 </div>
             </div>
         );

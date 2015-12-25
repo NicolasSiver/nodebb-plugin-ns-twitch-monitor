@@ -24,9 +24,10 @@ class TabManager extends React.Component {
                 return <Channels />;
             case Sections.SETTINGS:
                 return <Settings />;
+            case Sections.DONATE:
+                return <Donate />;
         }
     }
-
 
     render() {
         return (
