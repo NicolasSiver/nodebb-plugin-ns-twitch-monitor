@@ -79,6 +79,10 @@ class Actions {
         SocketService.getStreams();
     }
 
+    setSection(sectionId){
+        this.dispatch(sectionId);
+    }
+
     /**
      * Event: Latest Settings is available to use
      * @param settings

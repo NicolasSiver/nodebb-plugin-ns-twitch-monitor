@@ -1,10 +1,5 @@
-/**
- * Created by Nicolas on 6/20/15.
- */
-import Channels from './Channels';
-import Donate from './Donate';
 import React from 'react';
-import Settings from './Settings';
+import TabManager from './TabManager';
 
 export default class Application extends React.Component {
     constructor(props) {
@@ -14,12 +9,12 @@ export default class Application extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-md-7">
-                    <Channels />
-                </div>
-                <div className="col-md-5">
-                    <Settings />
-                    <Donate />
+                <div className="col-md-12">
+                    <div className="panel panel-default">
+                        <div className="panel-body">
+                            <TabManager />
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -1,6 +1,3 @@
-/**
- * Created by Nicolas on 6/20/15.
- */
 import Actions from '../actions/Actions';
 import ClientIdForm from './ClientIdForm';
 import connectToStores from 'alt/utils/connectToStores';
@@ -54,11 +51,8 @@ class Settings extends React.Component {
         }
 
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading">Settings</div>
-                <div className="panel-body">
-                    {content}
-                </div>
+            <div>
+                {content}
             </div>
         );
     }

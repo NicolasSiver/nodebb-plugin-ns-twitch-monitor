@@ -20,14 +20,11 @@ export default class Channels extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading"><i className="fa fa-twitch"></i> Twitch Monitor</div>
-                <div className="panel-body">
-                    <ChannelItemForm />
-                    <ChannelsHeader />
-                    <ChannelsList />
-                    <ChannelItemForm />
-                </div>
+            <div>
+                <ChannelItemForm />
+                <ChannelsHeader />
+                <ChannelsList />
+                <ChannelItemForm />
             </div>
         );
     }
