@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0 - 12/25/2015
+
+- Compatibility with NodeBB 0.9.x
+- Improved stream presentation in Widget
+- ACP overhaul: layout, flow
+
 ## v1.1.0 - 09/22/2015
 
 - Fixed issue with channel add
