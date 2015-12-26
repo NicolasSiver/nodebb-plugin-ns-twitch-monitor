@@ -511,7 +511,7 @@ var ChannelItemView = (function (_React$Component) {
                         'div',
                         { className: 'channel-info' },
                         _react2['default'].createElement(
-                            'h5',
+                            'div',
                             { className: 'title' },
                             _react2['default'].createElement(
                                 'a',
