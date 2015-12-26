@@ -34,7 +34,10 @@ export default class TwitchMonitor {
     }
 
     streamDidUpdate(streamPayload) {
-        this.viewController.updateStream(streamPayload);
+        // Prevent calls in ACP
+        if(this.viewController){
+            this.viewController.updateStream(streamPayload);
+        }
     }
 
     streamListDidUpdate(list) {
