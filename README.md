@@ -15,7 +15,6 @@ Monitors specific channels and adds them to widget view
   - [ACP](#acp)
   - [Widget](#widget)
 - [TODO](#todo)
-- [Changelog](#changelog)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
