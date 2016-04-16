@@ -30,14 +30,14 @@
 .channels-list .channel-item .channel-content .channel-logo {
   width: 56px;
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   height: auto;
 }
 .channels-list .channel-item .channel-content .channel-info {
   -webkit-flex: 1 1 auto;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
   margin: 0 16px;
 }
 .channels-list .channel-item .channel-content .channel-info .title {
@@ -53,10 +53,10 @@
 }
 .channels-list .channel-item .channel-content .channel-stats {
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-align-self: center;
-      -ms-flex-item-align: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
           align-self: center;
   margin-left: 16px;
 }
@@ -65,10 +65,10 @@
 }
 .channels-list .channel-item .channel-content .channel-status {
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-align-self: center;
-      -ms-flex-item-align: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
           align-self: center;
   margin: 0 16px;
 }
@@ -80,10 +80,10 @@
 }
 .channels-list .channel-item .channel-content .channel-controls {
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-align-self: center;
-      -ms-flex-item-align: center;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  -ms-flex-item-align: center;
+          -webkit-align-self: center;
           align-self: center;
 }
 .channels-list .channel-item .channel-content .channel-controls .control-delete {

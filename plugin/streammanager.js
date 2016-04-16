@@ -67,7 +67,7 @@
     };
 
     function fetchStreams(channels) {
-        var channelNames = _.pluck(channels, 'name');
+        var channelNames = _.map(channels, 'name');
         twitch.api.getStreams(channelNames, function (error, response) {
             if (error) {
                 //Fail silently, don't rewrite previous stream status

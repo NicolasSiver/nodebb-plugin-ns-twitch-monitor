@@ -277,6 +277,7 @@ exports['default'] = Application;
 module.exports = exports['default'];
 
 },{"../actions/Actions":1,"./TabManager":12,"react":260}],4:[function(require,module,exports){
+(function (global){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -300,6 +301,10 @@ var _actionsActions = require('../actions/Actions');
 
 var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
+var _bootbox = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null);
+
+var _bootbox2 = _interopRequireDefault(_bootbox);
+
 var _modelsKeyCode = require('../models/KeyCode');
 
 var _modelsKeyCode2 = _interopRequireDefault(_modelsKeyCode);
@@ -315,126 +320,34 @@ var ChannelItemForm = (function (_React$Component) {
         _classCallCheck(this, ChannelItemForm);
 
         _get(Object.getPrototypeOf(ChannelItemForm.prototype), 'constructor', this).call(this, props);
-        this.state = { collapsed: true };
     }
 
     _createClass(ChannelItemForm, [{
-        key: 'addChannel',
-        value: function addChannel() {
-            _actionsActions2['default'].addChannel(this.state.channelName);
-            //Reset state
-            this.setState({
-                collapsed: true,
-                channelName: ''
+        key: 'promptForChannel',
+        value: function promptForChannel() {
+            _bootbox2['default'].prompt("What is Channel's name?", function (result) {
+                if (result) {
+                    _actionsActions2['default'].addChannel(result);
+                }
             });
-        }
-    }, {
-        key: 'channelNameDidChange',
-        value: function channelNameDidChange(e) {
-            this.setState({
-                channelName: e.target.value
-            });
-        }
-    }, {
-        key: 'enterDidTrigger',
-        value: function enterDidTrigger(e) {
-            if (e.keyCode === _modelsKeyCode2['default'].ENTER && this.isValid()) {
-                this.addChannel();
-            }
-        }
-    }, {
-        key: 'isValid',
-        value: function isValid() {
-            return !!this.state.channelName;
         }
     }, {
         key: 'render',
         value: function render() {
-            var ReactCSSTransitionGroup = _reactAddons2['default'].addons.CSSTransitionGroup;
-            var promptBlock = _reactAddons2['default'].createElement(
-                'button',
-                {
-                    className: 'btn btn-sm btn-primary',
-                    onClick: this.setExpandedState.bind(this, true),
-                    type: 'button' },
-                _reactAddons2['default'].createElement('i', { className: 'fa fa-plus' })
-            );
-            var formBlock = _reactAddons2['default'].createElement(
-                'div',
-                null,
-                _reactAddons2['default'].createElement(
-                    ReactCSSTransitionGroup,
-                    { transitionName: 'alpha', transitionAppear: true },
-                    _reactAddons2['default'].createElement(
-                        'div',
-                        { className: 'form-inline' },
-                        _reactAddons2['default'].createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _reactAddons2['default'].createElement(
-                                'label',
-                                { htmlFor: 'channelName' },
-                                'Channel Name'
-                            ),
-                            _reactAddons2['default'].createElement('input', {
-                                type: 'text',
-                                className: 'form-control input-sm',
-                                id: 'channelName',
-                                ref: 'channelNameInput',
-                                value: this.state.channelName,
-                                onChange: this.channelNameDidChange.bind(this),
-                                onKeyDown: this.enterDidTrigger.bind(this),
-                                placeholder: 'Enter channel' })
-                        ),
-                        _reactAddons2['default'].createElement(
-                            'div',
-                            { className: 'btn-group btn-group-sm', role: 'group' },
-                            _reactAddons2['default'].createElement(
-                                'button',
-                                {
-                                    className: 'btn btn-danger',
-                                    onClick: this.setExpandedState.bind(this, false),
-                                    type: 'button' },
-                                'Cancel'
-                            ),
-                            _reactAddons2['default'].createElement(
-                                'button',
-                                {
-                                    className: 'btn btn-primary',
-                                    onClick: this.addChannel.bind(this),
-                                    disabled: this.isValid() ? '' : 'disabled',
-                                    type: 'button' },
-                                _reactAddons2['default'].createElement('i', { className: 'fa fa-plus' }),
-                                ' Add Item'
-                            )
-                        )
-                    )
-                )
-            );
-
-            var content = this.state.collapsed ? promptBlock : formBlock;
-
             return _reactAddons2['default'].createElement(
                 'div',
                 { className: 'channel-item-form clearfix' },
                 _reactAddons2['default'].createElement(
                     'div',
-                    { className: 'pull-right' },
-                    content
+                    null,
+                    _reactAddons2['default'].createElement(
+                        'a',
+                        { href: '#', onClick: this.promptForChannel },
+                        _reactAddons2['default'].createElement('i', { className: 'fa fa-plus' }),
+                        ' Add Twitch Channel'
+                    )
                 )
             );
-        }
-    }, {
-        key: 'setExpandedState',
-        value: function setExpandedState(state) {
-            var _this = this;
-
-            this.setState({ collapsed: !state }, function () {
-                var input = _reactAddons2['default'].findDOMNode(_this.refs.channelNameInput);
-                if (input) {
-                    input.focus();
-                }
-            });
         }
     }]);
 
@@ -444,6 +357,7 @@ var ChannelItemForm = (function (_React$Component) {
 exports['default'] = ChannelItemForm;
 module.exports = exports['default'];
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":1,"../models/KeyCode":14,"react/addons":88}],5:[function(require,module,exports){
 /**
  * Created by Nicolas on 6/24/15.
@@ -628,7 +542,6 @@ var Channels = (function (_React$Component) {
                 null,
                 _react2['default'].createElement(_ChannelItemForm2['default'], null),
                 _react2['default'].createElement(_ChannelsList2['default'], null),
-                _react2['default'].createElement(_ChannelItemForm2['default'], null),
                 _react2['default'].createElement(_ChannelsStats2['default'], null)
             );
         }

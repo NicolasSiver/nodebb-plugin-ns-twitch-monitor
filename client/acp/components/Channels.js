@@ -13,7 +13,6 @@ export default class Channels extends React.Component {
             <div>
                 <ChannelItemForm />
                 <ChannelsList />
-                <ChannelItemForm />
                 <ChannelsStats />
             </div>
         );
