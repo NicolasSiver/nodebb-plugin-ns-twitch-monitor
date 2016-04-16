@@ -25,16 +25,16 @@
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
   "dependencies": {
-    "async": "^1.5.0",
-    "eventemitter3": "^1.1.1",
-    "lodash": "^3.9.3",
+    "async": "^1.5.2",
+    "eventemitter3": "^1.2.0",
+    "lodash": "^4.11.1",
     "object-assign": "^4.0.1",
-    "postal": "^1.0.6",
-    "request": "^2.67.0",
-    "winston": "^1.0.1"
+    "postal": "^1.0.8",
+    "request": "^2.71.0",
+    "winston": "^2.2.0"
   },
   "devDependencies": {},
   "nbbpm": {
-    "compatibility": "^0.9.0"
+    "compatibility": "^1.x"
   }
 }
