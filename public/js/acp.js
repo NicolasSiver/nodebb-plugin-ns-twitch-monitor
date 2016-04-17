@@ -359,6 +359,7 @@ module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":1,"../models/KeyCode":14,"react/addons":88}],5:[function(require,module,exports){
+(function (global){
 /**
  * Created by Nicolas on 6/24/15.
  */
@@ -382,6 +383,10 @@ var _actionsActions = require('../actions/Actions');
 
 var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
+var _bootbox = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null);
+
+var _bootbox2 = _interopRequireDefault(_bootbox);
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -403,7 +408,13 @@ var ChannelItemView = (function (_React$Component) {
     _createClass(ChannelItemView, [{
         key: 'deleteItem',
         value: function deleteItem() {
-            _actionsActions2['default'].channelWillRemove(this.props.channel.cid);
+            var _this = this;
+
+            _bootbox2['default'].confirm('You are about to delete \'' + this.props.channel.display_name + '\' channel. Are you sure?', function (result) {
+                if (result) {
+                    _actionsActions2['default'].channelWillRemove(_this.props.channel.cid);
+                }
+            });
         }
     }, {
         key: 'mouseDidEnter',
@@ -515,6 +526,7 @@ var ChannelItemView = (function (_React$Component) {
 exports['default'] = ChannelItemView;
 module.exports = exports['default'];
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":1,"classnames":28,"react":260}],6:[function(require,module,exports){
 'use strict';
 

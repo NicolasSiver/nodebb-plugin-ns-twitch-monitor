@@ -2,6 +2,7 @@
  * Created by Nicolas on 6/24/15.
  */
 import Actions from '../actions/Actions';
+import Bootbox from 'bootbox';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -12,7 +13,11 @@ export default class ChannelItemView extends React.Component {
     }
 
     deleteItem() {
-        Actions.channelWillRemove(this.props.channel.cid);
+        Bootbox.confirm(`You are about to delete '${this.props.channel.display_name}' channel. Are you sure?`, (result) => {
+            if (result) {
+                Actions.channelWillRemove(this.props.channel.cid);
+            }
+        });
     }
 
     mouseDidEnter() {
