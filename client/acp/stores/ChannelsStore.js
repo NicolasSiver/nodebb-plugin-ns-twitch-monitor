@@ -13,16 +13,19 @@ class ChannelsStore {
             channelsDidUpdate: Actions.channelsDidUpdate
         });
 
-        this.channels = [];
+        this.channels = null;
     }
 
     channelDidAdd(item) {
-        let update = this.channels.slice();
+        let update;
+        this.createCollectionIfNeeded();
+        update = this.channels.slice();
         update.push(item);
         this.channels = update;
     }
 
     channelDidRemove(channelId) {
+        this.createCollectionIfNeeded();
         this.channels = this.channels.filter((channel) => {
             return channel.cid != channelId;
         });
@@ -30,6 +33,12 @@ class ChannelsStore {
 
     channelsDidUpdate(items) {
         this.channels = items;
+    }
+
+    createCollectionIfNeeded() {
+        if (!this.channels) {
+            this.channels = [];
+        }
     }
 }
 

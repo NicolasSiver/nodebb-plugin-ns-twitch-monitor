@@ -22,32 +22,36 @@ class ChannelsList extends React.Component {
     }
 
     render() {
-        let noItems, list;
         const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
-        if (this.props.channels.length) {
-            list = (
-                <ul className="channels-list">
-                    <ReactCSSTransitionGroup transitionName="alpha">
-                        {this.props.channels.map((channel, index) => {
-                            return <ChannelItemView
-                                key={channel.cid}
-                                channel={channel}
-                                live={!!this.props.streams[channel.name]}/>;
-                        })}
-                    </ReactCSSTransitionGroup>
-                </ul>
-            );
-        } else {
-            noItems = <div className="alert alert-warning" role="alert">There is no channels. Let's add some?</div>;
-        }
 
         return (
             <div className="channels-list-container">
-                {noItems}
-                {list}
+                <ul className="channels-list">
+                    <ReactCSSTransitionGroup transitionName="alpha">
+                        {this.renderItems(this.props.channels)}
+                    </ReactCSSTransitionGroup>
+                </ul>
             </div>
         );
+    }
+
+    renderItems(items) {
+        // Prevent render if there is an ongoing request
+        if (!items) {
+            return null;
+        }
+
+        if (items.length) {
+            return items.map((channel, index) => {
+                return <ChannelItemView
+                    key={channel.cid}
+                    channel={channel}
+                    live={!!this.props.streams[channel.name]}/>;
+            });
+        } else {
+            return <div className="alert alert-warning" role="alert">There is no channels. Let's add some?</div>;
+        }
+
     }
 }
 

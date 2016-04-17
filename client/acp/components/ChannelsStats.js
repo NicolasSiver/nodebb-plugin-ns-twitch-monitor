@@ -16,9 +16,10 @@ class ChannelsStats extends React.Component {
     }
 
     render() {
+        let count = (this.props.channels) ? this.props.channels.length : 0;
         return (
             <div className="channels-stats">
-                <div className="channels-number"><b>Channels:</b> {this.props.channels.length} from 100</div>
+                <div className="channels-number"><b>Channels:</b> {count} from 100</div>
             </div>
         );
     }

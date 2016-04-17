@@ -656,41 +656,46 @@ var ChannelsList = (function (_React$Component) {
     _createClass(ChannelsList, [{
         key: 'render',
         value: function render() {
-            var _this = this;
-
-            var noItems = undefined,
-                list = undefined;
             var ReactCSSTransitionGroup = _reactAddons2['default'].addons.CSSTransitionGroup;
 
-            if (this.props.channels.length) {
-                list = _reactAddons2['default'].createElement(
+            return _reactAddons2['default'].createElement(
+                'div',
+                { className: 'channels-list-container' },
+                _reactAddons2['default'].createElement(
                     'ul',
                     { className: 'channels-list' },
                     _reactAddons2['default'].createElement(
                         ReactCSSTransitionGroup,
                         { transitionName: 'alpha' },
-                        this.props.channels.map(function (channel, index) {
-                            return _reactAddons2['default'].createElement(_ChannelItemView2['default'], {
-                                key: channel.cid,
-                                channel: channel,
-                                live: !!_this.props.streams[channel.name] });
-                        })
+                        this.renderItems(this.props.channels)
                     )
-                );
+                )
+            );
+        }
+    }, {
+        key: 'renderItems',
+        value: function renderItems(items) {
+            var _this = this;
+
+            // Prevent render if there is an ongoing request
+            if (!items) {
+                return null;
+            }
+
+            if (items.length) {
+                return items.map(function (channel, index) {
+                    return _reactAddons2['default'].createElement(_ChannelItemView2['default'], {
+                        key: channel.cid,
+                        channel: channel,
+                        live: !!_this.props.streams[channel.name] });
+                });
             } else {
-                noItems = _reactAddons2['default'].createElement(
+                return _reactAddons2['default'].createElement(
                     'div',
                     { className: 'alert alert-warning', role: 'alert' },
                     'There is no channels. Let\'s add some?'
                 );
             }
-
-            return _reactAddons2['default'].createElement(
-                'div',
-                { className: 'channels-list-container' },
-                noItems,
-                list
-            );
         }
     }]);
 
@@ -753,6 +758,7 @@ var ChannelsStats = (function (_React$Component) {
     _createClass(ChannelsStats, [{
         key: 'render',
         value: function render() {
+            var count = this.props.channels ? this.props.channels.length : 0;
             return _react2['default'].createElement(
                 'div',
                 { className: 'channels-stats' },
@@ -765,7 +771,7 @@ var ChannelsStats = (function (_React$Component) {
                         'Channels:'
                     ),
                     ' ',
-                    this.props.channels.length,
+                    count,
                     ' from 100'
                 )
             );
@@ -27504,19 +27510,22 @@ var ChannelsStore = (function () {
             channelsDidUpdate: _actionsActions2['default'].channelsDidUpdate
         });
 
-        this.channels = [];
+        this.channels = null;
     }
 
     _createClass(ChannelsStore, [{
         key: 'channelDidAdd',
         value: function channelDidAdd(item) {
-            var update = this.channels.slice();
+            var update = undefined;
+            this.createCollectionIfNeeded();
+            update = this.channels.slice();
             update.push(item);
             this.channels = update;
         }
     }, {
         key: 'channelDidRemove',
         value: function channelDidRemove(channelId) {
+            this.createCollectionIfNeeded();
             this.channels = this.channels.filter(function (channel) {
                 return channel.cid != channelId;
             });
@@ -27525,6 +27534,13 @@ var ChannelsStore = (function () {
         key: 'channelsDidUpdate',
         value: function channelsDidUpdate(items) {
             this.channels = items;
+        }
+    }, {
+        key: 'createCollectionIfNeeded',
+        value: function createCollectionIfNeeded() {
+            if (!this.channels) {
+                this.channels = [];
+            }
         }
     }]);
 
