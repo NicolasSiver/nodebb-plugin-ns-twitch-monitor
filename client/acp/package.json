@@ -4,7 +4,7 @@
   "description": "Admin Panel for the Plugin",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=development browserify -t envify -t babelify -t uglifyify index.js -o ../../public/js/acp.js",
+    "build": "NODE_ENV=production browserify -t babelify -t envify -g uglifyify index.js -o ../../public/js/acp.js",
     "watch-js": "watchify index.js -o ../../public/js/acp.js --verbose",
     "watch-less": "gulp",
     "watch": "npm run watch-less & npm run watch-js",

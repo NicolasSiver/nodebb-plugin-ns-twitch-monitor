@@ -1,7 +1,14 @@
-import React from 'react';
 import Application from './components/Application';
+import Define from 'define';
+import React from 'react';
 
-React.render(
-    <Application />,
-    document.getElementById('acpTwitchMonitor')
-);
+Define('admin/plugins/twitch-monitor', [], () => {
+    return {
+        init: function () {
+            React.render(
+                <Application />,
+                document.getElementById('acpTwitchMonitor')
+            );
+        }
+    };
+});

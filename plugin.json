@@ -29,6 +29,9 @@
   "less": [
     "style/widget.less"
   ],
+  "acpScripts": [
+    "public/js/acp.js"
+  ],
   "scripts": [
     "public/js/widget.js"
   ],
