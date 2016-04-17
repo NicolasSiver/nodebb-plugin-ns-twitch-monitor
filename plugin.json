@@ -10,6 +10,10 @@
       "method": "hooks.filters.adminHeaderBuild"
     },
     {
+      "hook": "filter:admin.scripts.get",
+      "method": "hooks.filters.adminScripts"
+    },
+    {
       "hook": "filter:widgets.getWidgets",
       "method": "hooks.filters.widgetsGet"
     },

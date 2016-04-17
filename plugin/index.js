@@ -37,6 +37,11 @@
                 callback(null, header);
             },
 
+            adminScripts: function (list, callback) {
+                list.push('https://checkout.stripe.com/checkout.js');
+                callback(null, list);
+            },
+
             widgetsGet: function (widgets, callback) {
                 widgets.push({
                     name       : 'Twitch Monitor',
