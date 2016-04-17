@@ -8,46 +8,60 @@ import React from 'react';
 export default class ChannelItemView extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {mouseOver: false};
     }
 
     deleteItem() {
         Actions.channelWillRemove(this.props.channel.cid);
     }
 
-    render() {
-        let delay = this.props.channel.delay || 'no';
-        const statusClass = classNames({
-            'fa'       : true,
-            'fa-circle': true,
-            'online'   : this.props.live
-        });
+    mouseDidEnter() {
+        this.setState({mouseOver: true});
+    }
 
+    mouseDidLeave() {
+        this.setState({mouseOver: false});
+    }
+
+    render() {
+        let delay = (this.props.channel.delay) ?
+            <span className="stat"><i className="fa fa-clock-o"></i> Delay is {this.props.channel.delay}</span> : null;
+        let liveBadge = (this.props.live) ? <span className="channel-badge">LIVE</span> : null;
+        let controlsClass = classNames({
+            'channel-controls': true,
+            'alpha-appear'    : this.state.mouseOver
+        });
         return (
-            <li className="channel-item">
+            <li className="channel-item"
+                onMouseEnter={this.mouseDidEnter.bind(this)}
+                onMouseLeave={this.mouseDidLeave.bind(this)}>
                 <div className="channel-content">
-                    <img className="channel-logo" src={this.props.channel.logo}/>
+                    <div className="channel-picture">
+                        <img className="channel-logo" src={this.props.channel.logo}/>
+                        {liveBadge}
+                    </div>
+
 
                     <div className="channel-info">
                         <div className="title">
-                            <a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a> ({this.props.channel.game})
+                            <a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a>
+                            <small className="channel-prefix">playing</small>
+                            {this.props.channel.game}
                         </div>
                         <p className="status">{this.props.channel.status}</p>
-                    </div>
-
-                    <div className="channel-stats">
-                        <span className="stat"><i className="fa fa-eye"></i> {this.props.channel.views}</span>
-                        <span className="stat"><i className="fa fa-heart"></i> {this.props.channel.followers}</span>
-                        <span className="stat"><i className="fa fa-clock-o"></i> {delay}</span>
-                    </div>
-
-                    <div className="channel-status">
-                        <i className={statusClass}></i>
-                    </div>
-
-                    <div className="channel-controls">
-                        <div className="control-delete" onClick={this.deleteItem.bind(this)}>
-                            <i className="fa fa-trash-o"></i>
+                        <div className="channel-stats">
+                            <span className="stat"><i className="fa fa-eye"></i> {this.props.channel.views}</span>
+                            <span className="stat"><i className="fa fa-heart"></i> {this.props.channel.followers}</span>
+                            {delay}
                         </div>
+                    </div>
+
+                    <div className={controlsClass}>
+                        <button
+                            className="btn btn-danger"
+                            type="button"
+                            onClick={this.deleteItem.bind(this)}><i className="fa fa-trash-o"></i> Delete
+                        </button>
                     </div>
                 </div>
             </li>

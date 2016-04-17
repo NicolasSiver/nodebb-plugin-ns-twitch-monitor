@@ -16,7 +16,6 @@
   padding: 0;
 }
 .channels-list .channel-item {
-  height: 64px;
   padding: 4px;
 }
 .channels-list .channel-item .channel-content {
@@ -27,17 +26,29 @@
   height: 100%;
   overflow: hidden;
 }
-.channels-list .channel-item .channel-content .channel-logo {
-  width: 56px;
+.channels-list .channel-item .channel-content .channel-picture {
+  position: relative;
   -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  height: auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.channels-list .channel-item .channel-content .channel-badge {
+  background-color: #f44336;
+  color: #ffffff;
+  font-size: 0.8em;
+  left: 4px;
+  padding: 0 4px;
+  position: absolute;
+  top: 4px;
+}
+.channels-list .channel-item .channel-content .channel-logo {
+  width: 88px;
+  height: 88px;
 }
 .channels-list .channel-item .channel-content .channel-info {
   -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   margin: 0 16px;
 }
 .channels-list .channel-item .channel-content .channel-info .title {
@@ -47,86 +58,32 @@
   margin: 0;
 }
 .channels-list .channel-item .channel-content .channel-info .status {
+  color: #9e9e9e;
   width: 100%;
   margin: 0;
   padding: 0;
 }
+.channels-list .channel-item .channel-content .channel-prefix {
+  color: #9e9e9e;
+}
 .channels-list .channel-item .channel-content .channel-stats {
   -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
-          align-self: center;
-  margin-left: 16px;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
 }
-.channels-list .channel-item .channel-content .channel-status {
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
-          align-self: center;
-  margin: 0 16px;
-}
-.channels-list .channel-item .channel-content .channel-status .fa {
-  color: #eeeeee;
-}
-.channels-list .channel-item .channel-content .channel-status .fa.online {
-  color: #f44336;
-}
 .channels-list .channel-item .channel-content .channel-controls {
   -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  -ms-flex-item-align: center;
-          -webkit-align-self: center;
-          align-self: center;
-}
-.channels-list .channel-item .channel-content .channel-controls .control-delete {
-  cursor: pointer;
-  color: #f44336;
-}
-.alpha-appear {
-  opacity: 0.01;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
   transition: opacity 0.2s ease-in-out;
+  opacity: 0;
 }
-.alpha-appear.alpha-appear-active {
+.channels-list .channel-item .channel-content .alpha-appear {
   opacity: 1;
-}
-.alpha-enter {
-  opacity: 0.01;
-  transition: opacity 0.2s ease-in-out;
-}
-.alpha-enter.alpha-enter-active {
-  opacity: 1;
-}
-.alpha-leave {
-  opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-}
-.alpha-leave.alpha-leave-active {
-  opacity: 0.01;
 }
 .twitch-monitor-acp .tab-content {
   margin-top: 24px;
-}
-@-webkit-keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.1;
-  }
-}
-@keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.1;
-  }
 }

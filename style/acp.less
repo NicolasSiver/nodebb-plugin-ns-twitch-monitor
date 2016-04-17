@@ -25,7 +25,6 @@
   padding: 0;
 
   .channel-item {
-    height: @tm-line-height;
     padding: @tm-padding-xs;
 
     .channel-content {
@@ -34,10 +33,24 @@
       height: 100%;
       overflow: hidden;
 
-      .channel-logo {
-        width: @tm-line-height - 2*@tm-padding-xs;
+      .channel-picture {
+        position: relative;
         flex: 0 0 auto;
-        height: auto;
+      }
+
+      .channel-badge {
+        background-color: @md-clr-red;
+        color: #ffffff;
+        font-size: 0.8em;
+        left: @tm-margin-xs;
+        padding: 0 @tm-padding-xs;
+        position: absolute;
+        top: @tm-margin-xs;
+      }
+
+      .channel-logo {
+        width: @tm-avatar-size;
+        height: @tm-avatar-size;
       }
 
       .channel-info {
@@ -51,87 +64,40 @@
           margin: 0;
         }
         .status {
+          color: @md-clr-grey-500;
           width: 100%;
           margin: 0;
           padding: 0;
         }
       }
 
+      .channel-prefix {
+        color: @md-clr-grey-500;
+      }
+
       .channel-stats {
         flex: 0 0 auto;
-        align-self: center;
-        margin-left: @tm-margin;
 
         .stat + .stat {
           margin-left: @tm-margin;
         }
       }
 
-      .channel-status {
-        flex: 0 0 auto;
-        align-self: center;
-        margin: 0 @tm-margin;
-
-        .fa {
-          color: @md-clr-grey-200;
-
-          &.online {
-            color: @md-clr-red;
-          }
-        }
-      }
-
       .channel-controls {
         flex: 0 0 auto;
-        align-self: center;
+        transition: opacity @tm-anim-alpha ease-in-out;
+        opacity: 0;
+      }
 
-        .control-delete {
-          cursor: pointer;
-          color: @md-clr-red;
-        }
+      .alpha-appear {
+        opacity: 1;
       }
     }
-  }
-}
-
-.alpha-appear {
-  opacity: 0.01;
-  transition: opacity @tm-anim-alpha ease-in-out;
-
-  &.alpha-appear-active {
-    opacity: 1;
-  }
-}
-
-.alpha-enter {
-  opacity: 0.01;
-  transition: opacity @tm-anim-alpha ease-in-out;
-
-  &.alpha-enter-active {
-    opacity: 1;
-  }
-}
-
-.alpha-leave {
-  opacity: 1;
-  transition: opacity @tm-anim-alpha ease-in-out;
-
-  &.alpha-leave-active {
-    opacity: 0.01;
   }
 }
 
 .twitch-monitor-acp {
   .tab-content {
     margin-top: @tm-margin-l;
-  }
-}
-
-@keyframes fade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.1;
   }
 }

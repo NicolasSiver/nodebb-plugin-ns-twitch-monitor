@@ -397,6 +397,7 @@ var ChannelItemView = (function (_React$Component) {
         _classCallCheck(this, ChannelItemView);
 
         _get(Object.getPrototypeOf(ChannelItemView.prototype), 'constructor', this).call(this, props);
+        this.state = { mouseOver: false };
     }
 
     _createClass(ChannelItemView, [{
@@ -405,22 +406,48 @@ var ChannelItemView = (function (_React$Component) {
             _actionsActions2['default'].channelWillRemove(this.props.channel.cid);
         }
     }, {
+        key: 'mouseDidEnter',
+        value: function mouseDidEnter() {
+            this.setState({ mouseOver: true });
+        }
+    }, {
+        key: 'mouseDidLeave',
+        value: function mouseDidLeave() {
+            this.setState({ mouseOver: false });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var delay = this.props.channel.delay || 'no';
-            var statusClass = (0, _classnames2['default'])({
-                'fa': true,
-                'fa-circle': true,
-                'online': this.props.live
+            var delay = this.props.channel.delay ? _react2['default'].createElement(
+                'span',
+                { className: 'stat' },
+                _react2['default'].createElement('i', { className: 'fa fa-clock-o' }),
+                ' Delay is ',
+                this.props.channel.delay
+            ) : null;
+            var liveBadge = this.props.live ? _react2['default'].createElement(
+                'span',
+                { className: 'channel-badge' },
+                'LIVE'
+            ) : null;
+            var controlsClass = (0, _classnames2['default'])({
+                'channel-controls': true,
+                'alpha-appear': this.state.mouseOver
             });
-
             return _react2['default'].createElement(
                 'li',
-                { className: 'channel-item' },
+                { className: 'channel-item',
+                    onMouseEnter: this.mouseDidEnter.bind(this),
+                    onMouseLeave: this.mouseDidLeave.bind(this) },
                 _react2['default'].createElement(
                     'div',
                     { className: 'channel-content' },
-                    _react2['default'].createElement('img', { className: 'channel-logo', src: this.props.channel.logo }),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'channel-picture' },
+                        _react2['default'].createElement('img', { className: 'channel-logo', src: this.props.channel.logo }),
+                        liveBadge
+                    ),
                     _react2['default'].createElement(
                         'div',
                         { className: 'channel-info' },
@@ -432,53 +459,49 @@ var ChannelItemView = (function (_React$Component) {
                                 { href: this.props.channel.url, target: '_blank' },
                                 this.props.channel.display_name
                             ),
-                            ' (',
-                            this.props.channel.game,
-                            ')'
+                            _react2['default'].createElement(
+                                'small',
+                                { className: 'channel-prefix' },
+                                'playing'
+                            ),
+                            this.props.channel.game
                         ),
                         _react2['default'].createElement(
                             'p',
                             { className: 'status' },
                             this.props.channel.status
-                        )
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'channel-stats' },
-                        _react2['default'].createElement(
-                            'span',
-                            { className: 'stat' },
-                            _react2['default'].createElement('i', { className: 'fa fa-eye' }),
-                            ' ',
-                            this.props.channel.views
                         ),
                         _react2['default'].createElement(
-                            'span',
-                            { className: 'stat' },
-                            _react2['default'].createElement('i', { className: 'fa fa-heart' }),
-                            ' ',
-                            this.props.channel.followers
-                        ),
-                        _react2['default'].createElement(
-                            'span',
-                            { className: 'stat' },
-                            _react2['default'].createElement('i', { className: 'fa fa-clock-o' }),
-                            ' ',
+                            'div',
+                            { className: 'channel-stats' },
+                            _react2['default'].createElement(
+                                'span',
+                                { className: 'stat' },
+                                _react2['default'].createElement('i', { className: 'fa fa-eye' }),
+                                ' ',
+                                this.props.channel.views
+                            ),
+                            _react2['default'].createElement(
+                                'span',
+                                { className: 'stat' },
+                                _react2['default'].createElement('i', { className: 'fa fa-heart' }),
+                                ' ',
+                                this.props.channel.followers
+                            ),
                             delay
                         )
                     ),
                     _react2['default'].createElement(
                         'div',
-                        { className: 'channel-status' },
-                        _react2['default'].createElement('i', { className: statusClass })
-                    ),
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'channel-controls' },
+                        { className: controlsClass },
                         _react2['default'].createElement(
-                            'div',
-                            { className: 'control-delete', onClick: this.deleteItem.bind(this) },
-                            _react2['default'].createElement('i', { className: 'fa fa-trash-o' })
+                            'button',
+                            {
+                                className: 'btn btn-danger',
+                                type: 'button',
+                                onClick: this.deleteItem.bind(this) },
+                            _react2['default'].createElement('i', { className: 'fa fa-trash-o' }),
+                            ' Delete'
                         )
                     )
                 )
