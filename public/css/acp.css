@@ -50,8 +50,8 @@
 .channels-list .channel-item .channel-content .channel-picture {
   position: relative;
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 .channels-list .channel-item .channel-content .channel-badge {
   background-color: #f44336;
@@ -68,8 +68,8 @@
 }
 .channels-list .channel-item .channel-content .channel-info {
   -webkit-flex: 1 1 auto;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
   margin: 0 16px;
 }
 .channels-list .channel-item .channel-content .channel-info .title {
@@ -89,16 +89,16 @@
 }
 .channels-list .channel-item .channel-content .channel-stats {
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-controls {
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
 }
