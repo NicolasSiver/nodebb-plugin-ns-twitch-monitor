@@ -473,7 +473,7 @@ var ChannelItemView = (function (_React$Component) {
                             _react2['default'].createElement(
                                 'small',
                                 { className: 'channel-prefix' },
-                                'playing'
+                                ' playing '
                             ),
                             this.props.channel.game
                         ),
@@ -27490,18 +27490,16 @@ var ChannelsStore = (function () {
     _createClass(ChannelsStore, [{
         key: 'channelDidAdd',
         value: function channelDidAdd(item) {
-            this.channels.push(item);
+            var update = this.channels.slice();
+            update.push(item);
+            this.channels = update;
         }
     }, {
         key: 'channelDidRemove',
         value: function channelDidRemove(channelId) {
-            var index = (0, _lodashArrayFindIndex2['default'])(this.channels, function (channel) {
-                return channel.cid === channelId;
+            this.channels = this.channels.filter(function (channel) {
+                return channel.cid != channelId;
             });
-
-            if (index >= 0) {
-                this.channels.splice(index, 1);
-            }
         }
     }, {
         key: 'channelsDidUpdate',

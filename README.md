@@ -35,7 +35,6 @@ Monitors specific channels and adds them to widget view
 
 ## TODO
 
-- ACP: Prompt before remove of channel
 - ACP: Show progress on channel add
 - ACP: Show progress on client id validation
 - ACP: Show animated update ticks

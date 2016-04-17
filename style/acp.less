@@ -1,6 +1,34 @@
 @import 'vars';
 @import 'material-color/material-color-prefixed';
 
+// Transition Group Animations
+.alpha-appear {
+  opacity: 0.01;
+  transition: opacity @tm-anim-alpha ease-in-out;
+
+  &.alpha-appear-active {
+    opacity: 1;
+  }
+}
+
+.alpha-enter {
+  opacity: 0.01;
+  transition: opacity @tm-anim-alpha ease-in-out;
+
+  &.alpha-enter-active {
+    opacity: 1;
+  }
+}
+
+.alpha-leave {
+  opacity: 1;
+  transition: opacity @tm-anim-alpha ease-in-out;
+
+  &.alpha-leave-active {
+    opacity: 0.01;
+  }
+}
+
 .channel-item-form {
   padding: @tm-padding 0;
 

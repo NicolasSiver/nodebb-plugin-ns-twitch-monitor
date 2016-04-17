@@ -17,17 +17,15 @@ class ChannelsStore {
     }
 
     channelDidAdd(item) {
-        this.channels.push(item);
+        let update = this.channels.slice();
+        update.push(item);
+        this.channels = update;
     }
 
     channelDidRemove(channelId) {
-        let index = findIndex(this.channels, channel => {
-           return channel.cid === channelId;
+        this.channels = this.channels.filter((channel) => {
+            return channel.cid != channelId;
         });
-
-        if(index >= 0){
-            this.channels.splice(index, 1);
-        }
     }
 
     channelsDidUpdate(items) {

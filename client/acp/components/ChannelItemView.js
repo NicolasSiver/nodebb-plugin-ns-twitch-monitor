@@ -50,7 +50,7 @@ export default class ChannelItemView extends React.Component {
                     <div className="channel-info">
                         <div className="title">
                             <a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a>
-                            <small className="channel-prefix">playing</small>
+                            <small className="channel-prefix"> playing </small>
                             {this.props.channel.game}
                         </div>
                         <p className="status">{this.props.channel.status}</p>
