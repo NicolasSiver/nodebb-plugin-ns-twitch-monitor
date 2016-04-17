@@ -1,5 +1,13 @@
 # Changelog
 
+### v3.0.0 - 04/17/2016
+
+- Compatibility with NodeBB 1.x.x
+- Change for 'Add Channel' flow
+- Change layout for Channel list
+- Add prompt for Channel removal
+- Improve initial rendering of the channel list in ACP
+
 ## v2.0.0 - 12/25/2015
 
 - Compatibility with NodeBB 0.9.x
