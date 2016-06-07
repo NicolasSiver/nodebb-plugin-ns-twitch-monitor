@@ -6,12 +6,21 @@
 
     var _            = require('lodash'),
         EventEmitter = require('eventemitter3'),
+        objectAssign = require('object-assign'),
         postal       = require('postal'),
         util         = require('util'),
 
-        channelModel = require('./channel'),
         constants    = require('../constants'),
         logger       = require('../logger');
+
+    var channelFields = [
+        'mature', 'display_name', 'name', 'game', 'logo', 'url', 'views', 'followers',
+        'language', 'status', 'created_at', 'updated_at', 'delay'
+    ];
+
+    StreamList.create = function (channels) {
+        return new List(channels);
+    };
 
     StreamList.events = {
         STREAM_DID_CHANGE: 'streamDidChange'
@@ -47,9 +56,21 @@
     };
 
     List.prototype.cleanStreamPayload = function (streamData) {
-        var channelName = streamData.channel.name;
-        var result = _.omit(streamData, ['_links', 'channel']);
-        result.channel = channelName;
+        var result, channelName;
+        if (streamData) {
+            channelName = streamData.channel.name;
+            result = _.omit(streamData, ['_links', 'channel']);
+            result.channel = channelName;
+        }
+        return result;
+    };
+
+    List.prototype.createChannel = function (data, fields) {
+        var result = {}, len = fields.length, fieldName;
+        for (var i = 0; i < len; ++i) {
+            fieldName = fields[i];
+            result[fieldName] = data[fieldName];
+        }
         return result;
     };
 
@@ -117,29 +138,30 @@
     };
 
     List.prototype.update = function (streams) {
-        var streamsMap = {};
+        var channelStreams = {}, channelsUpdate = [];
         streams.forEach(function (stream) {
-            streamsMap[stream.channel.name] = stream;
+            channelStreams[stream.channel.name] = stream;
         }, this);
 
         this.channels.forEach(function (channel, index) {
-            var stream = streamsMap[channel.name];
+            var stream = channelStreams[channel.name];
 
             if (stream) {
-                //Update channel data in memory
-                channelModel.update(channel, stream.channel);
-                //Persist updated channel
-                postal.publish({
-                    channel: constants.CHANNELS,
-                    topic  : constants.CHANNEL_DID_UPDATE,
-                    data   : {
-                        id     : channel.cid,
-                        payload: channelModel.update({}, stream.channel)
-                    }
-                });
+                channelsUpdate.push(this.createChannel(stream.channel, channelFields));
+                ////Update channel data in memory
+                //channelModel.update(channel, stream.channel);
+                ////Persist updated channel
+                //postal.publish({
+                //    channel: constants.CHANNELS,
+                //    topic  : constants.CHANNEL_DID_UPDATE,
+                //    data   : {
+                //        id     : channel.cid,
+                //        payload: channelModel.update({}, stream.channel)
+                //    }
+                //});
             }
 
-            this.updateStream(channel, stream, index);
+            this.updateStream(channel, this.cleanStreamPayload(stream), index);
         }, this);
     };
 
@@ -182,10 +204,6 @@
         } else {
             //Channel is offline still
         }
-    };
-
-    StreamList.create = function (channels) {
-        return new List(channels);
     };
 
 })(module.exports);
