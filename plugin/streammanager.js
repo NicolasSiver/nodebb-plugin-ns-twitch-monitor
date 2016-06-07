@@ -7,6 +7,7 @@
     // Current recommended practice is to poll the API to check if streams are online.
 
     var _          = require('lodash'),
+        postal     = require('postal'),
 
         constants  = require('./constants'),
         database   = require('./database'),
@@ -46,10 +47,23 @@
             }
 
             _streams = streamList.create(channels);
+            _streams.on(streamList.events.CHANNEL_DID_CHANGE, channelDidUpdate);
             _streams.on(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
             start(callback);
         });
     };
+
+    function channelDidUpdate(event) {
+        ////Persist updated channel
+        postal.publish({
+            channel: constants.CHANNELS,
+            topic  : constants.CHANNEL_DID_UPDATE,
+            data   : {
+                id     : event.channel.cid,
+                payload: event.channel
+            }
+        });
+    }
 
     function deferNextUpdate(delay) {
         logger.log('verbose', 'Next stream status update in %d ms', delay);
@@ -61,6 +75,7 @@
         clearTimeout(_deferUpdate);
         _deferUpdate = null;
         if (_streams != null) {
+            _streams.removeListener(streamList.events.CHANNEL_DID_CHANGE, channelDidUpdate);
             _streams.removeListener(streamList.events.STREAM_DID_CHANGE, streamDidUpdate);
         }
         _streams = null;

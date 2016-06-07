@@ -7,7 +7,6 @@
     var _            = require('lodash'),
         EventEmitter = require('eventemitter3'),
         objectAssign = require('object-assign'),
-        postal       = require('postal'),
         util         = require('util'),
 
         constants    = require('../constants'),
@@ -23,7 +22,8 @@
     };
 
     StreamList.events = {
-        STREAM_DID_CHANGE: 'streamDidChange'
+        CHANNEL_DID_CHANGE: 'channelDidChange',
+        STREAM_DID_CHANGE : 'streamDidChange'
     };
 
     StreamList.status = {
@@ -84,6 +84,16 @@
         return stream;
     };
 
+    List.prototype.findChannelIndexById = function (id) {
+        var i = 0, len = this.channels.length;
+        for (i; i < len; ++i) {
+            if (this.channels[i].cid === id) {
+                return i;
+            }
+        }
+        return -1;
+    };
+
     List.prototype.getChannels = function () {
         return this.channels;
     };
@@ -137,8 +147,19 @@
         }
     };
 
+    List.prototype.setChannel = function (channel) {
+        var index = this.findChannelIndexById(channel.cid);
+        if (index != -1) {
+            this.channels[index] = channel;
+            this.emit(StreamList.events.CHANNEL_DID_CHANGE, {
+                channel: objectAssign({}, channel),
+                index  : index
+            });
+        }
+    };
+
     List.prototype.update = function (streams) {
-        var channelStreams = {}, channelsUpdate = [];
+        var channelStreams = {};
         streams.forEach(function (stream) {
             channelStreams[stream.channel.name] = stream;
         }, this);
@@ -147,18 +168,7 @@
             var stream = channelStreams[channel.name];
 
             if (stream) {
-                channelsUpdate.push(this.createChannel(stream.channel, channelFields));
-                ////Update channel data in memory
-                //channelModel.update(channel, stream.channel);
-                ////Persist updated channel
-                //postal.publish({
-                //    channel: constants.CHANNELS,
-                //    topic  : constants.CHANNEL_DID_UPDATE,
-                //    data   : {
-                //        id     : channel.cid,
-                //        payload: channelModel.update({}, stream.channel)
-                //    }
-                //});
+                this.setChannel(this.createChannel(stream.channel, channelFields));
             }
 
             this.updateStream(channel, this.cleanStreamPayload(stream), index);
