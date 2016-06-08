@@ -1,5 +1,9 @@
 # Changelog
 
+### v3.0.1 - 06/07/2016
+
+- Service update, no new features
+
 ### v3.0.0 - 04/17/2016
 
 - Compatibility with NodeBB 1.x.x
