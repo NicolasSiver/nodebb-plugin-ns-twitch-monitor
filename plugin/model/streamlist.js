@@ -5,8 +5,8 @@
     'use strict';
 
     var _            = require('lodash'),
+        clone        = require('clone'),
         EventEmitter = require('eventemitter3'),
-        objectAssign = require('object-assign'),
         util         = require('util'),
 
         constants    = require('../constants'),
@@ -95,11 +95,11 @@
     };
 
     List.prototype.getChannels = function () {
-        return this.channels;
+        return clone(this.channels);
     };
 
     List.prototype.getStreamList = function () {
-        return this.streamsMap;
+        return clone(this.streamsMap);
     };
 
     List.prototype.getPayloadList = function () {
@@ -152,7 +152,7 @@
         if (index != -1) {
             this.channels[index] = channel;
             this.emit(StreamList.events.CHANNEL_DID_CHANGE, {
-                channel: objectAssign({}, channel),
+                channel: clone(channel),
                 index  : index
             });
         }
@@ -178,11 +178,6 @@
     List.prototype.updateStream = function (channel, streamData, index) {
         var previousState = this.streamsMap[channel.name];
         var newState = streamData;
-
-        if (newState) {
-            //Reduce object size
-            newState = this.cleanStreamPayload(newState);
-        }
 
         if (!previousState && newState) {
             this.addStream(channel, newState);

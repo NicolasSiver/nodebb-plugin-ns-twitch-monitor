@@ -26,6 +26,7 @@
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
   "dependencies": {
     "async": "^1.5.2",
+    "clone": "^1.0.2",
     "eventemitter3": "^1.2.0",
     "lodash": "^4.11.1",
     "object-assign": "^4.0.1",
