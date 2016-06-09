@@ -131,9 +131,11 @@
             return channel.name === channelName;
         });
 
-        if (index >= 0) {
-            var channel = this.channels.splice(index, 1);
+        if (index != -1) {
+            var channel = this.channels[index];
             var stream = this.deleteStream(channel);
+
+            this.channels.splice(index, 1);
 
             if (stream) {
                 //Force stream go to offline, reason: removed
