@@ -54,7 +54,7 @@
     };
 
     function channelDidUpdate(event) {
-        ////Persist updated channel
+        // Persist updated channel
         postal.publish({
             channel: constants.CHANNELS,
             topic  : constants.CHANNEL_DID_UPDATE,

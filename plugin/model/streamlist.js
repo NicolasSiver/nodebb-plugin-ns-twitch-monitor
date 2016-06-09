@@ -108,9 +108,9 @@
             if (channel.name in this.streamsMap) {
                 payloadList[channel.name] = {
                     status : StreamList.status.UPDATE,
-                    channel: channel,
+                    channel: clone(channel),
                     index  : index,
-                    stream : this.streamsMap[channel.name]
+                    stream : clone(this.streamsMap[channel.name])
                 };
             }
         }, this);
@@ -161,7 +161,7 @@
     };
 
     List.prototype.update = function (streams) {
-        var channelStreams = {};
+        var channelStreams = {}, channelUpdates = [];
         streams.forEach(function (stream) {
             channelStreams[stream.channel.name] = stream;
         }, this);
@@ -170,10 +170,17 @@
             var stream = channelStreams[channel.name];
 
             if (stream) {
-                this.setChannel(this.createChannel(stream.channel, channelFields));
+                channelUpdates.push(clone(stream.channel));
             }
 
             this.updateStream(channel, this.cleanStreamPayload(stream), index);
+        }, this);
+
+        channelUpdates.forEach(function (channelPayload) {
+            if (!channelPayload) {
+                logger.log('error', 'Channel payload is empty');
+            }
+            this.setChannel(this.createChannel(channelPayload, channelFields));
         }, this);
     };
 
@@ -186,27 +193,27 @@
             logger.log('verbose', 'Channel %s goes online', channel.name);
             this.emit(StreamList.events.STREAM_DID_CHANGE, {
                 status : StreamList.status.ONLINE,
-                channel: channel,
+                channel: clone(channel),
                 index  : index,
-                stream : newState
+                stream : clone(newState)
             });
         } else if (previousState && !newState) {
             this.deleteStream(channel);
             logger.log('verbose', 'Channel %s goes offline', channel.name);
             this.emit(StreamList.events.STREAM_DID_CHANGE, {
                 status : StreamList.status.OFFLINE,
-                channel: channel,
+                channel: clone(channel),
                 index  : index,
-                stream : previousState
+                stream : clone(previousState)
             });
         } else if (previousState && newState) {
             this.mergeStream(channel, newState);
             //logger.log('verbose', 'Channel %s is updated', channel.name);
             this.emit(StreamList.events.STREAM_DID_CHANGE, {
                 status : StreamList.status.UPDATE,
-                channel: channel,
+                channel: clone(channel),
                 index  : index,
-                stream : newState
+                stream : clone(newState)
             });
         } else {
             //Channel is offline still
