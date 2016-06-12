@@ -1,5 +1,9 @@
 # Changelog
 
+### v3.0.4 - 06/12/2016
+
+- Add filter to Twitch API responses
+
 ### v3.0.3 - 06/12/2016
 
 - Service update, no new features
