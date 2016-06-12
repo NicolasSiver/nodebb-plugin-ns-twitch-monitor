@@ -1,5 +1,9 @@
 # Changelog
 
+### v3.0.3 - 06/12/2016
+
+- Service update, no new features
+
 ### v3.0.2 - 06/08/2016
 
 - Service update, no new features
