@@ -34,6 +34,11 @@
 
     function List(channels) {
         EventEmitter.call(this);
+
+        if(channels.indexOf(undefined) != -1){
+            logger.log('error', 'Stream initialization warning, detected "undefined" channel in the list');
+        }
+
         this.channels = channels || [];
         this.streamsMap = {};
     }
@@ -41,6 +46,9 @@
     util.inherits(List, EventEmitter);
 
     List.prototype.addChannel = function (channel) {
+        if(channel === undefined){
+            logger.log('error', 'Error: Adding empty channel data');
+        }
         logger.log('verbose', 'Register channel %s', channel.name);
         //Stream will be fetched with the next tick
         this.channels.push(channel);
@@ -137,6 +145,10 @@
 
             this.channels.splice(index, 1);
 
+            if(this.channels.indexOf(undefined) != -1){
+                logger.log('error', 'Error has occurred, Empty channel is detected after channel removal.');
+            }
+
             if (stream) {
                 //Force stream go to offline, reason: removed
                 this.emit(StreamList.events.STREAM_DID_CHANGE, {
@@ -152,6 +164,9 @@
     List.prototype.setChannel = function (channel) {
         var index = this.findChannelIndexById(channel.cid);
         if (index != -1) {
+            if(channel === undefined){
+                logger.log('error', 'Error, trying to set empty channel as an update');
+            }
             this.channels[index] = channel;
             this.emit(StreamList.events.CHANNEL_DID_CHANGE, {
                 channel: clone(channel),
