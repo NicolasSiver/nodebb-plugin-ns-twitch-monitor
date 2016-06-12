@@ -25,8 +25,9 @@
             return callback(new Error('Stream Manager is not initialised properly'));
         }
         _streams.addChannel(channel);
-        callback(null, channel);
-        start();
+        start(function () {
+            return callback(null, channel);
+        });
     };
 
     StreamManager.initWidthDelay = function (delay, callback) {
@@ -90,7 +91,7 @@
                 _deferUpdate = deferNextUpdate(_delay);
             } else {
                 if (_streams) {
-                    _streams.update(response.body.streams);
+                    _streams.update(response.data);
                     _deferUpdate = deferNextUpdate(_delay);
                 }
             }
@@ -109,17 +110,14 @@
             return callback(new Error('Stream Manager is not initialised properly'));
         }
         _streams.removeChannel(name);
-        callback(null);
-        stop();
+        stop(callback);
     };
 
     /**
      * Start monitoring process
-     * @param callback will return boolean status, true - if everything is ok
+     * @param callback {function}
      */
     function start(callback) {
-        callback = callback || _.noop;
-
         if (_deferUpdate) {
             //Ignore several starts
             return callback();

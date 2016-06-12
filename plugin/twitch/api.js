@@ -4,11 +4,12 @@
 (function (Api) {
     'use strict';
 
-    var _        = require('lodash'),
-        async    = require('async'),
-        request  = require('request'),
+    var _            = require('lodash'),
+        async        = require('async'),
+        objectAssign = require('object-assign'),
+        request      = require('request'),
 
-        settings = require('../settings');
+        settings     = require('../settings');
 
     var baseUrl     = 'https://api.twitch.tv/kraken',
         apiVersion3 = 'application/vnd.twitchtv.v3+json';
@@ -51,16 +52,46 @@
     Api.getGamesTop = function (limit, offset, force, callback) {
         limit = limit || 1;
         offset = offset || 0;
-
+        // FIXME Push through transform for consistency
         createRequest('games/top', {limit: limit, offset: offset}, force, callback);
     };
 
     Api.getChannel = function (channelName, callback) {
-        createRequest('channels/' + channelName, null, false, callback);
+        async.waterfall([
+            async.apply(createRequest, 'channels/' + channelName, null, false),
+            function (response, next) {
+                return next(null, transform(response, transformEntity));
+            }
+        ], callback);
     };
 
     Api.getStreams = function (channels, callback) {
-        createRequest('streams', {channel: channels.join(','), limit: 100}, false, callback);
+        async.waterfall([
+            async.apply(createRequest, 'streams', {channel: channels.join(','), limit: 100}, false),
+            function (response, next) {
+                return next(null, transform(response, function (payload) {
+                    var streams = [], stream;
+                    payload.streams.forEach(function (payloadStream) {
+                        stream = transformEntity(payloadStream);
+                        stream.channel = transformEntity(payloadStream.channel);
+                        streams.push(stream);
+                    });
+                    return streams;
+                }))
+            }
+        ], callback);
     };
+
+    function transform(incomingMessage, implementation) {
+        return {
+            status    : incomingMessage.statusMessage,
+            statusCode: incomingMessage.statusCode,
+            data      : implementation(incomingMessage.body)
+        };
+    }
+
+    function transformEntity(data) {
+        return objectAssign({}, {'twitch_id': data['_id']}, _.omit(data, ['_id', '_links']));
+    }
 
 })(module.exports);

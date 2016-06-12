@@ -28,6 +28,7 @@
                     async.apply(db.setObject, constants.NAMESPACE + ':channel:' + id, channelData)
                 ], function (error) {
                     if (error) {
+                        // TODO If any errors are detected, undo records
                         return next(error);
                     }
                     next(null, channelData);
