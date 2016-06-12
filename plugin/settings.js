@@ -20,7 +20,7 @@
             if (error) {
                 return done(error);
             }
-            settingsCache = objectAssign(defaults, settings);
+            settingsCache = objectAssign({}, defaults, settings);
             done(null);
         });
     };
