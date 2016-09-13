@@ -89,6 +89,10 @@
                 //Fail silently, don't rewrite previous stream status
                 logger.log('error', 'Error has occurred, message: %s', error.message);
                 _deferUpdate = deferNextUpdate(_delay);
+            } else if (response.statusCode !== 200) {
+                //Fail silently
+                logger.log('error', 'Error has occurred, can not get streams resource, code: %d', response.statusCode);
+                _deferUpdate = deferNextUpdate(_delay);
             } else {
                 if (_streams) {
                     _streams.update(response.data);

@@ -84,9 +84,8 @@
 
     function transform(incomingMessage, implementation) {
         var result = {
-            statusMessage: incomingMessage.statusMessage,
-            statusCode   : incomingMessage.statusCode,
-            data         : {}
+            statusCode: incomingMessage.statusCode,
+            data      : {}
         };
 
         // Apply transformation only if OK response
