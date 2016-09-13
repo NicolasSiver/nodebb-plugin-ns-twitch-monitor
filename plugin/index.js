@@ -42,6 +42,11 @@
                 callback(null, list);
             },
 
+            clearRequireCache: function (data, callback) {
+                controller.disposeIfNeeded();
+                callback(null, data);
+            },
+
             widgetsGet: function (widgets, callback) {
                 widgets.push({
                     name       : 'Twitch Monitor',
