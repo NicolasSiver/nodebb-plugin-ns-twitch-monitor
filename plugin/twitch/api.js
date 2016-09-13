@@ -83,11 +83,18 @@
     };
 
     function transform(incomingMessage, implementation) {
-        return {
-            status    : incomingMessage.statusMessage,
-            statusCode: incomingMessage.statusCode,
-            data      : implementation(incomingMessage.body)
+        var result = {
+            statusMessage: incomingMessage.statusMessage,
+            statusCode   : incomingMessage.statusCode,
+            data         : {}
         };
+
+        // Apply transformation only if OK response
+        if (incomingMessage.statusCode === 200) {
+            result.data = implementation(incomingMessage.body);
+        }
+
+        return result;
     }
 
     function transformEntity(data) {
