@@ -1,5 +1,10 @@
 # Changelog
 
+### v3.0.5 - 09/12/2016
+
+- Don't parse Twitch API response if response is not valid
+- Fail silently if streams are not accessible from Twitch API
+
 ### v3.0.4 - 06/12/2016
 
 - Add filter to Twitch API responses
