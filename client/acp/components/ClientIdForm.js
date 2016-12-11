@@ -1,22 +1,10 @@
 import classNames from 'classnames';
-import debounce from 'lodash/function/debounce';
 import React from 'react';
 import Validation from '../models/Validation';
 
 export default class ClientIdForm extends React.Component {
     constructor(props) {
         super(props);
-        this.debounce = debounce(this.checkValue.bind(this), props.debounceDelay);
-    }
-
-    checkValue() {
-        this.props.valueDidChange(this.state.clientId);
-    }
-
-    clientIdDidChange(e) {
-        this.setState({clientId: e.target.value}, () => {
-            this.debounce();
-        });
     }
 
     render() {
@@ -25,6 +13,12 @@ export default class ClientIdForm extends React.Component {
             'client-id-form__input': true,
             'has-success'          : this.props.valid === Validation.SUCCESS,
             'has-error'            : this.props.valid === Validation.FAILURE
+        });
+
+        const validationIconClass = classNames({
+            'fa'        : true,
+            'fa-refresh': true,
+            'fa-spin'   : this.props.validating
         });
 
         return (
@@ -36,7 +30,7 @@ export default class ClientIdForm extends React.Component {
                         className="form-control"
                         id="clientId"
                         defaultValue={this.props.value}
-                        onChange={this.clientIdDidChange.bind(this)}
+                        onChange={e => this.props.valueDidChange(e.target.value)}
                         placeholder="Twitch Client ID"/>
                     <small>
                         Hint: you should <a href="http://www.twitch.tv/kraken/oauth2/clients/new" target="_blank">register
@@ -50,11 +44,12 @@ export default class ClientIdForm extends React.Component {
                     <button
                         className="btn btn-success"
                         type="button"
-                        onClick={null}><i className="fa fa-refresh fa-spin"></i> Validate
+                        onClick={null}><i className={validationIconClass}></i> Validate
                     </button>
                     <button
                         className="btn btn-primary"
                         type="button"
+                        disabled={this.props.persisted ? 'disabled' : ''}
                         onClick={null}><i className="fa fa-floppy-o"></i> Save
                     </button>
                 </div>

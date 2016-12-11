@@ -9,8 +9,8 @@ class SettingsStore {
         });
 
         this.clientId = null;
-        this.clientIdPersisted = true;
-        this.data = {};
+        this.clientIdPersisted = false;
+        this.updateDelay = NaN;
     }
 
     clientIdDidChange(id) {
@@ -19,7 +19,9 @@ class SettingsStore {
     }
 
     settingsDidUpdate(settingsData) {
-        this.data = settingsData;
+        this.clientId = settingsData.clientId;
+        this.updateDelay = settingsData.updateTime;
+        this.clientIdPersisted = true;
     }
 }
 

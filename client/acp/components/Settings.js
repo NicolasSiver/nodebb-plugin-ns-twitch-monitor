@@ -12,9 +12,9 @@ class Settings extends React.Component {
     }
 
     static getPropsFromStores() {
-        let settings = SettingsStore.getState(),
-            validity = ValidationStore.getState();
-        return {settings, validity};
+        let settings   = SettingsStore.getState(),
+            validation = ValidationStore.getState();
+        return {settings, validation};
     }
 
     constructor(props) {
@@ -28,19 +28,20 @@ class Settings extends React.Component {
     render() {
         let content;
 
-        if (isEmpty(this.props.settings.data)) {
+        if (isNaN(this.props.settings.updateDelay)) {
             content = <div><i className="fa fa-circle-o-notch fa-spin"></i> Please wait...</div>;
         } else {
             content = (
                 <div>
                     <ClientIdForm
-                        debounceDelay="500"
-                        value={this.props.settings.data.clientId}
-                        valid={this.props.validity.clientIdValidity}
+                        persisted={this.props.settings.clientIdPersisted}
+                        valid={this.props.validation.clientIdValidity}
+                        validating={this.props.validation.clientIdValidating}
+                        value={this.props.settings.clientId}
                         valueDidChange={(value) => Actions.clientIdDidChange(value)}/>
                     <div className="form-group">
                         <label className="control-label" htmlFor="updateTime">Update every</label>
-                        <div id="updateTime">{this.props.settings.data.updateTime / 1000 | 0} sec</div>
+                        <div id="updateTime">{this.props.settings.updateDelay / 1000 | 0} sec</div>
                     </div>
                 </div>
             );
