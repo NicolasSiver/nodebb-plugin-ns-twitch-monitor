@@ -53,17 +53,6 @@
         });
     }
 
-    Api.getGamesTop = function (limit, offset, force, callback) {
-        limit = limit || 1;
-        offset = offset || 0;
-        // FIXME Push through transform for consistency
-        createRequest({
-            path : 'games/top',
-            query: {limit: limit, offset: offset},
-            force: force
-        }, callback);
-    };
-
     Api.getChannel = function (channelName, callback) {
         async.waterfall([
             async.apply(createRequest, {

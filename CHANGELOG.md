@@ -1,5 +1,11 @@
 # Changelog
 
+### v3.1.0 - 12/11/2016
+
+- Add validation for a Client ID as a separate action
+- Add ability to save any Client ID
+- Change Client ID validation method
+
 ### v3.0.5 - 09/12/2016
 
 - Don't parse Twitch API response if response is not valid
