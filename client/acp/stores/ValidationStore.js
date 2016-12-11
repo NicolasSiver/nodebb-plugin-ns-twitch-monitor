@@ -11,7 +11,8 @@ import Validation from '../models/Validation';
 class ValidationStore {
     constructor() {
         this.bindListeners({
-            clientIdDidValidate: Actions.clientIdDidValidate
+            clientIdDidValidate: Actions.clientIdDidValidate,
+            validateClientId   : Actions.validateClientId
         });
 
         this.clientIdValidating = false;
@@ -20,6 +21,11 @@ class ValidationStore {
 
     clientIdDidValidate(validation) {
         this.clientIdValidity = validation;
+        this.clientIdValidating = false;
+    }
+
+    validateClientId(clientId) {
+        this.clientIdValidating = true;
     }
 }
 

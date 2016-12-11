@@ -44,7 +44,7 @@ export default class ClientIdForm extends React.Component {
                     <button
                         className="btn btn-success"
                         type="button"
-                        onClick={null}><i className={validationIconClass}></i> Validate
+                        onClick={this.props.validateValue}><i className={validationIconClass}></i> Validate
                     </button>
                     <button
                         className="btn btn-primary"

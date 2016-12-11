@@ -33,6 +33,7 @@ class Settings extends React.Component {
                         persisted={this.props.settings.clientIdPersisted}
                         persistValue={() => Actions.saveClientId(this.props.settings.clientId)}
                         valid={this.props.validation.clientIdValidity}
+                        validateValue={() => Actions.validateClientId(this.props.settings.clientId)}
                         validating={this.props.validation.clientIdValidating}
                         value={this.props.settings.clientId}
                         valueDidChange={value => Actions.clientIdDidChange(value)}/>

@@ -14,7 +14,11 @@
     var baseUrl     = 'https://api.twitch.tv/kraken',
         apiVersion3 = 'application/vnd.twitchtv.v3+json';
 
-    function createRequest(path, query, force, callback) {
+    function createRequest(data, callback) {
+        var path  = data.path,
+            query = data.query,
+            force = data.force;
+
         async.waterfall([
             async.apply(settings.get),
             function (settingsData, next) {
@@ -29,7 +33,7 @@
                     json   : true,
                     headers: {
                         'Accept'   : apiVersion3,
-                        'Client-ID': settingsData.clientId
+                        'Client-ID': data.clientId || settingsData.clientId
                     }
                 });
             },
@@ -53,12 +57,19 @@
         limit = limit || 1;
         offset = offset || 0;
         // FIXME Push through transform for consistency
-        createRequest('games/top', {limit: limit, offset: offset}, force, callback);
+        createRequest({
+            path : 'games/top',
+            query: {limit: limit, offset: offset},
+            force: force
+        }, callback);
     };
 
     Api.getChannel = function (channelName, callback) {
         async.waterfall([
-            async.apply(createRequest, 'channels/' + channelName, null, false),
+            async.apply(createRequest, {
+                path : 'channels/' + channelName,
+                force: false
+            }),
             function (response, next) {
                 return next(null, transform(response, transformEntity));
             }
@@ -67,7 +78,11 @@
 
     Api.getStreams = function (channels, callback) {
         async.waterfall([
-            async.apply(createRequest, 'streams', {channel: channels.join(','), limit: 100}, false),
+            async.apply(createRequest, {
+                path : 'streams',
+                query: {channel: channels.join(','), limit: 100},
+                force: false
+            }),
             function (response, next) {
                 return next(null, transform(response, function (payload) {
                     var streams = [], stream;
@@ -80,6 +95,14 @@
                 }))
             }
         ], callback);
+    };
+
+    Api.validateClientId = function (clientId, callback) {
+        createRequest({
+            path    : '',
+            clientId: clientId,
+            force   : true
+        }, callback);
     };
 
     function transform(incomingMessage, implementation) {

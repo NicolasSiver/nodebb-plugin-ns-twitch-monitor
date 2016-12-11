@@ -110,9 +110,10 @@
     };
 
     /**
-     * Validates client id as requested by Twitch, and saves it, if everything is Ok
-     * @param clientId twitch application client id
-     * @param callback should carry boolean status
+     * Validates client id as requested by Twitch
+     *
+     * @param {string} clientId twitch application client id
+     * @param {function} callback should carry boolean status
      */
     Controller.validateClientId = function (clientId, callback) {
         //Invalid: empty client id
@@ -121,19 +122,9 @@
         }
 
         async.waterfall([
-            async.apply(twitch.api.getGamesTop, 1, 0, true),
+            async.apply(twitch.api.validateClientId, clientId),
             function (response, next) {
-                if (response.statusCode === 200) {
-                    settings.save({clientId: clientId}, function (error, settingsData) {
-                        if (error) {
-                            return callback(error);
-                        }
-                        next(null, true);
-                    });
-                } else {
-                    //Something went wrong
-                    next(null, false);
-                }
+                next(null, response.statusCode === 200 && response.body.identified === true);
             }
         ], callback);
     };
