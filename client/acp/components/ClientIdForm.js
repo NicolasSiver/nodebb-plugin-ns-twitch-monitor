@@ -21,10 +21,17 @@ export default class ClientIdForm extends React.Component {
             'fa-spin'   : this.props.validating
         });
 
+        let validationLabel = null;
+        if (this.props.valid === Validation.SUCCESS) {
+            validationLabel = '(OK)';
+        } else if (this.props.valid === Validation.FAILURE) {
+            validationLabel = '(Invalid)';
+        }
+
         return (
             <div className="client-id-form">
                 <div className={groupClass}>
-                    <label className="control-label" htmlFor="clientId">Client ID</label>
+                    <label className="control-label" htmlFor="clientId">Client ID {validationLabel}</label>
                     <input
                         type="text"
                         className="form-control"
