@@ -1,7 +1,5 @@
-/**
- * Created by Nicolas on 6/21/15.
- */
 import alt from '../alt';
+
 import SocketService from '../service/SocketService';
 
 class Actions {
@@ -81,6 +79,11 @@ class Actions {
     getStreams() {
         this.dispatch();
         SocketService.getStreams();
+    }
+
+    saveClientId(id) {
+        this.dispatch();
+        SocketService.saveClientId(id);
     }
 
     setSection(sectionId) {

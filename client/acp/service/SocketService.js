@@ -93,6 +93,22 @@ export default class SocketService {
         );
     }
 
+    static saveClientId(id) {
+        Socket.emit(
+            SocketApi.SAVE_CLIENT_ID,
+            {
+                clientId: id
+            },
+            error => {
+                if (error) {
+                    return App.alertError(error.message);
+                }
+
+                Actions.getSettings();
+            }
+        );
+    }
+
     static validateClientId(id) {
         Socket.emit(
             SocketApi.VALIDATE_CLIENT_ID,

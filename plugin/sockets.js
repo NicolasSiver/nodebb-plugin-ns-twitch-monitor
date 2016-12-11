@@ -24,11 +24,12 @@
         sockets[constants.SOCKETS].channelAdd = Sockets.channelAdd;
         sockets[constants.SOCKETS].channelsGet = Sockets.channelsGet;
         sockets[constants.SOCKETS].channelRemove = Sockets.channelRemove;
+        sockets[constants.SOCKETS].clientIdSave = Sockets.clientIdSave;
+        sockets[constants.SOCKETS].clientIdValidate = Sockets.clientIdValidate;
         sockets[constants.SOCKETS].settingsGet = Sockets.settingsGet;
         sockets[constants.SOCKETS].saveSettings = Sockets.saveSettings;
         sockets[constants.SOCKETS].streamsGet = Sockets.streamsGet;
         sockets[constants.SOCKETS].streamPayloadsGet = Sockets.streamPayloadsGet;
-        sockets[constants.SOCKETS].clientIdValidate = Sockets.clientIdValidate;
 
         callback();
     };
@@ -43,6 +44,10 @@
 
     Sockets.channelRemove = function (socket, payload, callback) {
         controller.removeChannel(payload.cid, callback);
+    };
+
+    Sockets.clientIdSave = function (socket, payload, callback) {
+        controller.saveClientId(payload.clientId, callback);
     };
 
     Sockets.clientIdValidate = function (socket, payload, callback) {

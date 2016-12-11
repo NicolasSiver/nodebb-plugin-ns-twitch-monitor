@@ -73,6 +73,19 @@
         ], callback);
     };
 
+    Controller.saveClientId = function (clientId, callback) {
+        if (!clientId) {
+            return callback(new Error('Client ID is empty.'));
+        }
+
+        settings.save({clientId: clientId}, function (error, settingsData) {
+            if (error) {
+                return callback(error);
+            }
+            callback(null);
+        });
+    };
+
     Controller.start = function (callback) {
         async.waterfall([
             function (next) {

@@ -50,7 +50,7 @@ export default class ClientIdForm extends React.Component {
                         className="btn btn-primary"
                         type="button"
                         disabled={this.props.persisted ? 'disabled' : ''}
-                        onClick={null}><i className="fa fa-floppy-o"></i> Save
+                        onClick={this.props.persistValue}><i className="fa fa-floppy-o"></i> Save
                     </button>
                 </div>
             </div>
