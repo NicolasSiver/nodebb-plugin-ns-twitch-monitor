@@ -1,52 +1,14 @@
-/**
- * Created by Nicolas on 9/22/15.
- */
-import App from 'app';
 import React from 'react';
 
-export default class Application extends React.Component {
+export default class Donate extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {amount: null};
-    }
-
-    amountDidChange(e) {
-        this.setState({
-            amount: e.target.value
-        });
-    }
-
-    donateDidClick() {
-        var amount = parseFloat(this.state.amount) * 100;
-        amount = amount || 500;
-
-        if (!this.stripeHandler) {
-            this.stripeHandler = StripeCheckout.configure({
-                key       : 'pk_live_AcfQs725nv7nIF5sRCG3v4Q8',
-                image     : 'https://s3.amazonaws.com/stripe-uploads/acct_16mDSJB8UmE70jk7merchant-icon-1442539384457-ava-mdpi.jpg',
-                locale    : 'auto',
-                panelLabel: 'Donate {{amount}}',
-                email     : App.user.email,
-                bitcoin   : true,
-                token     : function (token) {
-                    // Use the token to create the charge with a server-side script.
-                    // You can access the token ID with `token.id`
-                    // NOOP
-                }
-            });
-        }
-
-        this.stripeHandler.open({
-            name       : 'Nicolas Siver',
-            description: 'NS Twitch Monitor Donation',
-            amount     : amount
-        });
     }
 
     render() {
         return (
             <div>
-                <p>Do you like the plugin? Motivate developer, make a donation. Thank you.</p>
+                <p>Do you like the plugin? Your donation is a good signal of appreciation. Thank you.</p>
 
                 <div className="row">
                     <div className="col-md-6">
@@ -56,23 +18,6 @@ export default class Application extends React.Component {
                             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
                         </form>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="input-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Amount"
-                                value={this.state.amount}
-                                onChange={this.amountDidChange.bind(this)}/>
-                            <span className="input-group-btn">
-                                <button
-                                    className="btn btn-primary"
-                                    type="button"
-                                    onClick={this.donateDidClick.bind(this)}>Donate via Stripe
-                                </button>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
