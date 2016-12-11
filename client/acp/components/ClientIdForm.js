@@ -49,7 +49,7 @@ export default class ClientIdForm extends React.Component {
                     <button
                         className="btn btn-primary"
                         type="button"
-                        disabled={this.props.persisted ? 'disabled' : ''}
+                        disabled={(!this.props.value || this.props.persisted) ? 'disabled' : ''}
                         onClick={this.props.persistValue}><i className="fa fa-floppy-o"></i> Save
                     </button>
                 </div>
