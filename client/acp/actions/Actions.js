@@ -47,6 +47,10 @@ class Actions {
         SocketService.removeChannel(channelId);
     }
 
+    clientIdDidChange(id) {
+        this.dispatch(id);
+    }
+
     /**
      * Event: result of client id validation, use Validation enum to find proper state
      * @param validation
@@ -79,7 +83,7 @@ class Actions {
         SocketService.getStreams();
     }
 
-    setSection(sectionId){
+    setSection(sectionId) {
         this.dispatch(sectionId);
     }
 

@@ -40,7 +40,6 @@
   padding: 4px;
 }
 .channels-list .channel-item .channel-content {
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
@@ -49,9 +48,8 @@
 }
 .channels-list .channel-item .channel-content .channel-picture {
   position: relative;
-  -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
+      flex: 0 0 auto;
 }
 .channels-list .channel-item .channel-content .channel-badge {
   background-color: #f44336;
@@ -67,9 +65,8 @@
   height: 88px;
 }
 .channels-list .channel-item .channel-content .channel-info {
-  -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+      flex: 1 1 auto;
   margin: 0 16px;
 }
 .channels-list .channel-item .channel-content .channel-info .title {
@@ -88,22 +85,40 @@
   color: #9e9e9e;
 }
 .channels-list .channel-item .channel-content .channel-stats {
-  -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
+      flex: 0 0 auto;
 }
 .channels-list .channel-item .channel-content .channel-stats .stat + .stat {
   margin-left: 16px;
 }
 .channels-list .channel-item .channel-content .channel-controls {
-  -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
+      flex: 0 0 auto;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
 }
 .channels-list .channel-item .channel-content .alpha-appear {
   opacity: 1;
+}
+.client-id-form {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+}
+.client-id-form__controls {
+  -ms-flex-item-align: center;
+      align-self: center;
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  padding-left: 8px;
+}
+.client-id-form__controls button + button {
+  margin-left: 4px;
+}
+.client-id-form__input {
+  -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
 }
 .twitch-monitor-acp .tab-content {
   margin-top: 24px;

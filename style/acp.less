@@ -124,6 +124,25 @@
   }
 }
 
+.client-id-form {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &__controls {
+    align-self: center;
+    flex: 0 0 auto;
+    padding-left: @tm-padding-s;
+
+    button + button {
+      margin-left: @tm-padding-xs;
+    }
+  }
+
+  &__input {
+    flex: 1 0 auto;
+  }
+}
+
 .twitch-monitor-acp {
   .tab-content {
     margin-top: @tm-margin-l;

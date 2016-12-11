@@ -37,10 +37,10 @@ class Settings extends React.Component {
                         debounceDelay="500"
                         value={this.props.settings.data.clientId}
                         valid={this.props.validity.clientIdValidity}
-                        valueDidChange={this.clientValueDidChange.bind(this)}/>
+                        valueDidChange={(value) => Actions.clientIdDidChange(value)}/>
                     <div className="form-group">
                         <label className="control-label" htmlFor="updateTime">Update every</label>
-                        <div id="updateTime">{this.props.settings.data.updateTime / 1000 | 0} sec <small>(This value could be changed in future releases)</small></div>
+                        <div id="updateTime">{this.props.settings.data.updateTime / 1000 | 0} sec</div>
                     </div>
                 </div>
             );

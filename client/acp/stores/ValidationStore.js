@@ -14,6 +14,7 @@ class ValidationStore {
             clientIdDidValidate: Actions.clientIdDidValidate
         });
 
+        this.clientIdValidating = false;
         this.clientIdValidity = 0;
     }
 
