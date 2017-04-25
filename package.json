@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ns-twitch-monitor",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Monitors specific channels and adds them to widget view",
   "main": "plugin/index.js",
   "scripts": {
@@ -24,6 +24,9 @@
     "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor/issues"
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
+  "contributors": [
+    "Antoine Pous <gecko@dvp.io> (https://dvp.io)"
+  ],
   "dependencies": {
     "async": "^1.5.2",
     "clone": "^1.0.2",
