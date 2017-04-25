@@ -75,11 +75,13 @@
             function (response, next) {
                 return next(null, transform(response, function (payload) {
                     var streams = [], stream;
-                    payload.streams.forEach(function (payloadStream) {
-                        stream = transformEntity(payloadStream);
-                        stream.channel = transformEntity(payloadStream.channel);
-                        streams.push(stream);
-                    });
+                    if(_.isObject(payload) && _.isArray(payload.streams)) {
+                        payload.streams.forEach(function (payloadStream) {
+                            stream = transformEntity(payloadStream);
+                            stream.channel = transformEntity(payloadStream.channel);
+                            streams.push(stream);
+                        });
+                    }
                     return streams;
                 }))
             }
