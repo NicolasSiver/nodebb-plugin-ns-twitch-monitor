@@ -1,5 +1,9 @@
 # Changelog
 
+### v3.1.1 - 4/29/2017
+
+- Change Twitch API to prevent unavailable streams data
+
 ### v3.1.0 - 12/11/2016
 
 - Add validation for a Client ID as a separate action
