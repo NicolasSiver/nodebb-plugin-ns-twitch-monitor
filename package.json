@@ -24,6 +24,9 @@
     "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor/issues"
   },
   "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
+  "contributors": [
+    "Antoine Pous <gecko@dvp.io> (https://dvp.io)"
+  ],
   "dependencies": {
     "async": "^1.5.2",
     "clone": "^1.0.2",
