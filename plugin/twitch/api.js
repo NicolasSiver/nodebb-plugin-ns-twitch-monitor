@@ -65,15 +65,24 @@
         ], callback);
     };
 
-    Api.getStreams = function (channels, callback) {
+    Api.getStreams = function (channels, done) {
         async.waterfall([
             async.apply(createRequest, {
                 path : 'streams',
                 query: {channel: channels.join(','), limit: 100},
                 force: false
             }),
-            function (response, next) {
-                return next(null, transform(response, function (payload) {
+            function (response, callback) {
+                // Fix issue with Twitch API inconsistency
+                // In some cases, `streams` will not be available, where it should be an empty array
+                if (response.body.streams) {
+                    callback(null, response);
+                } else {
+                    callback(new Error('Streams are not available. Value: ' + response.body.streams));
+                }
+            },
+            function (response, callback) {
+                return callback(null, transform(response, function (payload) {
                     var streams = [], stream;
                     payload.streams.forEach(function (payloadStream) {
                         stream = transformEntity(payloadStream);
@@ -83,7 +92,7 @@
                     return streams;
                 }))
             }
-        ], callback);
+        ], done);
     };
 
     Api.validateClientId = function (clientId, callback) {
