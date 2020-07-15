@@ -54,7 +54,7 @@
   "dependencies": {
     "alt": "^0.16.10",
     "classnames": "^1.2.2",
-    "lodash": "^3.9.3",
+    "lodash": "^4.17.19",
     "react": "^0.13.1"
   },
   "devDependencies": {
