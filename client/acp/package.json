@@ -55,7 +55,7 @@
     "alt": "^0.16.10",
     "classnames": "^1.2.2",
     "lodash": "^3.9.3",
-    "react": "^0.13.1"
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
