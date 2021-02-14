@@ -36,27 +36,34 @@ export default class ChannelItemView extends React.Component {
             'channel-controls': true,
             'alpha-appear'    : this.state.mouseOver
         });
+
+        var streamer_status = <small className="channel-prefix"> is offline </small>; 
+        var viewer_number = 0;
+
+        if (this.props.stream){
+            streamer_status = <span> <small className="channel-prefix"> playing </small> {this.props.stream.game_name} </span>;
+            viewer_number = this.props.stream.viewer_count;
+        }
+
         return (
             <li className="channel-item"
                 onMouseEnter={this.mouseDidEnter.bind(this)}
                 onMouseLeave={this.mouseDidLeave.bind(this)}>
                 <div className="channel-content">
                     <div className="channel-picture">
-                        <img className="channel-logo" src={this.props.channel.logo}/>
+                        <img className="channel-logo" src={this.props.channel.profile_image_url}/>
                         {liveBadge}
                     </div>
 
 
                     <div className="channel-info">
                         <div className="title">
-                            <a href={this.props.channel.url} target="_blank">{this.props.channel.display_name}</a>
-                            <small className="channel-prefix"> playing </small>
-                            {this.props.channel.game}
+                            <a href={'https://twitch.tv/' + this.props.channel.display_name} target="_blank">{this.props.channel.display_name}</a>
+                            {streamer_status}
                         </div>
                         <p className="status">{this.props.channel.status}</p>
                         <div className="channel-stats">
-                            <span className="stat"><i className="fa fa-eye"></i> {this.props.channel.views}</span>
-                            <span className="stat"><i className="fa fa-heart"></i> {this.props.channel.followers}</span>
+                            <span className="stat"><i className="fa fa-eye"></i> {viewer_number}</span>
                             {delay}
                         </div>
                     </div>

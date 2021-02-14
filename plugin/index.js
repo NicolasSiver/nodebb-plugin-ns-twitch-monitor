@@ -62,10 +62,18 @@
                 var limit  = widget.data.numStreams || 3,
                     layout = widget.data.layoutDirection || 'vertical';
 
+
                 app.render(TEMPLATE_WIDGET, {
                     limit : limit,
                     layout: layout
-                }, callback);
+                }, function(err, html){
+			if (err) {
+				return callback(err);
+			}
+                        widget.html = html;
+		        callback(null, widget);
+                });
+
             }
         },
         statics: {

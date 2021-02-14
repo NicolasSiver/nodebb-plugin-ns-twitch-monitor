@@ -20,8 +20,9 @@
         async.waterfall([
             async.apply(twitch.api.getChannel, channelName),
             function (response, next) {
+                response['data']['name'] = response['data']['id'];
                 if (response.statusCode === 200) {
-                    database.createChannel(response.data, next);
+                    database.createChannel(response['data'], next);
                 } else {
                     next(new Error(response.data.message));
                 }

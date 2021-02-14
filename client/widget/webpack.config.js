@@ -2,10 +2,12 @@
  * Created by Nicolas on 6/28/15.
  */
 /*eslint-disable */
+const path = require('path');
+
 module.exports = {
     entry    : "./index.js",
     output   : {
-        path    : "../../public/js",
+        path    : path.resolve(__dirname,"../../public/js"),
         filename: "widget.js"
     },
     externals: {
@@ -13,9 +15,18 @@ module.exports = {
         "socket"   : "socket",
         "templates": "templates"
     },
-    module   : {
-        loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
-        ]
+    module: {
+          rules: [
+            {
+              test: /\.js$/,
+              exclude: /(node_modules|bower_components)/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env']
+                }
+              }
+            }
+          ]
     }
 };

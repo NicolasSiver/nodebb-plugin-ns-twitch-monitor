@@ -8,9 +8,13 @@ export default class ViewController {
     }
 
     updateStream(streamPayload) {
-        const channelName = streamPayload.channel.name;
+        const channelName = streamPayload.channel.display_name;
 
-        if (streamPayload.status === 'offline') {
+        var removeChance = 0;
+        if (this.view.getStreamCount() >= this.limit){
+            removeChance = 0.5;
+        }
+        if (!streamPayload.stream || removeChance > Math.random()) {
             this.view.remove(channelName, streamPayload);
         } else {
             if (this.view.hasStream(channelName)) {

@@ -1,6 +1,6 @@
 {
-  "name": "nodebb-plugin-ns-twitch-monitor",
-  "version": "3.1.1",
+  "name": "nodebb-plugin-vr-twitch-monitor",
+  "version": "0.0.1",
   "description": "Monitors specific channels and adds them to widget view",
   "main": "plugin/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor.git"
+    "url": "https://github.com/vrisalab/nodebb-plugin-ns-twitch-monitor"
   },
   "keywords": [
     "twitch",
@@ -18,12 +18,12 @@
     "games",
     "widget"
   ],
-  "author": "Nicolas Siver",
+  "author": "Risa L",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor/issues"
+    "url": "https://github.com/vrisalab/nodebb-plugin-ns-twitch-monitor"
   },
-  "homepage": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor#readme",
+  "homepage": "https://github.com/vrisalab/nodebb-plugin-ns-twitch-monitor",
   "dependencies": {
     "async": "^1.5.2",
     "clone": "^1.0.2",

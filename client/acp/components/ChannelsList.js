@@ -46,6 +46,7 @@ class ChannelsList extends React.Component {
                 return <ChannelItemView
                     key={channel.cid}
                     channel={channel}
+                    stream={this.props.streams[channel.name]}
                     live={!!this.props.streams[channel.name]}/>;
             });
         } else {

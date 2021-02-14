@@ -6,7 +6,7 @@
 
     var winston = require('winston');
 
-    Module.exports = new (winston.Logger)({
+    Module.exports = new winston.Logger({
         transports: [
             new (winston.transports.Console)({
                 colorize : true,

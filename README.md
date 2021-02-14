@@ -1,6 +1,6 @@
 # NodeBB: Twitch Monitor
-Monitors specific channels and adds them to widget view
 
+Monitors specific channels and adds them to widget view
 ![Version](https://img.shields.io/npm/v/nodebb-plugin-ns-twitch-monitor.svg)
 ![Dependencies](https://david-dm.org/NicolasSiver/nodebb-plugin-ns-twitch-monitor.svg)
 [![bitHound Score](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor/badges/score.svg?)](https://www.bithound.io/github/NicolasSiver/nodebb-plugin-ns-twitch-monitor)
@@ -11,7 +11,7 @@ Monitors specific channels and adds them to widget view
  
 
 - [Notes](#notes)
-- [Screenshots](#screenshots)
+- [Look](#look)
   - [ACP](#acp)
   - [Widget](#widget)
 - [TODO](#todo)
@@ -23,7 +23,7 @@ Monitors specific channels and adds them to widget view
 - At Server start, some time is needed to fetch enough data for stream statuses
 - Highly recommended to limit concurrent streams in widget view, by default - 3
 
-## Screenshots
+## Look
 
 ### ACP
 
@@ -38,8 +38,6 @@ Monitors specific channels and adds them to widget view
 - ACP: Show progress on channel add
 - ACP: Show animated update ticks
 - ACP: Update stream status in real time
-- ACP: Limit online streams
-- ACP: Ability to have a priority for the streams
 - Tests: add tests client and server
 - Core: use stream pagination
 - Core: smart list update - merge online/offline states, etc
@@ -47,3 +45,35 @@ Monitors specific channels and adds them to widget view
 - Core: edit update time
 - Widget: create cross-fade thumbnail update
 - Widget: use Twitch Video Player
+
+# vr version
+**The admin part of this plugin uses very outdated libraries. I need help updating it**
+
+I updated the plugin to use the new twitch API, and updated some libraries for the widget code. To make it work, you must the following code in the global footer of the page
+```
+<script>
+    'use strict';
+
+    $(document).ready(function () {
+        var limit  = <limit>,
+            layout = '<layout>';
+
+        ns.TwitchMonitor.init(limit, layout, '.widget-twitch-monitor');
+    });
+</script>
+```
+
+limit is the number of streams you want to show, and layout is either 'horizontal' or 'vertical'. The widget settings you set won't work.
+
+You must put your OAuth token on line 40 of plugin/twitch/api.js. You can use [this site](https://twitchtokengenerator.com/) to generate a client id and oauth token (Access token).
+
+Finally, now you must now enter the user ID instead of the username. You can query the https://api.twitch.tv/helix/search/channels?query=<username> endpoint with your client-id and Authorization headers (You can use postman or curl), as per the [Twitch api docs](https://dev.twitch.tv/docs/api/).
+
+## Notes  for people who want to help
+
+To build the acp and widget javascript files, you must use browserify and webpack, respectively. After you compile the acp, you must move the bootbox definitions on line 500 of public/js/acp.js into the prompForChannel function, and do the same thing with the ones on line 583 into deleteItem, or else you won't be able to add or delete channels.
+
+### TODOS:
+- Critical: Update the acp page to correctly use bootbox and to use newer module versions.
+- Put the initialization script into the template so the widget settings work.
+- The original TODOs

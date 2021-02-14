@@ -11,8 +11,9 @@
 
         settings     = require('../settings');
 
-    var baseUrl     = 'https://api.twitch.tv/kraken',
+    var baseUrl     = 'https://api.twitch.tv/helix',
         apiVersion3 = 'application/vnd.twitchtv.v3+json';
+    var apiVersion5 = 'application/vnd.twitchtv.v5+json';
 
     function createRequest(data, callback) {
         var path  = data.path,
@@ -22,6 +23,8 @@
         async.waterfall([
             async.apply(settings.get),
             function (settingsData, next) {
+                //console.log("Creating twitch request");
+                //console.log(path);
                 if (_.isEmpty(settingsData.clientId) && !force) {
                     return next(new Error('Client ID is empty'));
                 }
@@ -32,13 +35,19 @@
                     qs     : query,
                     json   : true,
                     headers: {
-                        'Accept'   : apiVersion3,
-                        'Client-ID': data.clientId || settingsData.clientId
+                        //'Accept'   : apiVersion5,
+                        'Client-ID': data.clientId || settingsData.clientId,
+                        'Authorization': 'Bearer x3qq502h3zi5idyx9lmy9njxpsfxep'
+
                     }
                 });
             },
             function (options, next) {
+                //console.log("Request:");
+                //console.log(options);
                 request(options, function (error, response, body) {
+                    //console.log("Got response");
+                    //console.log(body);
                     if (error) {
                         return next(error);
                     }
@@ -56,7 +65,7 @@
     Api.getChannel = function (channelName, callback) {
         async.waterfall([
             async.apply(createRequest, {
-                path : 'channels/' + channelName,
+                path : 'users?id=' + channelName,
                 force: false
             }),
             function (response, next) {
@@ -66,27 +75,30 @@
     };
 
     Api.getStreams = function (channels, done) {
+        var query = "limit=100";
+        for (let i = 0; i < channels.length; i++)
+            query = query + "&user_id=" + channels[i];
         async.waterfall([
             async.apply(createRequest, {
-                path : 'streams',
-                query: {channel: channels.join(','), limit: 100},
+                path : 'streams?' + query,
+                query: {},
                 force: false
             }),
             function (response, callback) {
                 // Fix issue with Twitch API inconsistency
                 // In some cases, `streams` will not be available, where it should be an empty array
-                if (response.body.streams) {
+                if (response.body['data'][0]) {
                     callback(null, response);
                 } else {
-                    callback(new Error('Streams are not available. Value: ' + response.body.streams));
+                    callback(new Error('Streams are not available. Value: ' + response.body['data'][0]));
                 }
             },
             function (response, callback) {
                 return callback(null, transform(response, function (payload) {
                     var streams = [], stream;
-                    payload.streams.forEach(function (payloadStream) {
-                        stream = transformEntity(payloadStream);
-                        stream.channel = transformEntity(payloadStream.channel);
+                    payload['data'].forEach(function (payloadStream) {
+                        stream = transformEntityStream(payloadStream);
+                        stream.channel = {name: stream.user_id};
                         streams.push(stream);
                     });
                     return streams;
@@ -118,7 +130,13 @@
     }
 
     function transformEntity(data) {
-        return objectAssign({}, {'twitch_id': data['_id']}, _.omit(data, ['_id', '_links']));
+        return objectAssign({}, {'twitch_id': data['data'][0]['id']}, _.omit(data['data'][0], ['_id', '_links']));
+        cons
+    }
+
+
+    function transformEntityStream(data) {
+        return objectAssign({}, {'twitch_id': data['user_id']}, _.omit(data, ['_id', '_links']));
     }
 
 })(module.exports);

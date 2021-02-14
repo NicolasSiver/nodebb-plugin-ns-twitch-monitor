@@ -8,3 +8,4 @@ window.ns = window.ns || {};
 
 //Bootstrapping main application
 window.ns.TwitchMonitor = new Application();
+

@@ -1,8 +1,8 @@
 {
-  "id": "nodebb-plugin-ns-twitch-monitor",
+  "id": "nodebb-plugin-vr-twitch-monitor",
   "name": "NodeBB Twitch Monitor",
   "description": "Monitors specific channels and adds them to widget view",
-  "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-twitch-monitor",
+  "url": "https://github.com/vrisalab/nodebb-plugin-vr-twitch-monitor",
   "library": "./plugin/index.js",
   "hooks": [
     {

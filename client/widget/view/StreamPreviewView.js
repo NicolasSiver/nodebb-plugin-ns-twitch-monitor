@@ -12,7 +12,7 @@ export default class StreamPreviewView {
         this.$game = this.$view.find('.stream-game');
 
         this.$thumbnail.on('click', () => {
-            window.open(streamPayload.channel.url);
+            window.open('https://twitch.tv/' + streamPayload.channel.display_name);
         });
 
         this.update(streamPayload);
@@ -22,7 +22,9 @@ export default class StreamPreviewView {
         return this.$view;
     }
 
+
     render(streamPayload) {
+        var styling = '';
         var view = $('<div/>', {
             'class': 'stream-preview'
         });
@@ -34,7 +36,7 @@ export default class StreamPreviewView {
             <i class="fa fa-user"></i><span class="stream-viewers"></span>
         </div>
         <div class="stream-info">
-            <div class="stream-logo-holder"><img class="stream-logo" src="${streamPayload.channel.logo}"/></div>
+            <div class="stream-logo-holder"><img class="stream-logo" src="${streamPayload.channel.profile_image_url}"/></div>
             <div class="stream-information"><div class="stream-author"></div><div class="stream-game"></div>
         </div>
         `);
@@ -42,9 +44,13 @@ export default class StreamPreviewView {
     }
 
     update(payload) {
-        this.$thumbnail.attr('src', payload.stream.preview.medium);
-        this.$viewerCount.text(payload.stream.viewers);
+        var thumbnail_url = payload.stream.thumbnail_url;
+        var image_scale = 0.3;
+        thumbnail_url = thumbnail_url.replace('{width}', 720 * image_scale);
+        thumbnail_url = thumbnail_url.replace('{height}', 480 * image_scale);
+        this.$thumbnail.attr('src', thumbnail_url);
+        this.$viewerCount.text(payload.stream.viewer_count);
         this.$author.text(payload.channel.display_name);
-        this.$game.text(payload.channel.game);
+        this.$game.text(payload.stream.game_name);
     }
 }
