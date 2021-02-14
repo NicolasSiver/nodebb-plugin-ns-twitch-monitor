@@ -333,6 +333,9 @@ var ChannelItemForm = (function (_React$Component) {
     _createClass(ChannelItemForm, [{
         key: 'promptForChannel',
         value: function promptForChannel() {
+            var _bootbox = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null);
+
+            var _bootbox2 = _interopRequireDefault(_bootbox);
             _bootbox2['default'].prompt("What is Channel's name?", function (result) {
                 if (result) {
                     _actionsActions2['default'].addChannel(result);
@@ -418,6 +421,9 @@ var ChannelItemView = (function (_React$Component) {
         value: function deleteItem() {
             var _this = this;
 
+            var _bootbox = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null);
+
+            var _bootbox2 = _interopRequireDefault(_bootbox);
             _bootbox2['default'].confirm('You are about to delete \'' + this.props.channel.display_name + '\' channel. Are you sure?', function (result) {
                 if (result) {
                     _actionsActions2['default'].channelWillRemove(_this.props.channel.cid);
@@ -437,6 +443,8 @@ var ChannelItemView = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            console.log("rendering");
+            console.log(this.props);
             var delay = this.props.channel.delay ? _react2['default'].createElement(
                 'span',
                 { className: 'stat' },
@@ -464,7 +472,7 @@ var ChannelItemView = (function (_React$Component) {
                     _react2['default'].createElement(
                         'div',
                         { className: 'channel-picture' },
-                        _react2['default'].createElement('img', { className: 'channel-logo', src: this.props.channel.logo }),
+                        _react2['default'].createElement('img', { className: 'channel-logo', src: this.props.channel.profile_image_url }),
                         liveBadge
                     ),
                     _react2['default'].createElement(
@@ -475,7 +483,7 @@ var ChannelItemView = (function (_React$Component) {
                             { className: 'title' },
                             _react2['default'].createElement(
                                 'a',
-                                { href: this.props.channel.url, target: '_blank' },
+                                { href: "https://twitch.tv/" + this.props.channel.display_name, target: '_blank' },
                                 this.props.channel.display_name
                             ),
                             _react2['default'].createElement(
@@ -483,7 +491,7 @@ var ChannelItemView = (function (_React$Component) {
                                 { className: 'channel-prefix' },
                                 ' playing '
                             ),
-                            this.props.channel.game
+                            this.props.stream ? this.props.stream.game_name : "Nothing"
                         ),
                         _react2['default'].createElement(
                             'p',
@@ -498,7 +506,7 @@ var ChannelItemView = (function (_React$Component) {
                                 { className: 'stat' },
                                 _react2['default'].createElement('i', { className: 'fa fa-eye' }),
                                 ' ',
-                                this.props.channel.views
+                                this.props.stream ? this.props.stream.viewer_count : 0
                             ),
                             _react2['default'].createElement(
                                 'span',
@@ -692,9 +700,12 @@ var ChannelsList = (function (_React$Component) {
 
             if (items.length) {
                 return items.map(function (channel, index) {
+                    console.log(channel);
+                    console.log(_this.props);
                     return _reactAddons2['default'].createElement(_ChannelItemView2['default'], {
                         key: channel.cid,
                         channel: channel,
+                        stream: _this.props.streams[channel.name],
                         live: !!_this.props.streams[channel.name] });
                 });
             } else {

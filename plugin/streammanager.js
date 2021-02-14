@@ -14,7 +14,7 @@
         logger     = require('./logger'),
         sockets    = require('./sockets'),
         streamList = require('./model/streamlist'),
-        twitch     = require('./twitch');
+        twitch     =require('./twitch');
 
     var _delay       = 0,
         _deferUpdate = null,

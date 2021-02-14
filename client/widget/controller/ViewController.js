@@ -8,7 +8,8 @@ export default class ViewController {
     }
 
     updateStream(streamPayload) {
-        const channelName = streamPayload.channel.name;
+        console.log(streamPayload);
+        const channelName = streamPayload.channel.display_name;
 
         if (streamPayload.status === 'offline') {
             this.view.remove(channelName, streamPayload);

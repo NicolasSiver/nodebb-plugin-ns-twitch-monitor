@@ -11,7 +11,7 @@ Monitors specific channels and adds them to widget view
  
 
 - [Notes](#notes)
-- [Screenshots](#screenshots)
+- [Look](#look)
   - [ACP](#acp)
   - [Widget](#widget)
 - [TODO](#todo)
@@ -23,7 +23,7 @@ Monitors specific channels and adds them to widget view
 - At Server start, some time is needed to fetch enough data for stream statuses
 - Highly recommended to limit concurrent streams in widget view, by default - 3
 
-## Screenshots
+## Look
 
 ### ACP
 
@@ -38,8 +38,6 @@ Monitors specific channels and adds them to widget view
 - ACP: Show progress on channel add
 - ACP: Show animated update ticks
 - ACP: Update stream status in real time
-- ACP: Limit online streams
-- ACP: Ability to have a priority for the streams
 - Tests: add tests client and server
 - Core: use stream pagination
 - Core: smart list update - merge online/offline states, etc

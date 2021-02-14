@@ -12,11 +12,13 @@ export default class ChannelItemForm extends React.Component {
     }
 
     promptForChannel() {
-        Bootbox.prompt("What is Channel's name?", function (result) {
-            if (result) {
-                Actions.addChannel(result);
-            }
-        });
+        require(["bootbox"], function (bootbox) (
+            bootbox.prompt("What is Channel's id?", function (result) {
+                if (result) {
+                    Actions.addChannel(result);
+                }
+        })
+        );
     }
 
     render() {

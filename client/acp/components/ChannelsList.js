@@ -45,7 +45,8 @@ class ChannelsList extends React.Component {
             return items.map((channel, index) => {
                 return <ChannelItemView
                     key={channel.cid}
-                    channel={channel}
+                    channel_info={channel}
+                    channel={this.props.streams[channel.name}
                     live={!!this.props.streams[channel.name]}/>;
             });
         } else {

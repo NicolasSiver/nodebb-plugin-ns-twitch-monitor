@@ -18,6 +18,7 @@
         nconf         = nodebb.nconf,
         user          = nodebb.user;
 
+    console.log(sockets);
     Sockets.init = function (callback) {
         sockets[constants.SOCKETS] = {};
         //Acknowledgements
@@ -55,6 +56,8 @@
     };
 
     Sockets.emit = function (eventName, payload) {
+        console.log(eventName);
+        console.log('plugins.' + constants.SOCKETS + '.' + eventName);
         serverSockets.emit('plugins.' + constants.SOCKETS + '.' + eventName, payload);
     };
 

@@ -99,6 +99,7 @@
                 logger.log('error', 'Template Error has occurred, message: %s', error.message);
                 return done(error);
             }
+            console.log("LMAOOO");
             widgetTemplates[templatePath] = content.toString();
             logger.log('verbose', 'Widget Template %s is loaded', templatePath);
             done(null);

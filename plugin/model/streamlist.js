@@ -17,6 +17,7 @@
         'language', 'status', 'created_at', 'updated_at', 'delay'
     ];
 
+
     StreamList.create = function (channels) {
         return new List(channels);
     };
@@ -46,10 +47,12 @@
     util.inherits(List, EventEmitter);
 
     List.prototype.addChannel = function (channel) {
-        if(channel === undefined){
+        if(channel === undefined || channel === ''){
             logger.log('error', 'Error: Adding empty channel data');
+            console.log('Error: Adding empty channel data');
         }
         logger.log('verbose', 'Register channel %s', channel.name);
+        //console.log('Register channel ', channel.name);
         //Stream will be fetched with the next tick
         this.channels.push(channel);
     };
@@ -181,6 +184,8 @@
             channelStreams[stream.channel.name] = stream;
         }, this);
 
+
+
         this.channels.forEach(function (channel, index) {
             var stream = channelStreams[channel.name];
 
@@ -194,14 +199,17 @@
         channelUpdates.forEach(function (channelPayload) {
             if (!channelPayload) {
                 logger.log('error', 'Channel payload is empty');
+                //console.log('Channel payload is empty');
             }
             this.setChannel(this.createChannel(channelPayload, channelFields));
         }, this);
     };
 
     List.prototype.updateStream = function (channel, streamData, index) {
+        //console.log("Updating stream for channel " + channel.name);
         var previousState = this.streamsMap[channel.name];
         var newState = streamData;
+        //console.log(newState);
 
         if (!previousState && newState) {
             this.addStream(channel, newState);
@@ -223,7 +231,7 @@
             });
         } else if (previousState && newState) {
             this.mergeStream(channel, newState);
-            //logger.log('verbose', 'Channel %s is updated', channel.name);
+            logger.log('verbose', 'Channel %s is updated', channel.name);
             this.emit(StreamList.events.STREAM_DID_CHANGE, {
                 status : StreamList.status.UPDATE,
                 channel: clone(channel),
