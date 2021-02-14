@@ -62,10 +62,18 @@
                 var limit  = widget.data.numStreams || 3,
                     layout = widget.data.layoutDirection || 'vertical';
 
+
                 app.render(TEMPLATE_WIDGET, {
                     limit : limit,
                     layout: layout
-                }, callback);
+                }, function(err, html){
+			if (err) {
+				return callback(err);
+			}
+                        widget.html = html;
+		        callback(null, widget);
+                });
+
             }
         },
         statics: {
@@ -99,7 +107,6 @@
                 logger.log('error', 'Template Error has occurred, message: %s', error.message);
                 return done(error);
             }
-            console.log("LMAOOO");
             widgetTemplates[templatePath] = content.toString();
             logger.log('verbose', 'Widget Template %s is loaded', templatePath);
             done(null);

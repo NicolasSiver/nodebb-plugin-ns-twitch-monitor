@@ -23,6 +23,7 @@ export default class TwitchMonitor {
     }
 
     init(limit, layoutDirection, containerSelector) {
+        console.warn("Created Twitch Monitor");
         this.disposeIfNeeded();
         this.viewController = new ViewController(new FlexLayout(layoutDirection, containerSelector), limit);
 

@@ -12,7 +12,7 @@ export default class ChannelItemForm extends React.Component {
     }
 
     promptForChannel() {
-        Bootbox.prompt("What is Channel's name?", function (result) {
+        Bootbox.prompt("What is the channel's id?", function (result) {
             if (result) {
                 Actions.addChannel(result);
             }

@@ -11,7 +11,7 @@ export default class ViewController {
         console.log(streamPayload);
         const channelName = streamPayload.channel.display_name;
 
-        if (streamPayload.status === 'offline') {
+        if (!streamPayload.stream) {
             this.view.remove(channelName, streamPayload);
         } else {
             if (this.view.hasStream(channelName)) {
