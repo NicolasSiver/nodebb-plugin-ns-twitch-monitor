@@ -471,6 +471,7 @@ exports['default'] = Application;
 module.exports = exports['default'];
 
 },{"../actions/Actions":2,"./TabManager":13,"react":257}],5:[function(require,module,exports){
+(function (global){(function (){
 /**
  * Created by Nicolas on 6/20/15.
  */
@@ -494,6 +495,10 @@ var _actionsActions = require('../actions/Actions');
 
 var _actionsActions2 = _interopRequireDefault(_actionsActions);
 
+var _bootbox = (typeof window !== "undefined" ? window['bootbox'] : typeof global !== "undefined" ? global['bootbox'] : null);
+
+var _bootbox2 = _interopRequireDefault(_bootbox);
+
 var _modelsKeyCode = require('../models/KeyCode');
 
 var _modelsKeyCode2 = _interopRequireDefault(_modelsKeyCode);
@@ -514,12 +519,10 @@ var ChannelItemForm = (function (_React$Component) {
     _createClass(ChannelItemForm, [{
         key: 'promptForChannel',
         value: function promptForChannel() {
-            require(['domReady', 'bootbox'], function (bootbox) {
-                bootbox.prompt("What is the channel's id?", function (result) {
-                    if (result) {
-                        _actionsActions2['default'].addChannel(result);
-                    }
-                });
+            _bootbox2['default'].prompt("What is the channel's id?", function (result) {
+                if (result) {
+                    _actionsActions2['default'].addChannel(result);
+                }
             });
         }
     }, {
@@ -548,6 +551,7 @@ var ChannelItemForm = (function (_React$Component) {
 exports['default'] = ChannelItemForm;
 module.exports = exports['default'];
 
+}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../actions/Actions":2,"../models/KeyCode":15,"react/addons":85}],6:[function(require,module,exports){
 (function (global){(function (){
 /**
@@ -619,8 +623,6 @@ var ChannelItemView = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log("Rendering...");
-            console.log(this.props);
             var delay = this.props.channel.delay ? _react2['default'].createElement(
                 'span',
                 { className: 'stat' },

@@ -29,8 +29,6 @@ export default class ChannelItemView extends React.Component {
     }
 
     render() {
-        console.log("Rendering...");
-        console.log(this.props);
         let delay = (this.props.channel.delay) ?
             <span className="stat"><i className="fa fa-clock-o"></i> Delay is {this.props.channel.delay}</span> : null;
         let liveBadge = (this.props.live) ? <span className="channel-badge">LIVE</span> : null;
