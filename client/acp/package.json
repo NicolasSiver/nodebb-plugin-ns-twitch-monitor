@@ -63,7 +63,7 @@
     "browserify": "^9.0.8",
     "browserify-shim": "^3.8.5",
     "envify": "^3.4.0",
-    "gulp": "^3.9.1",
+    "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
     "gulp-plumber": "^1.0.1",
     "gulp-postcss": "^5.1.9",

@@ -5,7 +5,7 @@ import assign from 'lodash/object/assign';
 import ChannelItemView from './ChannelItemView';
 import ChannelsStore from '../stores/ChannelsStore';
 import connectToStores from 'alt/utils/connectToStores';
-import React from 'react';
+import React from 'react/addons';
 import StreamsStore from '../stores/StreamsStore';
 
 class ChannelsList extends React.Component {
@@ -45,8 +45,8 @@ class ChannelsList extends React.Component {
             return items.map((channel, index) => {
                 return <ChannelItemView
                     key={channel.cid}
-                    channel_info={channel}
-                    channel={this.props.streams[channel.name]}
+                    channel={channel}
+                    stream={this.props.streams[channel.name]}
                     live={!!this.props.streams[channel.name]}/>;
             });
         } else {
