@@ -21,7 +21,7 @@
     "babel-core": "^5.6.15",
     "babel-loader": "^5.2.2",
     "node-libs-browser": "^0.5.2",
-    "webpack": "^1.10.0"
+    "webpack": "^1.15.0"
   },
   "dependencies": {
     "eventemitter3": "^1.1.1",

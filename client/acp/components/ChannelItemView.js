@@ -42,7 +42,7 @@ export default class ChannelItemView extends React.Component {
         var viewer_number = 0;
 
         if (this.props.stream){
-            streamer_status = <small className="channel-prefix"> playing </small> {this.props.channel.game_name};
+            streamer_status = <div> <small className="channel-prefix"> playing </small> {this.props.channel.game_name}</div>;
             viewer_number = this.props.stream.viewer_count;
         }
         
