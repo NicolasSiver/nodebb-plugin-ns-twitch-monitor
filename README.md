@@ -18,7 +18,7 @@ I updated the plugin to use the new twitch API, and updated some libraries for t
 
 limit is the number of streams you want to show, and layout is either 'horizontal' or 'vertical'. The widget settings you set won't work.
 
-This fork makes this plugin work as of NodeBB 1.19.0. Validation is broken, but you have to get your own client ID and Bearer token using the twitch API. You can query the endpoint https://id.twitch.tv/oauth2/token?client_id=<your client id>&client_secret=<your client secret>&grant_type=client_credentials&scope=user:read:email to get the bearer token.
+This fork makes this plugin work as of NodeBB 1.19.0. Validation is broken, but you have to get your own client ID and Bearer token using the twitch API. You can query the endpoint https://id.twitch.tv/oauth2/token?client_id=\<your client id\>&client_secret=\<your client secret\>&grant_type=client_credentials&scope=user:read:email to get the bearer token.
 
 ## Notes  for people who want to help
 
